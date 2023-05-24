@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Endpoints - LeaseController</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<header class="header">
+  <div class="container">
+    <h1 class="logo">API Endpoints - LeaseController</h1>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="container">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="accounts.html">Accounts</a></li>
+      <li><a href="lease.html">Lease</a></li>
+      <li><a href="maintenance.html">Maintenance Request</a></li>
+      <li><a href="residence.html">Residence</a></li>
+      <li><a href="unit.html">Unit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="content">
+  <div class="container">
+    <h2>LeaseController Endpoints</h2>
+    <div class="endpoint">
+      <h3>Create Lease</h3>
+      <p>HTTP Method: POST</p>
+      <p>Endpoint: /leases</p>
+      <p>Request Body: LeaseDTO</p>
+      <p>Response Body: LeaseDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get Lease by ID</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /leases/{leaseId}</p>
+      <p>Response Body: LeaseDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Update Lease</h3>
+      <p>HTTP Method: PUT</p>
+      <p>Endpoint: /leases/{leaseId}</p>
+      <p>Request Body: LeaseDTO</p>
+      <p>Response Body: LeaseDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Delete Lease</h3>
+      <p>HTTP Method: DELETE</p>
+      <p>Endpoint: /leases/{leaseId}</p>
+      <p>Response: No content</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get All Leases</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /leases</p>
+      <p>Response Body: List&lt;LeaseDTO&gt;</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2023 Housing Management System. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+
+</html>

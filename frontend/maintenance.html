@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Endpoints - MaintenanceRequestController</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<header class="header">
+  <div class="container">
+    <h1 class="logo">API Endpoints - MaintenanceRequestController</h1>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="container">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="accounts.html">Accounts</a></li>
+      <li><a href="lease.html">Lease</a></li>
+      <li><a href="maintenance.html">Maintenance Request</a></li>
+      <li><a href="residence.html">Residence</a></li>
+      <li><a href="unit.html">Unit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="content">
+  <div class="container">
+    <h2>MaintenanceRequestController Endpoints</h2>
+    <div class="endpoint">
+      <h3>Create Maintenance Request</h3>
+      <p>HTTP Method: POST</p>
+      <p>Endpoint: /maintenance-requests</p>
+      <p>Request Body: MaintenanceRequestDTO</p>
+      <p>Response Body: MaintenanceRequestDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get Maintenance Request by ID</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /maintenance-requests/{requestId}</p>
+      <p>Response Body: MaintenanceRequestDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Update Maintenance Request</h3>
+      <p>HTTP Method: PUT</p>
+      <p>Endpoint: /maintenance-requests/{requestId}</p>
+      <p>Request Body: MaintenanceRequestDTO</p>
+      <p>Response Body: MaintenanceRequestDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Delete Maintenance Request</h3>
+      <p>HTTP Method: DELETE</p>
+      <p>Endpoint: /maintenance-requests/{requestId}</p>
+      <p>Response: No content</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get All Maintenance Requests</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /maintenance-requests</p>
+      <p>Response Body: List&lt;MaintenanceRequestDTO&gt;</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2023 Housing Management System. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+
+</html>

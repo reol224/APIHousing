@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Endpoints - ResidenceController</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+<header class="header">
+  <div class="container">
+    <h1 class="logo">API Endpoints - ResidenceController</h1>
+  </div>
+</header>
+
+<nav class="navbar">
+  <div class="container">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="accounts.html">Accounts</a></li>
+      <li><a href="lease.html">Lease</a></li>
+      <li><a href="maintenance.html">Maintenance Request</a></li>
+      <li><a href="residence.html">Residence</a></li>
+      <li><a href="unit.html">Unit</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="content">
+  <div class="container">
+    <h2>ResidenceController Endpoints</h2>
+    <div class="endpoint">
+      <h3>Create Residence</h3>
+      <p>HTTP Method: POST</p>
+      <p>Endpoint: /residences</p>
+      <p>Request Body: ResidenceDTO</p>
+      <p>Response Body: ResidenceDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get Residence by ID</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /residences/{residenceId}</p>
+      <p>Response Body: ResidenceDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Update Residence</h3>
+      <p>HTTP Method: PUT</p>
+      <p>Endpoint: /residences/{residenceId}</p>
+      <p>Request Body: ResidenceDTO</p>
+      <p>Response Body: ResidenceDTO</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Delete Residence</h3>
+      <p>HTTP Method: DELETE</p>
+      <p>Endpoint: /residences/{residenceId}</p>
+      <p>Response: No content</p>
+    </div>
+
+    <div class="endpoint">
+      <h3>Get All Residences</h3>
+      <p>HTTP Method: GET</p>
+      <p>Endpoint: /residences</p>
+      <p>Response Body: List&lt;ResidenceDTO&gt;</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2023 Housing Management System. All rights reserved.</p>
+  </div>
+</footer>
+</body>
+
+</html>

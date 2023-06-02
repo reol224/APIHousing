@@ -1,6 +1,5 @@
 package com.conestoga.APIHousing.controller;
 
-import com.conestoga.APIHousing.dtos.AccountDTO;
 import com.conestoga.APIHousing.dtos.LeaseDTO;
 import com.conestoga.APIHousing.service.LeaseService;
 import org.springframework.http.HttpStatus;

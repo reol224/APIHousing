@@ -2,7 +2,7 @@ package com.conestoga.APIHousing.dtos;
 
 import java.time.LocalDate;
 
-public class AccountDTO {
+public class AccountDTO{
     private Long id;
     private String username;
     private String password;

@@ -62,8 +62,8 @@ public class AccountController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        AccountDTO accountDTO = new AccountDTO("iuliaTest2", "password2", "email2", "firstName2", "lastName2", "phoneNumber2", "address2", LocalDate.now().minusMonths(3));
+        AccountDTO accountDTO = new AccountDTO("banana", "passwordzzzzzz", "yellow@fruit.com", "bananaSplit", "chocolate", "numberzzz", "address2", LocalDate.now().minusMonths(3));
         accountService.createAccount(accountDTO);
-        return ResponseEntity.ok("Test");
+        return ResponseEntity.ok("Test worked!");
     }
 }

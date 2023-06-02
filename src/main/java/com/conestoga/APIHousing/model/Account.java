@@ -1,14 +1,16 @@
 package com.conestoga.APIHousing.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
+@SequenceGenerator(name = "user_sequence", sequenceName = "users_seq", allocationSize = 1)
 public class Account {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
     private Long id;
 
@@ -103,6 +105,7 @@ public class Account {
     }
 
     public void setPassword(String password) {
+        password = new BCryptPasswordEncoder().encode(password);
         this.password = password;
     }
 

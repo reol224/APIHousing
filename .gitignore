@@ -57,3 +57,47 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# IntelliJ IDEA project files
+.idea/
+
+# Eclipse project files
+.settings/
+
+# Generated documentation
+javadocs/
+
+# Operating System-specific files
+.DS_Store
+Thumbs.db
+
+# Gradle wrapper files
+gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Maven wrapper files
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Spring Boot specific files
+!target/*.jar
+!target/*/
+!target/classes/
+!target/test-classes/
+!target/generated-sources/
+
+# Spring Boot DevTools files
+/.restart
+
+# Spring Boot Actuator files
+/application*.properties
+/application*.yml
+/management/
+
+# Lombok generated files
+**/*.class
+**/*.bak
+**/*.json
+
+# Gradle specific files
+.gradle/

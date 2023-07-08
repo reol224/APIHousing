@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/units")
+@RequestMapping("/api/v1/units")
 public class UnitController {
 
     private final UnitService unitService;

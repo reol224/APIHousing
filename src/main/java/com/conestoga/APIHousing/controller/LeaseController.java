@@ -11,7 +11,7 @@ import java.time.Month;
 import java.util.List;
 
 @RestController
-@RequestMapping("/leases")
+@RequestMapping("/api/v1/leases")
 public class LeaseController {
 
     private final LeaseService leaseService;

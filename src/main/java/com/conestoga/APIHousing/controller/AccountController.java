@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping("/api/v1/accounts")
 public class AccountController {
 
     private final AccountService accountService;
@@ -64,6 +64,11 @@ public class AccountController {
     public ResponseEntity<String> test() {
         AccountDTO accountDTO = new AccountDTO("banana", "passwordzzzzzz", "yellow@fruit.com", "bananaSplit", "chocolate", "numberzzz", "address2", LocalDate.now().minusMonths(3));
         accountService.createAccount(accountDTO);
+        return ResponseEntity.ok("Test worked!");
+    }
+
+    @GetMapping("/test2")
+    public ResponseEntity<String> test2() {
         return ResponseEntity.ok("Test worked!");
     }
 }

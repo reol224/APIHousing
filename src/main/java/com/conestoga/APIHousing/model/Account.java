@@ -1,15 +1,22 @@
 package com.conestoga.APIHousing.model;
 
-import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "user_sequence", sequenceName = "users_seq", allocationSize = 1)
 public class Account {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
     @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
     private Long id;

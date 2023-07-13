@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController<LoginRequest> {
 
     // test getmapping
-    // @GetMapping("/test")
-    // public ResponseEntity<String> test() {
-    // return ResponseEntity.ok("Test worked!");
-    // }
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+    return ResponseEntity.ok("Test worked!");
+    }
 
     // @GetMapping("/test2")
     // public ResponseEntity<String> test2() {

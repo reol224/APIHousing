@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/maintenance-requests")
+@RequestMapping("/api/maintenance-requests")
 public class MaintenanceRequestController {
 
     private final MaintenanceRequestService maintenanceRequestService;
@@ -19,8 +19,10 @@ public class MaintenanceRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<MaintenanceRequestDTO> createMaintenanceRequest(@RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
-        MaintenanceRequestDTO createdMaintenanceRequest = maintenanceRequestService.createMaintenanceRequest(maintenanceRequestDTO);
+    public ResponseEntity<MaintenanceRequestDTO> createMaintenanceRequest(
+            @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
+        MaintenanceRequestDTO createdMaintenanceRequest = maintenanceRequestService
+                .createMaintenanceRequest(maintenanceRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMaintenanceRequest);
     }
 
@@ -34,8 +36,10 @@ public class MaintenanceRequestController {
     }
 
     @PutMapping("/{requestId}")
-    public ResponseEntity<MaintenanceRequestDTO> updateMaintenanceRequest(@PathVariable Long requestId, @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
-        MaintenanceRequestDTO updatedMaintenanceRequest = maintenanceRequestService.updateMaintenanceRequest(requestId, maintenanceRequestDTO);
+    public ResponseEntity<MaintenanceRequestDTO> updateMaintenanceRequest(@PathVariable Long requestId,
+            @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
+        MaintenanceRequestDTO updatedMaintenanceRequest = maintenanceRequestService.updateMaintenanceRequest(requestId,
+                maintenanceRequestDTO);
         if (updatedMaintenanceRequest != null) {
             return ResponseEntity.ok(updatedMaintenanceRequest);
         }

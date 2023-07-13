@@ -11,7 +11,7 @@ import java.time.Month;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/leases")
+@RequestMapping("/api/leases")
 public class LeaseController {
 
     private final LeaseService leaseService;
@@ -69,7 +69,8 @@ public class LeaseController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        LeaseDTO leaseDTO = new LeaseDTO(Long.parseLong("1"), Long.parseLong("1"), LocalDate.now(), LocalDate.of(2025, Month.APRIL, 12), 50, "Active");
+        LeaseDTO leaseDTO = new LeaseDTO(Long.parseLong("1"), Long.parseLong("1"), LocalDate.now(),
+                LocalDate.of(2025, Month.APRIL, 12), 50, "Active");
         try {
             leaseService.createLease(leaseDTO);
             return ResponseEntity.ok("Test");

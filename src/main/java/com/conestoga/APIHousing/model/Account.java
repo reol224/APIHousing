@@ -53,6 +53,7 @@ public class Account {
 
     @Column(name = "postal_code")
     private String postalCode;
+    
 
     public Long getId() {
         return id;

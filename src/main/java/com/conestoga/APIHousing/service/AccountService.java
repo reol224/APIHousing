@@ -142,8 +142,8 @@ public class AccountService  {
     private AccountDTO convertToAccountDTO(Account account) {
       return new AccountDTO(
         account.getId(),
-        account.getEmail(),
         account.getPassword(),
+        account.getEmail(),
         account.getFirstName(),
         account.getLastName(),
         account.getPhoneNumber(),

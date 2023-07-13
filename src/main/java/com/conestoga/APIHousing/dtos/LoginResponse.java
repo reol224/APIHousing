@@ -1,21 +1,21 @@
 package com.conestoga.APIHousing.dtos;
 
-import org.springframework.security.core.userdetails.UserDetails;
+
 
 public class LoginResponse {
     private String token;
-    private UserDetails userDetails;
+    private AccountDTO account;
 
-    public LoginResponse(String token, UserDetails userDetails2) {
+    public LoginResponse(String token, AccountDTO account) {
         this.token = token;
-        this.userDetails = userDetails2;
+        this.account = account;
     }
 
     public String getToken() {
         return token;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public AccountDTO getAccount() {
+        return account;
     }
 }

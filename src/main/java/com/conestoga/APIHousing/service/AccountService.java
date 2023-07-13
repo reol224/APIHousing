@@ -61,8 +61,8 @@ public class AccountService  {
         // Generate a JWT token
         String token = jwtUtil.generateToken(loginRequest.getEmail());
 
-        // Retrieve the user details from the authentication object
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        //now get account details from email
+        AccountDTO userDetails = getAccountByEmail(loginRequest.getEmail());
 
         return new LoginResponse(token, userDetails);
     }

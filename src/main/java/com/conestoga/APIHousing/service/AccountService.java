@@ -46,7 +46,7 @@ public class AccountService  {
 
     public LoginResponse loginAccount(LoginRequest loginRequest) {
         // Print request body
-        System.out.println(loginRequest);
+        // System.out.println(loginRequest);
 
         // Create a new authentication token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

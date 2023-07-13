@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 public class AccountDTO{
     private Long id;
-    private String username;
     private String password;
     private String email;
     private String firstName;
@@ -17,10 +16,9 @@ public class AccountDTO{
     public AccountDTO() {
     }
 
-    public AccountDTO(Long id, String username, String password, String email, String firstName, String lastName,
+    public AccountDTO(Long id,  String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth) {
         this.id = id;
-        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -30,9 +28,8 @@ public class AccountDTO{
         this.dateOfBirth = dateOfBirth;
     }
 
-    public AccountDTO(String username, String password, String email, String firstName, String lastName,
+    public AccountDTO( String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth) {
-        this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -51,13 +48,7 @@ public class AccountDTO{
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
+   
 
     public String getPassword() {
         return password;

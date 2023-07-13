@@ -22,12 +22,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Account> accountOptional = accountRepository.findByUsername(username);
-        Account account = accountOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        Account account = accountOptional.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return User.builder()
-                .username(account.getUsername())
+                .username(account.getEmail())
                 .password(account.getPassword())
                 .roles("USER")  // Set the roles for the user if applicable
                 .build();

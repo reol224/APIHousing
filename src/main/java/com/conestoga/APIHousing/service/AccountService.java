@@ -96,6 +96,11 @@ public class AccountService  {
             account.setPhoneNumber(accountDTO.getPhoneNumber());
             account.setAddress(accountDTO.getAddress());
             account.setDateOfBirth(accountDTO.getDateOfBirth());
+            account.setFcm(accountDTO.getFcm());
+            account.setCollegeName(accountDTO.getCollegeName());
+            account.setStudentId(accountDTO.getStudentId());
+            account.setPostalCode(accountDTO.getPostalCode());
+
             return accountRepository.save(account);
         }
         return null;
@@ -126,20 +131,29 @@ public class AccountService  {
         account.setPhoneNumber(accountDTO.getPhoneNumber());
         account.setAddress(accountDTO.getAddress());
         account.setDateOfBirth(accountDTO.getDateOfBirth());
+        account.setFcm(accountDTO.getFcm());
+        account.setCollegeName(accountDTO.getCollegeName());
+        account.setStudentId(accountDTO.getStudentId());
+        account.setPostalCode(accountDTO.getPostalCode());
+
         return account;
     }
 
     private AccountDTO convertToAccountDTO(Account account) {
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setId(account.getId());
-        accountDTO.setPassword(account.getPassword());
-        accountDTO.setEmail(account.getEmail());
-        accountDTO.setFirstName(account.getFirstName());
-        accountDTO.setLastName(account.getLastName());
-        accountDTO.setPhoneNumber(account.getPhoneNumber());
-        accountDTO.setAddress(account.getAddress());
-        accountDTO.setDateOfBirth(account.getDateOfBirth());
-        return accountDTO;
+      return new AccountDTO(
+        account.getId(),
+        account.getEmail(),
+        account.getPassword(),
+        account.getFirstName(),
+        account.getLastName(),
+        account.getPhoneNumber(),
+        account.getAddress(),
+        account.getDateOfBirth(),
+        account.getFcm(),
+        account.getCollegeName(),
+        account.getStudentId(),
+        account.getPostalCode()
+      );
     }
 
   

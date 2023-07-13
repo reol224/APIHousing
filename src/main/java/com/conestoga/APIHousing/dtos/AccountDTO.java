@@ -11,13 +11,18 @@ public class AccountDTO{
     private String phoneNumber;
     private String address;
     private LocalDate dateOfBirth;
+    private String fcm;
+    private String collegeName;
+    private String studentId;
+    private String postalCode;
+
 
     // Constructors
     public AccountDTO() {
     }
 
     public AccountDTO(Long id,  String password, String email, String firstName, String lastName,
-                      String phoneNumber, String address, LocalDate dateOfBirth) {
+                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -26,10 +31,15 @@ public class AccountDTO{
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
+        this.fcm = fcm;
+        this.collegeName = collegeName;
+        this.studentId = studentId;
+        this.postalCode = postalCode;
+
     }
 
     public AccountDTO( String password, String email, String firstName, String lastName,
-                      String phoneNumber, String address, LocalDate dateOfBirth) {
+                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -37,6 +47,10 @@ public class AccountDTO{
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.dateOfBirth = dateOfBirth;
+        this.fcm = fcm;
+        this.collegeName = collegeName;
+        this.studentId = studentId;
+        this.postalCode = postalCode;
     }
 
     // Getters and Setters
@@ -104,5 +118,41 @@ public class AccountDTO{
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setFcm(String fcm) {
+        this.fcm = fcm;
+    }
+
+    public String getFcm() {
+        return fcm;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public AccountDTO copy() {
+        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode);
     }
 }

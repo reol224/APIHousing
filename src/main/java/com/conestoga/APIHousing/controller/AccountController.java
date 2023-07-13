@@ -73,15 +73,8 @@ public class AccountController {
         return ResponseEntity.ok(accounts);
     }
 
-    @GetMapping("/xxx")
-    public ResponseEntity<String> test() {
-        AccountDTO accountDTO = new AccountDTO("nikkon", "12345678", "nick@fruit.com", "Nikkon",
-                "Handsome", "123123123", "address2", LocalDate.now().minusMonths(3));
-        accountService.createAccount(accountDTO);
-        return ResponseEntity.ok("Test worked!");
-    }
-
-    @GetMapping("/test2")
+ 
+    @GetMapping("/test")
     public ResponseEntity<String> test2() {
         return ResponseEntity.ok("Test worked!");
     }

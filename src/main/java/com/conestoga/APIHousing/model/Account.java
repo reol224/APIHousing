@@ -18,11 +18,8 @@ import javax.persistence.Table;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "password")
     private String password;
@@ -63,10 +60,7 @@ public class Account {
         return this;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
+   
     public String getPassword() {
         return password;
     }
@@ -107,10 +101,7 @@ public class Account {
         this.email = email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+   
     public void setPassword(String password) {
         password = new BCryptPasswordEncoder().encode(password);
         this.password = password;

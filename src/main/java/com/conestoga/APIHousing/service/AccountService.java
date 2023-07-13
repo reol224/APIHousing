@@ -50,7 +50,7 @@ public class AccountService  {
 
         // Create a new authentication token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                loginRequest.getUsername(), loginRequest.getPassword());
+                loginRequest.getEmail(), loginRequest.getPassword());
 
         // Authenticate the user
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
@@ -59,7 +59,7 @@ public class AccountService  {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Generate a JWT token
-        String token = jwtUtil.generateToken(loginRequest.getUsername());
+        String token = jwtUtil.generateToken(loginRequest.getEmail());
 
         // Retrieve the user details from the authentication object
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
@@ -67,8 +67,8 @@ public class AccountService  {
         return new LoginResponse(token, userDetails);
     }
 
-    public AccountDTO getAccountByUsername(String username) {
-        Optional<Account> accountOptional = accountRepository.findByUsername(username);
+    public AccountDTO getAccountByEmail(String email) {
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
         return accountOptional.map(this::convertToAccountDTO).orElse(null);
     }
 
@@ -88,7 +88,7 @@ public class AccountService  {
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
-            account.setUsername(accountDTO.getUsername());
+            account.setEmail(accountDTO.getEmail());
             account.setPassword(accountDTO.getPassword());
             account.setEmail(accountDTO.getEmail());
             account.setFirstName(accountDTO.getFirstName());
@@ -118,7 +118,7 @@ public class AccountService  {
 
     private Account convertToAccount(AccountDTO accountDTO) {
         Account account = new Account();
-        account.setUsername(accountDTO.getUsername());
+        account.setEmail(accountDTO.getEmail());
         account.setPassword(accountDTO.getPassword());
         account.setEmail(accountDTO.getEmail());
         account.setFirstName(accountDTO.getFirstName());
@@ -131,7 +131,7 @@ public class AccountService  {
 
     private AccountDTO convertToAccountDTO(Account account) {
         AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setUsername(account.getUsername());
+        accountDTO.setId(account.getId());
         accountDTO.setPassword(account.getPassword());
         accountDTO.setEmail(account.getEmail());
         accountDTO.setFirstName(account.getFirstName());

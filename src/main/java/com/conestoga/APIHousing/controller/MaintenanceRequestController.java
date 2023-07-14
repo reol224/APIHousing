@@ -37,7 +37,7 @@ public class MaintenanceRequestController {
 
     @PutMapping("/{requestId}")
     public ResponseEntity<MaintenanceRequestDTO> updateMaintenanceRequest(@PathVariable Long requestId,
-            @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
+                                                                          @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
         MaintenanceRequestDTO updatedMaintenanceRequest = maintenanceRequestService.updateMaintenanceRequest(requestId,
                 maintenanceRequestDTO);
         if (updatedMaintenanceRequest != null) {

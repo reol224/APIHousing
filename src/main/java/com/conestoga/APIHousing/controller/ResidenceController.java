@@ -38,7 +38,7 @@ public class ResidenceController {
 
     @PutMapping("/{residenceId}")
     public ResponseEntity<ResidenceDTO> updateResidence(@PathVariable Long residenceId,
-            @RequestBody ResidenceDTO residenceDTO) {
+                                                        @RequestBody ResidenceDTO residenceDTO) {
         ResidenceDTO updatedResidence = residenceService.updateResidence(residenceId, residenceDTO);
         if (updatedResidence != null) {
             return ResponseEntity.ok(updatedResidence);

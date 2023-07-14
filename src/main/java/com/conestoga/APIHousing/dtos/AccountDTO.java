@@ -2,7 +2,7 @@ package com.conestoga.APIHousing.dtos;
 
 import java.time.LocalDate;
 
-public class AccountDTO{
+public class AccountDTO {
     private Long id;
     private String password;
     private String email;
@@ -16,12 +16,10 @@ public class AccountDTO{
     private String studentId;
     private String postalCode;
 
-
-    // Constructors
     public AccountDTO() {
     }
 
-    public AccountDTO(Long id,  String password, String email, String firstName, String lastName,
+    public AccountDTO(Long id, String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
         this.id = id;
         this.password = password;
@@ -38,7 +36,7 @@ public class AccountDTO{
 
     }
 
-    public AccountDTO( String password, String email, String firstName, String lastName,
+    public AccountDTO(String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
         this.password = password;
         this.email = email;
@@ -62,7 +60,6 @@ public class AccountDTO{
         this.id = id;
     }
 
-   
 
     public String getPassword() {
         return password;

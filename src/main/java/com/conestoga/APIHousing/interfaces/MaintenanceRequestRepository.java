@@ -12,7 +12,10 @@ import java.util.List;
 @Repository
 public interface MaintenanceRequestRepository extends JpaRepository<MaintenanceRequest, Long> {
     List<MaintenanceRequest> findByUnit(Unit unit);
+
     List<MaintenanceRequest> findByUser(Account user);
+
     List<MaintenanceRequest> findByRequestStatus(String requestStatus);
+
     List<MaintenanceRequest> findByRequestDateAfter(LocalDate date);
 }

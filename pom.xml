@@ -9,7 +9,7 @@
     <artifactId>APIHousing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>APIHousing</name>
-    <description>Demo project for Spring Boot</description>
+    <description>Housing project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -55,11 +55,16 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- Database -->
+        <!-- Database and cloud-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.33</version>
+            <version>8.0.28</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud.sql</groupId>
+            <artifactId>mysql-socket-factory</artifactId>
+            <version>1.2.1</version>
         </dependency>
 
         <!-- Spring Web -->
@@ -83,8 +88,6 @@
             <version>8.0.0</version>
         </dependency>
 
-
-          
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

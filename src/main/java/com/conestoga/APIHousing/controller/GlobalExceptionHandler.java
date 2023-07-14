@@ -1,12 +1,11 @@
 package com.conestoga.APIHousing.controller;
 
+import com.conestoga.APIHousing.utils.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.conestoga.APIHousing.utils.ErrorResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {

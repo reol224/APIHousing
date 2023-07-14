@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/residences")
+@RequestMapping("/api/residences")
 public class ResidenceController {
 
     private final ResidenceService residenceService;
@@ -37,7 +37,8 @@ public class ResidenceController {
     }
 
     @PutMapping("/{residenceId}")
-    public ResponseEntity<ResidenceDTO> updateResidence(@PathVariable Long residenceId, @RequestBody ResidenceDTO residenceDTO) {
+    public ResponseEntity<ResidenceDTO> updateResidence(@PathVariable Long residenceId,
+                                                        @RequestBody ResidenceDTO residenceDTO) {
         ResidenceDTO updatedResidence = residenceService.updateResidence(residenceId, residenceDTO);
         if (updatedResidence != null) {
             return ResponseEntity.ok(updatedResidence);
@@ -59,11 +60,12 @@ public class ResidenceController {
         List<ResidenceDTO> residences = residenceService.getAllResidences();
         return ResponseEntity.ok(residences);
     }
+
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        ResidenceDTO residenceDTO = new ResidenceDTO(Long.parseLong("1"), "bloc prapadit", "waterloo", "descriere", Long.parseLong("1"));
+        ResidenceDTO residenceDTO = new ResidenceDTO(Long.parseLong("1"), "bloc prapadit", "waterloo", "descriere",
+                Long.parseLong("1"));
         residenceService.createResidence(residenceDTO);
         return ResponseEntity.ok("Test");
     }
 }
-

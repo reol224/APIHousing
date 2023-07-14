@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/units")
+@RequestMapping("/api/units")
 public class UnitController {
 
     private final UnitService unitService;
@@ -60,9 +60,9 @@ public class UnitController {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        UnitDTO unitDTO = new UnitDTO(Long.parseLong("1"), Long.parseLong("1"), "76", "flat", "2 camere", BigDecimal.valueOf(234212));
+        UnitDTO unitDTO = new UnitDTO(Long.parseLong("1"), Long.parseLong("1"), "76", "flat", "2 camere",
+                BigDecimal.valueOf(234212));
         unitService.createUnit(unitDTO);
         return ResponseEntity.ok("Test");
     }
 }
-

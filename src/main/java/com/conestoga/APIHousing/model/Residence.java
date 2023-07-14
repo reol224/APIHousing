@@ -1,13 +1,14 @@
 package com.conestoga.APIHousing.model;
 
-import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
 
 @Entity
 @Table(name = "residences")
 public class Residence {
 
-    @jakarta.persistence.Id
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
     private Long id;

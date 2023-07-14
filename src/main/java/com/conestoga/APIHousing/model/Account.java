@@ -1,21 +1,18 @@
 package com.conestoga.APIHousing.model;
 
-import jakarta.persistence.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
 @SequenceGenerator(name = "user_sequence", sequenceName = "users_seq", allocationSize = 1)
 public class Account {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
+    @Column(name = "id", nullable = false, unique = true)
     private Long id;
-
-    @Column(name = "username")
-    private String username;
 
     @Column(name = "password")
     private String password;
@@ -38,6 +35,19 @@ public class Account {
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
+    @Column(name = "fcm")
+    private String fcm;
+
+    @Column(name = "college_name")
+    private String collegeName;
+
+    @Column(name = "student_id")
+    private String studentId;
+
+    @Column(name = "postal_code")
+    private String postalCode;
+    
+
     public Long getId() {
         return id;
     }
@@ -54,10 +64,6 @@ public class Account {
     public Account setUserId(Long userId) {
         this.id = userId;
         return this;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getPassword() {
@@ -88,6 +94,22 @@ public class Account {
         return dateOfBirth;
     }
 
+    public String getFcm() {
+        return fcm;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -98,10 +120,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public void setPassword(String password) {
@@ -119,5 +137,21 @@ public class Account {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setFcm(String fcm) {
+        this.fcm = fcm;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 }

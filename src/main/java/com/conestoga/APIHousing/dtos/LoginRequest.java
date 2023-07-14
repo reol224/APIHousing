@@ -20,7 +20,6 @@ public class LoginRequest {
         this.password = password;
     }
 
-    //override toString method
     @Override
     public String toString() {
         return "LoginRequest [password=" + password + ", email=" + email + "]";

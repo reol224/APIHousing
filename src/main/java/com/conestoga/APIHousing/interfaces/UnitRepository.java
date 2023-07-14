@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface UnitRepository extends JpaRepository<Unit, Long> {
     List<Unit> findByResidence(Residence residence);
+
     List<Unit> findByUnitType(String unitType);
+
     List<Unit> findByMonthlyRentLessThan(BigDecimal rent);
 }

@@ -2,26 +2,17 @@ package com.conestoga.APIHousing.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController<LoginRequest> {
 
-    // test getmapping
+    //Quick test
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-    return ResponseEntity.ok("Test worked!");
+        return ResponseEntity.ok("Test worked!");
     }
-
-    // @GetMapping("/test2")
-    // public ResponseEntity<String> test2() {
-    // return ResponseEntity.ok("Test2 worked!");
-    // }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser() {

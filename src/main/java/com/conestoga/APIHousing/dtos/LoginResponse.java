@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.dtos;
 
 
-
 public class LoginResponse {
     private String token;
     private AccountDTO account;

@@ -1,5 +1,7 @@
 package com.conestoga.APIHousing.controller;
 
+import com.conestoga.APIHousing.model.NotificationRequest;
+import com.conestoga.APIHousing.service.FirebaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.conestoga.APIHousing.model.NotificationRequest;
-import com.conestoga.APIHousing.service.FirebaseService;
 
 @RestController
 @RequestMapping("/api/notifications")
@@ -22,7 +22,7 @@ public class NotificationController {
         this.firebaseService = firebaseService;
     }
 
-   @PostMapping("/create")
+    @PostMapping("/create")
     public ResponseEntity<String> createNotification(@RequestBody NotificationRequest request) {
         try {
             firebaseService.sendPushNotification(request.getTitle(), request.getDescription());

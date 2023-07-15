@@ -1,25 +1,46 @@
 package com.conestoga.APIHousing.model;
-
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "chat_messages")
 public class ChatMessage {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "sender_id")
     private String senderId;
+
+    @Column(name = "sender_name")
     private String senderName;
-    private String pictureBase64;
+
+    @Column(name = "content")
     private String content;
+
+    @Column(name = "content_type")
     private String contentType;
+
+    @Column(name = "date")
     private Date date;
 
     public ChatMessage() {
     }
 
-    public ChatMessage(String senderId, String senderName, String pictureBase64, String content, String contentType, Date date) {
+    public ChatMessage(String senderId, String senderName, String content, String contentType, Date date) {
         this.senderId = senderId;
         this.senderName = senderName;
-        this.pictureBase64 = pictureBase64;
         this.content = content;
         this.contentType = contentType;
         this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getSenderId() {
@@ -36,14 +57,6 @@ public class ChatMessage {
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
-    }
-
-    public String getPictureBase64() {
-        return pictureBase64;
-    }
-
-    public void setPictureBase64(String pictureBase64) {
-        this.pictureBase64 = pictureBase64;
     }
 
     public String getContent() {

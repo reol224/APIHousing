@@ -1,16 +1,32 @@
 package com.conestoga.APIHousing.configs.chat;
 
+import com.conestoga.APIHousing.model.ChatMessage;
+import com.conestoga.APIHousing.service.ChatMessageService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+
+
 public class ChatWebSocketHandler extends TextWebSocketHandler {
     private List<WebSocketSession> sessions = new ArrayList<>();
+     private final ChatMessageService chatMessageService;
+
+    @Autowired
+    public ChatWebSocketHandler(ChatMessageService chatMessageService) {
+        this.chatMessageService = chatMessageService;
+    }
+
+    //get all sessions
+    private List<WebSocketSession> getSessions() {
+        return sessions;
+    }
+
 
 
     @Override
@@ -23,16 +39,38 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        // Handle an incoming text message
-        System.out.println("Received message from WebSocket: " + message.getPayload());
-        String receivedMessage = message.getPayload();
+         String payload = message.getPayload();
+    System.out.println("Received message: " + payload);
 
-        // Process the message and send a response
-            for (WebSocketSession activeSession : sessions) {
-            if (!activeSession.getId().equals(session.getId())) {
-                activeSession.sendMessage(new TextMessage(receivedMessage));
-            }     // 
-          }  session.sendMessage(new TextMessage(receivedMessage));
+    // Convert the JSON payload to a ChatMessage object
+    ObjectMapper objectMapper = new ObjectMapper();
+    ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
+
+    // Save the chat message using the ChatMessageService
+    chatMessageService.saveChatMessage(chatMessage);
+
+       
+        // Save the chat message using the ChatMessageService
+        chatMessageService.saveChatMessage(chatMessage);
+
+        // Broadcast the message to other connected clients if needed
+        // Example:
+        broadcastMessage(chatMessage);
+    }
+
+    private void broadcastMessage(ChatMessage chatMessage) {
+        // Iterate over connected WebSocket sessions and send the message to each
+        // session
+        // Example:
+        for (WebSocketSession session : getSessions()) {
+            if (session.isOpen()) {
+                try {
+                    session.sendMessage(new TextMessage(chatMessage.getContent()));
+                } catch (Exception e) {
+                    // Handle exception if message sending fails
+                }
+            }
+        }
     }
 
     @Override

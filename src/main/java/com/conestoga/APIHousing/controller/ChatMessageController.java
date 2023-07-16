@@ -3,15 +3,15 @@ package com.conestoga.APIHousing.controller;
 // ChatMessageController.java
 
 
+import com.conestoga.APIHousing.model.ChatMessage;
+import com.conestoga.APIHousing.service.ChatMessageService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.conestoga.APIHousing.model.ChatMessage;
-import com.conestoga.APIHousing.service.ChatMessageService;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/chat")
@@ -28,6 +28,7 @@ public class ChatMessageController {
         List<ChatMessage> chatMessages = chatMessageService.getAllChatMessages();
         return new ResponseEntity<>(chatMessages, HttpStatus.OK);
     }
+
 
 
 

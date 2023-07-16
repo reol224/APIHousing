@@ -7,9 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping("/api/stripe")
 public class StripeController {
+
+    Logger logger = Logger.getLogger(StripeController.class.getName());
 
     @GetMapping("/test")
     public void stripe() {
@@ -34,13 +38,13 @@ public class StripeController {
         Customer customer = null;
         try {
             customer = Customer.create(params);
+            logger.info(customer.getName());
+            logger.info(customer.getPhone());
+            logger.info(customer.getAddress().getCity());
+            logger.info(customer.getDescription());
+            logger.info(customer.getEmail());
         } catch (StripeException ex) {
-            throw new RuntimeException(ex);
+            logger.warning(ex.getMessage());
         }
-        System.out.println(customer.getName());
-        System.out.println(customer.getPhone());
-        System.out.println(customer.getAddress());
-        System.out.println(customer.getDescription());
-        System.out.println(customer.getEmail());
     }
 }

@@ -5,11 +5,11 @@ import com.conestoga.APIHousing.dtos.LoginRequest;
 import com.conestoga.APIHousing.dtos.LoginResponse;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.service.AccountService;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -34,6 +34,7 @@ public class AccountController {
     @PostMapping("/create")
     public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) {
         // print request body
+        System.out.println("Request body:");
         System.out.println(accountDTO);
         Account createdAccount = accountService.createAccount(accountDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);

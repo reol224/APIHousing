@@ -1,6 +1,7 @@
 
 package com.conestoga.APIHousing.controller;
 
+import java.util.Map;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Map;
 
 @RestController
 public class CustomErrorController implements ErrorController {
@@ -27,10 +27,9 @@ public class CustomErrorController implements ErrorController {
         Map<String, Object> errorAttributes = this.errorAttributes.getErrorAttributes(request,
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
 
-        // // Extract the error message and stack trace from the error attributes
-        // String errorMessage = errorAttributes.get("message").toString();
-        // String stackTrace = errorAttributes.get("trace").toString();
+                System.out.println(errorAttributes.toString());
 
+      
         // // Construct the error response
         // StringBuilder response = new StringBuilder();
         // response.append("Error: ").append(errorMessage).append("\n\n");

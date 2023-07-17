@@ -6,18 +6,19 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
+
 
 @Service
 public class FirebaseService {
 
     Logger logger = Logger.getLogger(FirebaseService.class.getName());
+
     @PostConstruct
     public void initializeFirebase() throws IOException {
         InputStream serviceAccount = new ClassPathResource("firebase/serviceAccountKey.json").getInputStream();
@@ -30,15 +31,25 @@ public class FirebaseService {
     }
 
     public void sendPushNotification(String title, String description) {
+        sendPushNotification(title, description, null); // Call the overloaded method with null FCM token
+    }
+
+    public void sendPushNotification(String title, String description, String fcmToken) {
         Notification notification = Notification.builder()
                 .setTitle(title)
                 .setBody(description)
                 .build();
 
-        Message message = Message.builder()
-                .setNotification(notification)
-                .setTopic("topic") // Replace with your topic or token
-                .build();
+        Message.Builder messageBuilder = Message.builder()
+                .setNotification(notification);
+
+        if (fcmToken != null) {
+            messageBuilder.setToken(fcmToken); // Set the FCM token if provided
+        } else {
+            messageBuilder.setTopic("topic"); // Use a default topic if FCM token is not provided
+        }
+
+        Message message = messageBuilder.build();
 
         try {
             String response = FirebaseMessaging.getInstance().send(message);

@@ -1,6 +1,8 @@
 package com.conestoga.APIHousing.model;
-import javax.persistence.*;
+import com.conestoga.APIHousing.utils.Constants;
 import java.util.Date;
+import javax.persistence.*;
+
 
 @Entity
 @Table(name = "chat_messages")
@@ -61,6 +63,19 @@ public class ChatMessage {
 
     public String getContent() {
         return content;
+    }
+
+     public String getBriefMsg() {
+        //if content type = "txt" then return content else return "sent an image"
+        if(contentType.equals(Constants.CONTENT_TEXT)){
+            //if length is greater than 50 then return substring of 50 characters ad add ... at the end
+            if(content.length() > 50){
+                return content.substring(0, 50) + "...";
+            }
+            return content;
+        }else{
+            return "sent an image";
+        }
     }
 
     public void setContent(String content) {

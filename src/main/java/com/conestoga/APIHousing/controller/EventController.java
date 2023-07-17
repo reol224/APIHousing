@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/events")
+@RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;
 
@@ -26,10 +26,16 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
     
-    @PostMapping("/events")
+    @PostMapping("/create")
 public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-    Event createdEvent = eventService.createEvent(event);
-    return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
+    //try and catch error
+    try {
+        Event createdEvent = eventService.createEvent(event);
+        return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
 }
 
     @GetMapping("/active")
@@ -43,18 +49,27 @@ public ResponseEntity<String> rsvpForEvent(@PathVariable Long eventId, @RequestB
     Long userId = requestBody.get("user_id");
     boolean success = eventService.rsvpForEvent(eventId, userId);
     if (success) {
-        return new ResponseEntity<>("RSVP successful", HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.OK);
     } else {
         return new ResponseEntity<>("Failed to RSVP for event", HttpStatus.BAD_REQUEST);
     }
 }
 
-@DeleteMapping("/rsvp/{eventId}")
-public ResponseEntity<String> cancelRsvpForEvent(@PathVariable Long eventId, @RequestBody Map<String, Long> requestBody) throws Exception {
+@GetMapping("/hasRsvp")
+public ResponseEntity<Boolean> hasRsvp(@RequestParam Long event_id, @RequestParam Long user_id) {
+    boolean hasRsvp = eventService.hasRsvp(event_id, user_id);
+    // return in json {"rsvp": true/false}
+    return new ResponseEntity<>(hasRsvp, HttpStatus.OK);
+}
+
+@DeleteMapping("/rsvp")
+public ResponseEntity<String> cancelRsvpForEvent(@RequestBody Map<String, Long> requestBody) throws Exception {
     Long userId = requestBody.get("user_id");
+    Long eventId = requestBody.get("event_id");
+
     boolean success = eventService.cancelRsvpForEvent(eventId, userId);
     if (success) {
-        return new ResponseEntity<>("RSVP canceled", HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.OK);
     } else {
         return new ResponseEntity<>("Failed to cancel RSVP for event", HttpStatus.BAD_REQUEST);
     }

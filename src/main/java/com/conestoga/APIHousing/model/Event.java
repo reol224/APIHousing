@@ -28,7 +28,8 @@ public class Event {
     private int capacity;
 
     @Column(name = "event_status")
-    private int eventStatus;
+    private int eventStatus;//Event status: int (1 upcoming, 2 ongoing, or  3completed.)
+
 
     // Getters and Setters
 

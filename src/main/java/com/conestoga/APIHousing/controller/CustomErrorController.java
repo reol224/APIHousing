@@ -28,6 +28,12 @@ public class CustomErrorController implements ErrorController {
                 ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
 
                 System.out.println(errorAttributes.toString());
+            //print the error attributes if  they have aany
+            //print error attributes in a loop
+            for (Map.Entry<String, Object> entry : errorAttributes.entrySet()) {
+                System.out.println(entry.getKey() + " : " + entry.getValue());
+            }
+                
 
       
         // // Construct the error response

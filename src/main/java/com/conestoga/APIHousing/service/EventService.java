@@ -67,4 +67,9 @@ public boolean cancelRsvpForEvent(Long eventId, Long userId) throws Exception {
         return eventRepository.save(event);
     }
 
+  public boolean hasRsvp(Long eventId, Long userId) {
+        Optional<Rsvp> optionalRsvp = rsvpRepository.findByEventIdAndUserId(eventId, userId);
+        return optionalRsvp.isPresent();
+    }
+
 }

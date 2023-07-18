@@ -35,6 +35,9 @@ public class MaintenanceRequest {
     @Column(name = "request_status")
     private String requestStatus;
 
+    @Column(name = "img")
+    private String img;
+
     public Long getId() {
         return id;
     }

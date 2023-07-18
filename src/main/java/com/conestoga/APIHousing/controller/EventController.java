@@ -44,9 +44,11 @@ public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return new ResponseEntity<>(activeEvents, HttpStatus.OK);
     }
 
-  @PostMapping("/rsvp/{eventId}")
-public ResponseEntity<String> rsvpForEvent(@PathVariable Long eventId, @RequestBody Map<String, Long> requestBody) throws Exception {
+  @PostMapping("/rsvp")
+public ResponseEntity<String> rsvpForEvent( @RequestBody Map<String, Long> requestBody) throws Exception {
     Long userId = requestBody.get("user_id");
+        Long eventId = requestBody.get("event_id");
+
     boolean success = eventService.rsvpForEvent(eventId, userId);
     if (success) {
         return new ResponseEntity<>( HttpStatus.OK);

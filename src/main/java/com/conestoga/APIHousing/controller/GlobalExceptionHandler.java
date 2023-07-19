@@ -10,12 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
-        String errorMessage = "User with this email already exists.";
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT, errorMessage);
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
-    }
+   
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {

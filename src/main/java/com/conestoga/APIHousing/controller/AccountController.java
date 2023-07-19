@@ -5,7 +5,11 @@ import com.conestoga.APIHousing.dtos.LoginRequest;
 import com.conestoga.APIHousing.dtos.LoginResponse;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.service.AccountService;
+import com.conestoga.APIHousing.utils.ErrorResponse;
+
 import java.util.List;
+
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -78,4 +82,14 @@ public class AccountController {
     public ResponseEntity<String> test2() {
         return ResponseEntity.ok("Test worked!");
     }
+
+
+
+      @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String errorMessage = "User with this email already exists.";
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT, errorMessage);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
+    }
+
 }

@@ -3,7 +3,7 @@ create table events (id bigint not null auto_increment, capacity integer, event_
 create table hibernate_sequence (next_val bigint) engine=InnoDB;
 insert into hibernate_sequence values ( 1 );
 create table leases (id bigint not null, lease_end_date date, lease_id bigint, lease_length integer, lease_start_date date, lease_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
-create table maintenance_requests (id bigint not null, request_date date, request_description varchar(255), request_id bigint, request_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
+create table maintenance_requests (id bigint not null, img varchar(255), request_date date, request_description varchar(255), request_id bigint, request_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
 create table residences (id bigint not null, address varchar(255), description varchar(255), name varchar(255), residence_id bigint, manager_id bigint, primary key (id)) engine=InnoDB;
 create table rsvp (id bigint not null auto_increment, event_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
 create table units (id bigint not null, monthly_rent decimal(19,2), unit_description varchar(255), unit_id bigint, unit_number varchar(255), unit_type varchar(255), residence_id bigint, primary key (id)) engine=InnoDB;
@@ -23,7 +23,7 @@ create table events (id bigint not null auto_increment, capacity integer, event_
 create table hibernate_sequence (next_val bigint) engine=InnoDB;
 insert into hibernate_sequence values ( 1 );
 create table leases (id bigint not null, lease_end_date date, lease_id bigint, lease_length integer, lease_start_date date, lease_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
-create table maintenance_requests (id bigint not null, request_date date, request_description varchar(255), request_id bigint, request_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
+create table maintenance_requests (id bigint not null, img varchar(255), request_date date, request_description varchar(255), request_id bigint, request_status varchar(255), unit_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
 create table residences (id bigint not null, address varchar(255), description varchar(255), name varchar(255), residence_id bigint, manager_id bigint, primary key (id)) engine=InnoDB;
 create table rsvp (id bigint not null auto_increment, event_id bigint, user_id bigint, primary key (id)) engine=InnoDB;
 create table units (id bigint not null, monthly_rent decimal(19,2), unit_description varchar(255), unit_id bigint, unit_number varchar(255), unit_type varchar(255), residence_id bigint, primary key (id)) engine=InnoDB;

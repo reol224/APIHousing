@@ -46,6 +46,9 @@ public class Account {
 
     @Column(name = "postal_code")
     private String postalCode;
+
+    @Column(name = "role")
+    private int role;
     
 
     public Long getId() {
@@ -110,6 +113,10 @@ public class Account {
         return postalCode;
     }
 
+    public int getRole(){
+        return role;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -153,5 +160,9 @@ public class Account {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public void setRole(int role){
+        this.role = role;
     }
 }

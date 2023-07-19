@@ -15,12 +15,13 @@ public class AccountDTO {
     private String collegeName;
     private String studentId;
     private String postalCode;
+    private int role;
 
     public AccountDTO() {
     }
 
     public AccountDTO(Long id, String password, String email, String firstName, String lastName,
-                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
+                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -33,11 +34,14 @@ public class AccountDTO {
         this.collegeName = collegeName;
         this.studentId = studentId;
         this.postalCode = postalCode;
+        this.role =role;
 
     }
 
     public AccountDTO(String password, String email, String firstName, String lastName,
-                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode) {
+                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode,
+                      int role
+                      ) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -49,6 +53,7 @@ public class AccountDTO {
         this.collegeName = collegeName;
         this.studentId = studentId;
         this.postalCode = postalCode;
+        this.role = role;
     }
 
     // Getters and Setters
@@ -149,7 +154,15 @@ public class AccountDTO {
         return postalCode;
     }
 
+    public void setrole(int role) {
+        this.role = role;
+    }
+
+    public int getrole() {
+        return role;
+    }
+
     public AccountDTO copy() {
-        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode);
+        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode,role);
     }
 }

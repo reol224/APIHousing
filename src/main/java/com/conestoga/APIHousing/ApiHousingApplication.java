@@ -12,7 +12,7 @@ public class ApiHousingApplication {
 		SpringApplication.run(ApiHousingApplication.class, args);
 	}
 
-	@RestController
+	@RestController 
 	public static class HomeController {
 
 		@GetMapping("/")

@@ -17,7 +17,7 @@ public class ApiHousingApplication {
 
 		@GetMapping("/")
 		public String home() {
-			return "Welcome to the API Housing application!";
+			return "<h1>Welcome to the API Housing application!</h1>";
 		}
 	}
 

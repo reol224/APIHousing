@@ -6,6 +6,9 @@ import com.conestoga.APIHousing.interfaces.RsvpRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
+import com.conestoga.APIHousing.utils.FileUpload;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +66,15 @@ public boolean cancelRsvpForEvent(Long eventId, Long userId) throws Exception {
     }
 }
 
-  public Event createEvent(Event event) {
+  public Event createEvent(Event event) throws Exception {
+        try {
+            event.setEventBanner(FileUpload.convertBase64ToFile(event.getEventBanner()));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+                    throw new Exception("Failed to save image");
+
+        }
         return eventRepository.save(event);
     }
 
@@ -71,5 +82,16 @@ public boolean cancelRsvpForEvent(Long eventId, Long userId) throws Exception {
         Optional<Rsvp> optionalRsvp = rsvpRepository.findByEventIdAndUserId(eventId, userId);
         return optionalRsvp.isPresent();
     }
+
+public boolean deleteEvent(Long id) {
+    Optional<Event> optionalEvent = eventRepository.findById(id);
+    if (optionalEvent.isPresent()) {
+        Event event = optionalEvent.get();
+        eventRepository.delete(event);
+        return true;
+    } else {
+        return false;
+    }
+}
 
 }

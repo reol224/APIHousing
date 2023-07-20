@@ -3,6 +3,7 @@ package com.conestoga.APIHousing.model;
 public class NotificationRequest {
     private String title;
     private String description;
+    private String image;
 
     // Getters and setters
 
@@ -20,5 +21,21 @@ public class NotificationRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public NotificationRequest(String title, String description, String image) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+    }
+
+    //setter for image
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    //getter for image
+    public String getImage() {
+        return image;
     }
 }

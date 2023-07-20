@@ -49,6 +49,9 @@ public class Account {
 
     @Column(name = "role")
     private int role;
+
+    @Column(name = "img")
+    private String img;
     
 
     public Long getId() {
@@ -117,6 +120,10 @@ public class Account {
         return role;
     }
 
+    public String getImg() {
+        return img;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -164,5 +171,9 @@ public class Account {
 
     public void setRole(int role){
         this.role = role;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

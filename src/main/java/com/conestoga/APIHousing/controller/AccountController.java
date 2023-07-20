@@ -7,6 +7,7 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.service.AccountService;
 import com.conestoga.APIHousing.utils.ErrorResponse;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -36,7 +37,7 @@ public class AccountController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) {
+    public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) throws IOException {
         // print request body
         System.out.println("Request body:");
         System.out.println(accountDTO);
@@ -87,8 +88,12 @@ public class AccountController {
 
       @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        //print detailed error message
+        System.out.println("Error: " + ex.getMessage());
         String errorMessage = "User with this email already exists.";
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT, errorMessage);
+        System.out.println("Error: " + ex.getStackTrace().toString());
+        
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 

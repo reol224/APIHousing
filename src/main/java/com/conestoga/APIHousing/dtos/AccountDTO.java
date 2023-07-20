@@ -16,12 +16,15 @@ public class AccountDTO {
     private String studentId;
     private String postalCode;
     private int role;
+    private String img;
 
     public AccountDTO() {
     }
 
     public AccountDTO(Long id, String password, String email, String firstName, String lastName,
-                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role) {
+                      String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role,
+                      String img
+                      ) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -35,12 +38,13 @@ public class AccountDTO {
         this.studentId = studentId;
         this.postalCode = postalCode;
         this.role =role;
+        this.img = img;
 
     }
 
     public AccountDTO(String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode,
-                      int role
+                      int role, String img
                       ) {
         this.password = password;
         this.email = email;
@@ -54,6 +58,7 @@ public class AccountDTO {
         this.studentId = studentId;
         this.postalCode = postalCode;
         this.role = role;
+        this.img = img;
     }
 
     // Getters and Setters
@@ -162,7 +167,15 @@ public class AccountDTO {
         return role;
     }
 
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
     public AccountDTO copy() {
-        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode,role);
+        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode,role,img);
     }
 }

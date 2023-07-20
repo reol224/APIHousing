@@ -117,7 +117,7 @@ public class AccountService  {
                 .collect(Collectors.toList());
     }
 
-    private Account convertToAccount(AccountDTO accountDTO) {
+    public Account convertToAccount(AccountDTO accountDTO) {
         Account account = new Account();
         account.setEmail(accountDTO.getEmail());
         account.setPassword(accountDTO.getPassword());

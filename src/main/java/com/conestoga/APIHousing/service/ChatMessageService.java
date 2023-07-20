@@ -4,6 +4,9 @@ import com.conestoga.APIHousing.configs.chat.ChatWebSocketHandler;
 import com.conestoga.APIHousing.interfaces.ChatMessageRepository;
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.conestoga.APIHousing.utils.Constants;
+import com.conestoga.APIHousing.utils.FileUpload;
+
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,7 +39,10 @@ public ChatMessageService(ChatMessageRepository chatMessageRepository) {
         return chatMessagePage.getContent();
     }
 
-   public ChatMessage saveChatMessage(ChatMessage chatMessage) {
+   public ChatMessage saveChatMessage(ChatMessage chatMessage) throws IOException {
+    if(chatMessage.getContentType().equals(Constants.CONTENT_IMG)){
+        chatMessage.setContent(FileUpload.convertBase64ToFile(chatMessage.getContent()));
+    }
     ChatMessage savedChatMessage = chatMessageRepository.save(chatMessage);
     ChatWebSocketHandler.getInstance().broadcastMessage(savedChatMessage); // Broadcast the message
     return savedChatMessage;

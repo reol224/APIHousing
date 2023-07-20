@@ -58,4 +58,7 @@ public class FirebaseService {
            logger.warning("Error sending message: " + e.getMessage());
         }
     }
+
+    public void getAllNotifications() {
+    }
 }

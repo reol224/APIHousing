@@ -37,6 +37,18 @@ public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 }
+ //deletemapping for event
+@DeleteMapping("/delete/{id}")
+public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
+    boolean success = eventService.deleteEvent(id);
+    if (success) {
+        return new ResponseEntity<>("Event deleted successfully", HttpStatus.OK);
+    } else {
+        return new ResponseEntity<>("Failed to delete event", HttpStatus.BAD_REQUEST);
+    }
+}
+
+
 
     @GetMapping("/active")
     public ResponseEntity<List<Event>> getActiveEvents() {

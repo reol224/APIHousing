@@ -9,6 +9,8 @@ public class MaintenanceRequestDTO {
     private LocalDate requestDate;
     private String requestDescription;
     private String requestStatus;
+    private String img;
+    private String remarks;
 
     // Getters and Setters
 
@@ -59,4 +61,21 @@ public class MaintenanceRequestDTO {
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
     }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+    
 }

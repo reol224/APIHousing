@@ -38,6 +38,9 @@ public class MaintenanceRequest {
     @Column(name = "img")
     private String img;
 
+    @Column(name = "remarks")
+    private String remarks;
+
     public Long getId() {
         return id;
     }
@@ -92,5 +95,21 @@ public class MaintenanceRequest {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    //get and set remarks
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

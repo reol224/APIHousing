@@ -82,6 +82,9 @@ public class MaintenanceRequestService {
         maintenanceRequest.setRequestDate(maintenanceRequestDTO.getRequestDate());
         maintenanceRequest.setRequestDescription(maintenanceRequestDTO.getRequestDescription());
         maintenanceRequest.setRequestStatus(maintenanceRequestDTO.getRequestStatus());
+        maintenanceRequest.setImg(maintenanceRequestDTO.getImg());
+        maintenanceRequest.setRemarks(maintenanceRequestDTO.getRemarks());
+
         return maintenanceRequest;
     }
 
@@ -93,6 +96,8 @@ public class MaintenanceRequestService {
         maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
         maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());
         maintenanceRequestDTO.setRequestStatus(maintenanceRequest.getRequestStatus());
+        maintenanceRequestDTO.setImg(maintenanceRequest.getImg());
+        maintenanceRequestDTO.setRemarks(maintenanceRequest.getRemarks());
         return maintenanceRequestDTO;
     }
 }

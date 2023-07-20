@@ -9,9 +9,14 @@ public class FileUpload {
 
     // Method that takes in a base64 string and converts it to a file and returns the relative file path
     public static String convertBase64ToFile(String base64String) throws IOException {
+     final String publicFolder = "uploads";
+        //if the base64 string is a url path like upload, reutrn the url
+        if(base64String.contains("uploads/")){
+            return base64String;
+        }
+
         // Decode the base64 string to bytes
         byte[] bytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64String);
-        final String publicFolder = "uploads";
         final String staticFolder = "static/"+ publicFolder;
 
 

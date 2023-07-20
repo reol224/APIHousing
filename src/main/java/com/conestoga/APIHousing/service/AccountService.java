@@ -5,6 +5,7 @@ import com.conestoga.APIHousing.dtos.LoginRequest;
 import com.conestoga.APIHousing.dtos.LoginResponse;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.model.Account;
+import com.conestoga.APIHousing.utils.FileUpload;
 import com.conestoga.APIHousing.utils.JwtUtil;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,8 +35,12 @@ public class AccountService  {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Account createAccount(AccountDTO accountDTO) {
+    public Account createAccount(AccountDTO accountDTO) throws IOException {
         Account account = convertToAccount(accountDTO);
+        if(account.getImg() != null && !account.getImg().isEmpty()){
+                    account.setImg(FileUpload.convertBase64ToFile(account.getImg()));
+        }
+
         return accountRepository.save(account);
     }
 
@@ -132,6 +138,7 @@ public class AccountService  {
         account.setStudentId(accountDTO.getStudentId());
         account.setPostalCode(accountDTO.getPostalCode());
         account.setRole(accountDTO.getrole());
+        account.setImg(accountDTO.getImg());
 
         return account;
     }
@@ -150,7 +157,8 @@ public class AccountService  {
         account.getCollegeName(),
         account.getStudentId(),
         account.getPostalCode(),
-        account.getRole()
+        account.getRole(),
+        account.getImg()
       );
     }
 }

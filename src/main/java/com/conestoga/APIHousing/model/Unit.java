@@ -2,6 +2,9 @@ package com.conestoga.APIHousing.model;
 
 import org.springframework.data.annotation.Id;
 
+import com.conestoga.APIHousing.dtos.UnitDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,17 +13,13 @@ import java.math.BigDecimal;
 public class Unit {
 
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
-    private Long id;
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "unit_id")
-    private Long unitId;
+    private Long unit_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "residence_id")
+     @JsonIgnore  // Add this annotation to break the cycle in JSON serialization
+
     private Residence residence;
 
     @Column(name = "unit_number")
@@ -35,20 +34,19 @@ public class Unit {
     @Column(name = "monthly_rent")
     private BigDecimal monthlyRent;
 
-    public Long getId() {
-        return id;
+
+    @Column(name = "img")
+    private String img;
+
+
+  
+
+    public Long getunit_id() {
+        return unit_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUnitId() {
-        return unitId;
-    }
-
-    public void setUnitId(Long unitId) {
-        this.unitId = unitId;
+    public void setunit_id(Long unit_id) {
+        this.unit_id = unit_id;
     }
 
     public Residence getResidence() {
@@ -89,5 +87,14 @@ public class Unit {
 
     public void setMonthlyRent(BigDecimal monthlyRent) {
         this.monthlyRent = monthlyRent;
+    }
+
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

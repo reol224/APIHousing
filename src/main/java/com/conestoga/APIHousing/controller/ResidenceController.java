@@ -1,6 +1,7 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.dtos.ResidenceDTO;
+import com.conestoga.APIHousing.model.Residence;
 import com.conestoga.APIHousing.service.ResidenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,11 +62,5 @@ public class ResidenceController {
         return ResponseEntity.ok(residences);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        ResidenceDTO residenceDTO = new ResidenceDTO(Long.parseLong("1"), "bloc prapadit", "waterloo", "descriere",
-                Long.parseLong("1"));
-        residenceService.createResidence(residenceDTO);
-        return ResponseEntity.ok("Test");
-    }
+
 }

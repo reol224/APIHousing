@@ -91,7 +91,7 @@ public class MaintenanceRequestService {
     private MaintenanceRequestDTO convertToMaintenanceRequestDTO(MaintenanceRequest maintenanceRequest) {
         MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
         maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
-        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getUnitId());
+        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getunit_id());
         maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
         maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
         maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());

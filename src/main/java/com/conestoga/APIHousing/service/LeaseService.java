@@ -93,7 +93,7 @@ public class LeaseService {
     private LeaseDTO convertToLeaseDTO(Lease lease) {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
-        leaseDTO.setUnitId(lease.getUnit().getUnitId());
+        leaseDTO.setUnitId(lease.getUnit().getunit_id());
         leaseDTO.setUserId(lease.getUser().getUserId());
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());
         leaseDTO.setLeaseEndDate(lease.getLeaseEndDate());

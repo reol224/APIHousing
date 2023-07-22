@@ -1,19 +1,19 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.data.annotation.Id;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.*;
+
+import com.conestoga.APIHousing.dtos.ResidenceDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "residences")
 public class Residence {
 
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, updatable = false, insertable = false, unique = true)
-    private Long id;
-
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "residence_id")
     private Long residenceId;
@@ -27,18 +27,32 @@ public class Residence {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "img")
+    private String img;
+
+
+       // Add the @OneToMany mapping for units
+    @OneToMany(mappedBy = "residence", fetch = FetchType.LAZY)
+    private List<Unit> units;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")
+    @JsonIgnore  // Add this annotation to break the cycle in JSON serialization
     private Account manager;
 
-    public Long getId() {
-        return id;
+
+ 
+    // Getters and setters for the existing properties
+
+    public List<Unit> getUnits() {
+        return units;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUnits(List<Unit> units) {
+        this.units = units;
     }
-
+  
     public Long getResidenceId() {
         return residenceId;
     }
@@ -77,5 +91,13 @@ public class Residence {
 
     public void setManager(Account manager) {
         this.manager = manager;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

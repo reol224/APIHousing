@@ -81,6 +81,21 @@ public class LeaseService {
                 .collect(Collectors.toList());
     }
 
+    //getLeaseByUserId
+    public List<LeaseDTO> getLeaseByUserId(Long userId) {
+        //FIND ACCOUNT BY USERID
+        Optional<Account> accountOptional = accountRepository.findById(userId);
+        // if account exists, find leases by account, else return null
+        if (!accountOptional.isPresent()) {
+            return null;
+        }
+
+        List<Lease> leases = leaseRepository.findByUser(accountOptional.get());
+        return leases.stream()
+                .map(this::convertToLeaseDTO)
+                .collect(Collectors.toList());
+    }
+
     private Lease convertToLease(LeaseDTO leaseDTO) {
         Lease lease = new Lease();
         lease.setLeaseStartDate(leaseDTO.getLeaseStartDate());

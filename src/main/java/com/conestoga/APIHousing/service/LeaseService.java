@@ -1,6 +1,7 @@
 package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.dtos.LeaseDTO;
+import com.conestoga.APIHousing.dtos.UnitDTO;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.LeaseRepository;
 import com.conestoga.APIHousing.interfaces.UnitRepository;
@@ -28,7 +29,7 @@ public class LeaseService {
 
     public LeaseDTO createLease(LeaseDTO leaseDTO) {
         Lease lease = convertToLease(leaseDTO);
-        Unit unit = unitRepository.findById(leaseDTO.getUnitId()).orElse(null);
+        Unit unit = unitRepository.findById(leaseDTO.getunit().getUnitId()).orElse(null);
         Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
         if (unit != null && user != null) {
@@ -49,7 +50,7 @@ public class LeaseService {
         Optional<Lease> leaseOptional = leaseRepository.findById(leaseId);
         if (leaseOptional.isPresent()) {
             Lease lease = leaseOptional.get();
-            Unit unit = unitRepository.findById(leaseDTO.getUnitId()).orElse(null);
+            Unit unit = unitRepository.findById(leaseDTO.getunit().getUnitId()).orElse(null);
             Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
             if (unit != null && user != null) {
@@ -108,7 +109,7 @@ public class LeaseService {
     private LeaseDTO convertToLeaseDTO(Lease lease) {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
-        leaseDTO.setUnitId(lease.getUnit().getunit_id());
+        leaseDTO.setunit(new UnitDTO(lease.getUnit()));
         leaseDTO.setUserId(lease.getUser().getUserId());
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());
         leaseDTO.setLeaseEndDate(lease.getLeaseEndDate());

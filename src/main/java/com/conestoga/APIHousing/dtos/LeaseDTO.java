@@ -3,24 +3,21 @@ package com.conestoga.APIHousing.dtos;
 import java.util.Date;
 
 import com.conestoga.APIHousing.model.Lease;
+import com.conestoga.APIHousing.model.Unit;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LeaseDTO {
-    private Long leaseId;
-    private Long unitId;
+   private Long leaseId;
     private Long userId;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseStartDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseEndDate;
     private Integer leaseLength;
     private int leaseStatus;
+        private UnitDTO unit;
 
-    public LeaseDTO(Long unitId, Long userId, Date leaseStartDate, Date leaseEndDate, Integer leaseLength, int leaseStatus) {
-        this.unitId = unitId;
-        this.userId = userId;
-        this.leaseStartDate = leaseStartDate;
-        this.leaseEndDate = leaseEndDate;
-        this.leaseLength = leaseLength;
-        this.leaseStatus = leaseStatus;
-    }
+
 
     //to model
     public Lease toModel() {
@@ -30,7 +27,18 @@ public class LeaseDTO {
         lease.setLeaseEndDate(this.leaseEndDate);
         lease.setLeaseLength(this.leaseLength);
         lease.setLeaseStatus(this.leaseStatus);
+        lease.setUnit(this.unit.convertToUnit());
         return lease;
+    }
+
+    //fromDtro to model
+    public  LeaseDTO (Lease lease) {
+        this.setLeaseId(lease.getLeaseId());
+        this.setLeaseStartDate(lease.getLeaseStartDate());
+        this.setLeaseEndDate(lease.getLeaseEndDate());
+        this.setLeaseLength(lease.getLeaseLength());
+        this.setLeaseStatus(lease.getLeaseStatus());
+        this.setunit(new UnitDTO(lease.getUnit()));
     }
 
     public LeaseDTO() {
@@ -45,12 +53,12 @@ public class LeaseDTO {
         this.leaseId = leaseId;
     }
 
-    public Long getUnitId() {
-        return unitId;
+    public UnitDTO getunit() {
+        return unit;
     }
 
-    public void setUnitId(Long unitId) {
-        this.unitId = unitId;
+    public void setunit(UnitDTO unit) {
+        this.unit = unit;
     }
 
     public Long getUserId() {

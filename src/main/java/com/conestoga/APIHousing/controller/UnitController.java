@@ -1,11 +1,12 @@
 package com.conestoga.APIHousing.controller;
 
-import com.conestoga.APIHousing.dtos.UnitDTO;
+import com.conestoga.APIHousing.model.Unit;
 import com.conestoga.APIHousing.service.UnitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,23 +21,23 @@ public class UnitController {
     }
 
     @PostMapping
-    public ResponseEntity<UnitDTO> createUnit(@RequestBody UnitDTO unitDTO) {
-        UnitDTO createdUnit = unitService.createUnit(unitDTO);
+    public ResponseEntity<Unit> createUnit(@RequestBody Unit unit) throws IOException {
+        Unit createdUnit = unitService.createUnit(unit);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUnit);
     }
 
     @GetMapping("/{unitId}")
-    public ResponseEntity<UnitDTO> getUnitById(@PathVariable Long unitId) {
-        UnitDTO unitDTO = unitService.getUnitById(unitId);
-        if (unitDTO != null) {
-            return ResponseEntity.ok(unitDTO);
+    public ResponseEntity<Unit> getUnitById(@PathVariable Long unitId) {
+        Unit unit = unitService.getUnitById(unitId);
+        if (unit != null) {
+            return ResponseEntity.ok(unit);
         }
         return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{unitId}")
-    public ResponseEntity<UnitDTO> updateUnit(@PathVariable Long unitId, @RequestBody UnitDTO unitDTO) {
-        UnitDTO updatedUnit = unitService.updateUnit(unitId, unitDTO);
+    public ResponseEntity<Unit> updateUnit(@PathVariable Long unitId, @RequestBody Unit unit) throws IOException {
+        Unit updatedUnit = unitService.updateUnit(unitId, unit);
         if (updatedUnit != null) {
             return ResponseEntity.ok(updatedUnit);
         }
@@ -53,16 +54,9 @@ public class UnitController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<UnitDTO>> getAllUnits() {
-        List<UnitDTO> units = unitService.getAllUnits();
+    public ResponseEntity<List<Unit>> getAllUnits() {
+        List<Unit> units = unitService.getAllUnits();
         return ResponseEntity.ok(units);
     }
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        UnitDTO unitDTO = new UnitDTO(Long.parseLong("1"), Long.parseLong("1"), "76", "flat", "2 camere",
-                BigDecimal.valueOf(234212));
-        unitService.createUnit(unitDTO);
-        return ResponseEntity.ok("Test");
-    }
 }

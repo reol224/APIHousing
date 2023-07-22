@@ -2,6 +2,8 @@ package com.conestoga.APIHousing.dtos;
 
 import java.math.BigDecimal;
 
+import com.conestoga.APIHousing.model.Unit;
+
 public class UnitDTO {
 
     private Long unitId;
@@ -10,14 +12,33 @@ public class UnitDTO {
     private String unitType;
     private String unitDescription;
     private BigDecimal monthlyRent;
+    private String img;
+    private String test;
+        //dto from model
 
-    public UnitDTO(Long unitId, Long residenceId, String unitNumber, String unitType, String unitDescription, BigDecimal monthlyRent) {
-        this.unitId = unitId;
-        this.residenceId = residenceId;
-        this.unitNumber = unitNumber;
-        this.unitType = unitType;
-        this.unitDescription = unitDescription;
-        this.monthlyRent = monthlyRent;
+    //from model to dto
+    public UnitDTO(Unit unit) {
+        this.unitId = unit.getunit_id();
+        this.residenceId = unit.getResidence().getResidenceId();
+        this.unitNumber = unit.getUnitNumber();
+        this.unitType = unit.getUnitType();
+        this.unitDescription = unit.getUnitDescription();
+        this.monthlyRent = unit.getMonthlyRent();
+        this.test = "test";
+        this.img = unit.getImg();
+        
+    }
+
+    //to model
+    public Unit convertToUnit() {
+        Unit unit = new Unit();
+        unit.setunit_id(this.unitId);
+        unit.setUnitNumber(this.unitNumber);
+        unit.setUnitType(this.unitType);
+        unit.setUnitDescription(this.unitDescription);
+        unit.setMonthlyRent(this.monthlyRent);
+        unit.setImg(this.img);
+        return unit;
     }
 
     public UnitDTO() {
@@ -70,6 +91,14 @@ public class UnitDTO {
 
     public void setMonthlyRent(BigDecimal monthlyRent) {
         this.monthlyRent = monthlyRent;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
 

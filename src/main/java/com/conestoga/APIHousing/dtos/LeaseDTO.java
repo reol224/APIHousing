@@ -1,23 +1,36 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.time.LocalDate;
+import java.util.Date;
+
+import com.conestoga.APIHousing.model.Lease;
 
 public class LeaseDTO {
     private Long leaseId;
     private Long unitId;
     private Long userId;
-    private LocalDate leaseStartDate;
-    private LocalDate leaseEndDate;
+    private Date leaseStartDate;
+    private Date leaseEndDate;
     private Integer leaseLength;
-    private String leaseStatus;
+    private int leaseStatus;
 
-    public LeaseDTO(Long unitId, Long userId, LocalDate leaseStartDate, LocalDate leaseEndDate, Integer leaseLength, String leaseStatus) {
+    public LeaseDTO(Long unitId, Long userId, Date leaseStartDate, Date leaseEndDate, Integer leaseLength, int leaseStatus) {
         this.unitId = unitId;
         this.userId = userId;
         this.leaseStartDate = leaseStartDate;
         this.leaseEndDate = leaseEndDate;
         this.leaseLength = leaseLength;
         this.leaseStatus = leaseStatus;
+    }
+
+    //to model
+    public Lease toModel() {
+        Lease lease = new Lease();
+        lease.setLeaseId(this.leaseId);
+        lease.setLeaseStartDate(this.leaseStartDate);
+        lease.setLeaseEndDate(this.leaseEndDate);
+        lease.setLeaseLength(this.leaseLength);
+        lease.setLeaseStatus(this.leaseStatus);
+        return lease;
     }
 
     public LeaseDTO() {
@@ -48,19 +61,19 @@ public class LeaseDTO {
         this.userId = userId;
     }
 
-    public LocalDate getLeaseStartDate() {
+    public Date getLeaseStartDate() {
         return leaseStartDate;
     }
 
-    public void setLeaseStartDate(LocalDate leaseStartDate) {
+    public void setLeaseStartDate(Date leaseStartDate) {
         this.leaseStartDate = leaseStartDate;
     }
 
-    public LocalDate getLeaseEndDate() {
+    public Date getLeaseEndDate() {
         return leaseEndDate;
     }
 
-    public void setLeaseEndDate(LocalDate leaseEndDate) {
+    public void setLeaseEndDate(Date leaseEndDate) {
         this.leaseEndDate = leaseEndDate;
     }
 
@@ -72,11 +85,11 @@ public class LeaseDTO {
         this.leaseLength = leaseLength;
     }
 
-    public String getLeaseStatus() {
+    public int getLeaseStatus() {
         return leaseStatus;
     }
 
-    public void setLeaseStatus(String leaseStatus) {
+    public void setLeaseStatus(int leaseStatus) {
         this.leaseStatus = leaseStatus;
     }
 }

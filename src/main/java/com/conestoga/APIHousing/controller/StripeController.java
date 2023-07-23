@@ -68,17 +68,19 @@ public class StripeController {
 
 
             PaymentIntent paymentIntent = PaymentIntent.create(params);
+            paymentIntent.confirm();
 
-            Invoice invoice = Invoice.retrieve(paymentIntent.getInvoice());
-            logger.info("Invoice: " + invoice.getId());
-            logger.info("Invoice: " + invoice.getCustomer());
-            logger.info("Invoice: " + invoice.getCustomerEmail());
-            logger.info("Invoice: " + invoice.getCustomerName());
-            logger.info("Invoice: " + invoice.getCustomerPhone());
-            logger.info("Invoice: " + invoice.getCustomerAddress());
-            logger.info("Invoice: " + invoice.getCustomerAddress().getCity());
-            logger.info("Invoice: " + invoice.getCustomerAddress().getCountry());
-            logger.info("Invoice:" + invoice.getAmountPaid());
+
+//            Invoice invoice = Invoice.retrieve(paymentIntent.getInvoice());
+//            logger.info("Invoice: " + invoice.getId());
+//            logger.info("Invoice: " + invoice.getCustomer());
+//            logger.info("Invoice: " + invoice.getCustomerEmail());
+//            logger.info("Invoice: " + invoice.getCustomerName());
+//            logger.info("Invoice: " + invoice.getCustomerPhone());
+//            logger.info("Invoice: " + invoice.getCustomerAddress());
+//            logger.info("Invoice: " + invoice.getCustomerAddress().getCity());
+//            logger.info("Invoice: " + invoice.getCustomerAddress().getCountry());
+//            logger.info("Invoice:" + invoice.getAmountPaid());
 
 
             // Return the client secret of the PaymentIntent

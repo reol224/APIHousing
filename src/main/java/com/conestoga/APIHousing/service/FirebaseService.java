@@ -17,20 +17,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class FirebaseService {
 
-    Logger logger = Logger.getLogger(FirebaseService.class.getName());
+    private static final Logger logger = Logger.getLogger(FirebaseService.class.getName());
+    private static FirebaseApp firebaseApp;
 
     @PostConstruct
     public void initializeFirebase() throws IOException {
-        InputStream serviceAccount = new ClassPathResource("firebase/serviceAccountKey.json").getInputStream();
+        if (firebaseApp == null) {
+            InputStream serviceAccount = new ClassPathResource("firebase/serviceAccountKey.json").getInputStream();
 
-        FirebaseOptions options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .build();
+            FirebaseOptions options = FirebaseOptions.builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .build();
 
-        FirebaseApp.initializeApp(options);
+            firebaseApp = FirebaseApp.initializeApp(options);
+        }
     }
 
-    public void sendPushNotification(String title, String description) {
+      public void sendPushNotification(String title, String description) {
         sendPushNotification(title, description, null); // Call the overloaded method with null FCM token
     }
 

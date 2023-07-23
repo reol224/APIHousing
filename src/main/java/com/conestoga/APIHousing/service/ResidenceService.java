@@ -22,12 +22,12 @@ public class ResidenceService {
     }
 
     public ResidenceDTO createResidence(ResidenceDTO residenceDTO) {
-        Residence residence = convertToResidence(residenceDTO);
+        Residence residence = residenceDTO.convertToResidence();
         Account manager = accountRepository.findById(residenceDTO.getManagerId()).orElse(null);
         if (manager != null) {
             residence.setManager(manager);
             Residence createdResidence = residenceRepository.save(residence);
-            return convertToResidenceDTO(createdResidence);
+            return new ResidenceDTO(createdResidence);
         }
         return null;
     }
@@ -35,7 +35,7 @@ public class ResidenceService {
     public ResidenceDTO getResidenceById(Long residenceId) {
         Residence residence = residenceRepository.findById(residenceId).orElse(null);
         if (residence != null) {
-            return convertToResidenceDTO(residence);
+                       return new ResidenceDTO(residence);
         }
         return null;
     }
@@ -43,11 +43,10 @@ public class ResidenceService {
     public ResidenceDTO updateResidence(Long residenceId, ResidenceDTO residenceDTO) {
         Residence existingResidence = residenceRepository.findById(residenceId).orElse(null);
         if (existingResidence != null) {
-            Residence updatedResidence = convertToResidence(residenceDTO);
-            updatedResidence.setId(existingResidence.getId());
+            Residence updatedResidence = existingResidence;
             updatedResidence.setManager(existingResidence.getManager());
             Residence savedResidence = residenceRepository.save(updatedResidence);
-            return convertToResidenceDTO(savedResidence);
+            return new ResidenceDTO(savedResidence);
         }
         return null;
     }
@@ -63,27 +62,17 @@ public class ResidenceService {
 
     public List<ResidenceDTO> getAllResidences() {
         List<Residence> residences = residenceRepository.findAll();
-        return residences.stream()
-                .map(this::convertToResidenceDTO)
-                .collect(Collectors.toList());
+
+        //stream and map and conver to ResidenceDTO by ResidenceDTO constructor
+             return residences.stream().map(ResidenceDTO::new).collect(Collectors.toList());
+
+        // return residences.stream()
+        //         .map()
+        //         .collect(Collectors.toList());
     }
 
-    private Residence convertToResidence(ResidenceDTO residenceDTO) {
-        Residence residence = new Residence();
-        residence.setName(residenceDTO.getName());
-        residence.setAddress(residenceDTO.getAddress());
-        residence.setDescription(residenceDTO.getDescription());
-        return residence;
-    }
+  
 
-    private ResidenceDTO convertToResidenceDTO(Residence residence) {
-        ResidenceDTO residenceDTO = new ResidenceDTO();
-        residenceDTO.setResidenceId(residence.getResidenceId());
-        residenceDTO.setName(residence.getName());
-        residenceDTO.setAddress(residence.getAddress());
-        residenceDTO.setDescription(residence.getDescription());
-        residenceDTO.setManagerId(residence.getManager().getUserId());
-        return residenceDTO;
-    }
+  
 }
 

@@ -16,10 +16,15 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         String apiPath = request.getRequestURI();
-
+        
+        System.out.println("------------------");
         // print path and method and other info
-        logger.info("API Path: " + apiPath + " - " + request.getMethod() + " - " + response.getStatus());
-
+        System.out.println("API Path: " + apiPath + " - " + request.getMethod() + " - " + response.getStatus());
+        //print agent
+        System.out.println("Agent: " + request.getHeader("User-Agent"));
+        //print IP
+        System.out.println("IP: " + request.getRemoteAddr());
+     
         return true;
     }
 }

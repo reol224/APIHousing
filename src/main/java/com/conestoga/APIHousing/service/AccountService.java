@@ -62,15 +62,19 @@ public class AccountService  {
         String token = jwtUtil.generateToken(loginRequest.getEmail());
 
         //now get account details from email
-        AccountDTO userDetails = getAccountByEmail(loginRequest.getEmail());
+       // Now get the existing account from the database using email
+          Optional<Account> existingAccountOptional = accountRepository.findByEmail(loginRequest.getEmail());
+        if (existingAccountOptional.isPresent()) {
+            Account existingAccount = existingAccountOptional.get();
+            existingAccount.setFcm(loginRequest.getFcm());
+            accountRepository.save(existingAccount);
+        }
 
-        return new LoginResponse(token, userDetails);
+        return new LoginResponse(token,convertToAccountDTO( existingAccountOptional.get()));
     }
 
-    public AccountDTO getAccountByEmail(String email) {
-        Optional<Account> accountOptional = accountRepository.findByEmail(email);
-        return accountOptional.map(this::convertToAccountDTO).orElse(null);
-    }
+   
+
 
     public AccountDTO getAccountById(Long id) {
         Optional<Account> accountOptional = accountRepository.findById(id);

@@ -4,8 +4,11 @@ import com.conestoga.APIHousing.dtos.UnitDTO;
 import com.conestoga.APIHousing.interfaces.ResidenceRepository;
 import com.conestoga.APIHousing.interfaces.UnitRepository;
 import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.utils.FileUpload;
+
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,37 +24,27 @@ public class UnitService {
         this.residenceRepository = residenceRepository;
     }
 
-    public UnitDTO createUnit(UnitDTO unitDTO) {
-        Unit unit = new Unit();
-        unit.setResidence(residenceRepository.findById(unitDTO.getResidenceId()).orElse(null));
-        unit.setUnitNumber(unitDTO.getUnitNumber());
-        unit.setUnitType(unitDTO.getUnitType());
-        unit.setUnitDescription(unitDTO.getUnitDescription());
-        unit.setMonthlyRent(unitDTO.getMonthlyRent());
+    public Unit createUnit(Unit unit) throws IOException {
+    unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
+     return unitRepository.save(unit);
 
-        Unit savedUnit = unitRepository.save(unit);
-
-        return convertToDTO(savedUnit);
     }
 
-    public UnitDTO getUnitById(Long unitId) {
+    public Unit getUnitById(Long unitId) {
         Optional<Unit> unitOptional = unitRepository.findById(unitId);
-        return unitOptional.map(this::convertToDTO).orElse(null);
+        return unitOptional.orElse(null);
     }
 
-    public UnitDTO updateUnit(Long unitId, UnitDTO unitDTO) {
+    public Unit updateUnit(Long unitId, Unit unit) throws IOException {
         Optional<Unit> unitOptional = unitRepository.findById(unitId);
         if (unitOptional.isPresent()) {
-            Unit unit = unitOptional.get();
-            unit.setResidence(residenceRepository.findById(unitDTO.getResidenceId()).orElse(null));
-            unit.setUnitNumber(unitDTO.getUnitNumber());
-            unit.setUnitType(unitDTO.getUnitType());
-            unit.setUnitDescription(unitDTO.getUnitDescription());
-            unit.setMonthlyRent(unitDTO.getMonthlyRent());
+          
+                unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
 
-            Unit updatedUnit = unitRepository.save(unit);
 
-            return convertToDTO(updatedUnit);
+            // return convertToDTO(updatedUnit);
+
+            return unit;
         }
         return null;
     }
@@ -65,23 +58,25 @@ public class UnitService {
         return false;
     }
 
-    public List<UnitDTO> getAllUnits() {
+    public List<Unit> getAllUnits() {
         List<Unit> units = unitRepository.findAll();
-        return units.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        // return units.stream()
+        //         .map(this::convertToDTO)
+        //         .collect(Collectors.toList());
+
+        return units;
     }
 
-    private UnitDTO convertToDTO(Unit unit) {
-        UnitDTO unitDTO = new UnitDTO();
-        unitDTO.setUnitId(unit.getUnitId());
-        unitDTO.setResidenceId(unit.getResidence().getResidenceId());
-        unitDTO.setUnitNumber(unit.getUnitNumber());
-        unitDTO.setUnitType(unit.getUnitType());
-        unitDTO.setUnitDescription(unit.getUnitDescription());
-        unitDTO.setMonthlyRent(unit.getMonthlyRent());
-        return unitDTO;
-    }
+    // private Unit convertToDTO(Unit unit) {
+    //     Unit unitDTO = new UnitDTO();
+    //     unitDTO.setUnitId(unit.getunit_id());
+    //     unitDTO.setResidenceId(unit.getResidence().getResidenceId());
+    //     unitDTO.setUnitNumber(unit.getUnitNumber());
+    //     unitDTO.setUnitType(unit.getUnitType());
+    //     unitDTO.setUnitDescription(unit.getUnitDescription());
+    //     unitDTO.setMonthlyRent(unit.getMonthlyRent());
+    //     return unitDTO;
+    // }
 }
 
 

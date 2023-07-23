@@ -8,17 +8,26 @@ import com.conestoga.APIHousing.service.AccountService;
 import com.conestoga.APIHousing.utils.ErrorResponse;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
+import com.stripe.exception.StripeException;
+import com.stripe.model.Customer;
+import com.stripe.param.CustomerCreateParams;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {
+
+    private static final Logger logger = Logger.getLogger(AccountController.class.getName());
 
     private final AccountService accountService;
 
@@ -28,30 +37,93 @@ public class AccountController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginAccount(@RequestBody LoginRequest loginRequest) {
-        // Call the loginAccount method in the AccountService
-        LoginResponse loginResponse = accountService.loginAccount(loginRequest);
+        if (loginRequest.getEmail() == null || loginRequest.getPassword() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
 
-        // Return the LoginResponse object as the response with the appropriate HTTP
-        // status
-        return ResponseEntity.ok(loginResponse);
+        try {
+            // Call the loginAccount method in the AccountService
+            LoginResponse loginResponse = accountService.loginAccount(loginRequest);
+
+            // Return the LoginResponse object as the response with the appropriate HTTP status
+            logger.info("Successfully logged in user: " + loginRequest.getEmail());
+            return ResponseEntity.ok(loginResponse);
+        } catch (AuthenticationException e) {
+            // Handle authentication failure
+            logger.warning("Error authenticating user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            // Handle other exceptions, log the error, and return an appropriate response
+            logger.severe("Error logging in user: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
+
     @PostMapping("/create")
-    public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) throws IOException {
-        // print request body
-        System.out.println("Request body:");
-        System.out.println(accountDTO);
+    public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) throws IOException, StripeException {
         Account createdAccount = accountService.createAccount(accountDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
+
+        try {
+            CustomerCreateParams params =
+                    CustomerCreateParams.builder()
+                            .setName(createdAccount.getFirstName() + " " + createdAccount.getLastName()) // Use the account holder's name
+                            .setPhone(createdAccount.getPhoneNumber()) // Use the account holder's phone
+                            .setEmail(createdAccount.getEmail()) // Use the account holder's email
+                            .setAddress(
+                                    CustomerCreateParams.Address.builder()
+                                            .setLine1(createdAccount.getAddress())
+                                            .setCity("Kitchener")
+                                            .setState("ON")
+                                            .setPostalCode("N2G 4M4")
+                                            .setCountry("CA")
+                                            .build())
+                            .putExtraParam("College Name", createdAccount.getCollegeName())
+                            .putExtraParam("Student ID", createdAccount.getStudentId())
+                            .putExtraParam("Postal Code", createdAccount.getPostalCode())
+                            .setDescription("Example description")
+                            // Set other relevant data (address, metadata, payment method, etc.) from the account
+                            .build();
+
+            Customer customer = Customer.create(params);
+
+            // Associate the Stripe customer ID with the newly created account
+            //createdAccount.setStripeCustomerId(customer.getId()); // Assuming you have a setter for the Stripe customer ID in your Account class
+            customer.setId(createdAccount.getStripeCustomerId());
+
+
+            logger.info("Successfully created Stripe customer: " + customer.getId());
+
+            // Return the newly created account with Stripe customer information
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
+
+        } catch (StripeException ex) {
+            // Handle any exceptions that might occur during the Stripe API call
+            // You can log the error, notify the user, or take appropriate action
+            logger.info("Error creating Stripe customer: " + ex.getMessage());
+            // In case of an error, you can decide how to handle it. For example, you might want to delete the created account if the customer creation fails.
+            accountService.deleteAccount(createdAccount.getId()); // Assuming you have a method to delete the account by ID in your accountService
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<AccountDTO> getAccountById(@PathVariable Long id) {
-        AccountDTO accountDTO = accountService.getAccountById(id);
-        if (accountDTO != null) {
-            return ResponseEntity.ok(accountDTO);
+        try {
+            // Input Validation: Check if the id is not null and greater than 0
+            if (id == null || id <= 0) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            // Use Optional to handle the absence of the account more gracefully
+            Optional<AccountDTO> optionalAccountDTO = Optional.ofNullable(accountService.getAccountById(id));
+
+            // Check if the account exists, and return it if present
+            return optionalAccountDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        } catch (NumberFormatException e) {
+            // Handle the NumberFormatException and return a meaningful error response
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.notFound().build();
     }
 
     @PutMapping("/{id}")
@@ -85,15 +157,14 @@ public class AccountController {
     }
 
 
-
-      @ExceptionHandler(DataIntegrityViolationException.class)
+    @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         //print detailed error message
-        System.out.println("Error: " + ex.getMessage());
+        logger.warning("Error: " + ex.getMessage());
         String errorMessage = "User with this email already exists.";
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.CONFLICT, errorMessage);
-        System.out.println("Error: " + ex.getStackTrace().toString());
-        
+        logger.warning("Error: " + errorResponse.getMessage());
+
         return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
     }
 

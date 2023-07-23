@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class AccountDTO {
     private Long id;
+    private String stripeCustomerId;
     private String password;
     private String email;
     private String firstName;
@@ -24,7 +25,7 @@ public class AccountDTO {
     public AccountDTO(Long id, String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role,
                       String img
-                      ) {
+    ) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -37,7 +38,7 @@ public class AccountDTO {
         this.collegeName = collegeName;
         this.studentId = studentId;
         this.postalCode = postalCode;
-        this.role =role;
+        this.role = role;
         this.img = img;
 
     }
@@ -45,7 +46,7 @@ public class AccountDTO {
     public AccountDTO(String password, String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode,
                       int role, String img
-                      ) {
+    ) {
         this.password = password;
         this.email = email;
         this.firstName = firstName;
@@ -159,11 +160,11 @@ public class AccountDTO {
         return postalCode;
     }
 
-    public void setrole(int role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
-    public int getrole() {
+    public int getRole() {
         return role;
     }
 
@@ -175,7 +176,15 @@ public class AccountDTO {
         return img;
     }
 
+    public String getStripeCustomerId() {
+        return stripeCustomerId;
+    }
+
+    public void setStripeCustomerId(String stripeCustomerId) {
+        this.stripeCustomerId = stripeCustomerId;
+    }
+
     public AccountDTO copy() {
-        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode,role,img);
+        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode, role, img);
     }
 }

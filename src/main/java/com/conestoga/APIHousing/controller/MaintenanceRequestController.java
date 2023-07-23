@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class MaintenanceRequestController {
 
     @PostMapping
     public ResponseEntity<MaintenanceRequestDTO> createMaintenanceRequest(
-            @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
+            @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) throws IOException {
         MaintenanceRequestDTO createdMaintenanceRequest = maintenanceRequestService
                 .createMaintenanceRequest(maintenanceRequestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMaintenanceRequest);
@@ -58,6 +59,13 @@ public class MaintenanceRequestController {
     @GetMapping
     public ResponseEntity<List<MaintenanceRequestDTO>> getAllMaintenanceRequests() {
         List<MaintenanceRequestDTO> maintenanceRequests = maintenanceRequestService.getAllMaintenanceRequests();
+        return ResponseEntity.ok(maintenanceRequests);
+    }
+
+    //get all maintenance requests by user id
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<MaintenanceRequestDTO>> getAllMaintenanceRequestsByUserId(@PathVariable Long userId) {
+        List<MaintenanceRequestDTO> maintenanceRequests = maintenanceRequestService.getAllMaintenanceRequestsByUserId(userId);
         return ResponseEntity.ok(maintenanceRequests);
     }
 }

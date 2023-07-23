@@ -18,4 +18,8 @@ public interface MaintenanceRequestRepository extends JpaRepository<MaintenanceR
     List<MaintenanceRequest> findByRequestStatus(String requestStatus);
 
     List<MaintenanceRequest> findByRequestDateAfter(LocalDate date);
+
+    //find by user id and sort by request date
+    List<MaintenanceRequest> findByUserIdOrderByRequestIdDesc(Long userId);
+
 }

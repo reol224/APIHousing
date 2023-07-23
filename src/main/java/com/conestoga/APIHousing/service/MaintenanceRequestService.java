@@ -7,8 +7,12 @@ import com.conestoga.APIHousing.interfaces.UnitRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.utils.FileUpload;
+
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,23 +31,35 @@ public class MaintenanceRequestService {
         this.accountRepository = accountRepository;
     }
 
-    public MaintenanceRequestDTO createMaintenanceRequest(MaintenanceRequestDTO maintenanceRequestDTO) {
-        MaintenanceRequest maintenanceRequest = convertToMaintenanceRequest(maintenanceRequestDTO);
+    public MaintenanceRequestDTO createMaintenanceRequest(MaintenanceRequestDTO maintenanceRequestDTO) throws IOException {
+        MaintenanceRequest maintenanceRequest = maintenanceRequestDTO.toModel();
         Unit unit = unitRepository.findById(maintenanceRequestDTO.getUnitId()).orElse(null);
         Account user = accountRepository.findById(maintenanceRequestDTO.getUserId()).orElse(null);
         if (unit != null && user != null) {
             maintenanceRequest.setUnit(unit);
             maintenanceRequest.setUser(user);
+
+            //if dto's date is null, set current date
+            if (maintenanceRequestDTO.getRequestDate() == null) {
+                maintenanceRequest.setRequestDate(new java.util.Date());
+            }
+            
+            
+            //if image is not null, upload image
+            if (maintenanceRequestDTO.getImg() != null) {
+               maintenanceRequest.setImg(FileUpload.convertBase64ToFile( (maintenanceRequestDTO.getImg())));
+            }
             MaintenanceRequest createdMaintenanceRequest = maintenanceRequestRepository.save(maintenanceRequest);
-            return convertToMaintenanceRequestDTO(createdMaintenanceRequest);
+            return   MaintenanceRequestDTO.fromModel(createdMaintenanceRequest);
         }
         return null;
     }
 
+
     public MaintenanceRequestDTO getMaintenanceRequestById(Long requestId) {
         MaintenanceRequest maintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (maintenanceRequest != null) {
-            return convertToMaintenanceRequestDTO(maintenanceRequest);
+            return MaintenanceRequestDTO.fromModel(maintenanceRequest);
         }
         return null;
     }
@@ -51,12 +67,9 @@ public class MaintenanceRequestService {
     public MaintenanceRequestDTO updateMaintenanceRequest(Long requestId, MaintenanceRequestDTO maintenanceRequestDTO) {
         MaintenanceRequest existingMaintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (existingMaintenanceRequest != null) {
-            MaintenanceRequest updatedMaintenanceRequest = convertToMaintenanceRequest(maintenanceRequestDTO);
-            updatedMaintenanceRequest.setId(existingMaintenanceRequest.getId());
-            updatedMaintenanceRequest.setUnit(existingMaintenanceRequest.getUnit());
-            updatedMaintenanceRequest.setUser(existingMaintenanceRequest.getUser());
+            MaintenanceRequest updatedMaintenanceRequest = maintenanceRequestDTO.toModel();
             MaintenanceRequest savedMaintenanceRequest = maintenanceRequestRepository.save(updatedMaintenanceRequest);
-            return convertToMaintenanceRequestDTO(savedMaintenanceRequest);
+            return MaintenanceRequestDTO.fromModel(savedMaintenanceRequest);
         }
         return null;
     }
@@ -72,33 +85,26 @@ public class MaintenanceRequestService {
 
     public List<MaintenanceRequestDTO> getAllMaintenanceRequests() {
         List<MaintenanceRequest> maintenanceRequests = maintenanceRequestRepository.findAll();
-        return maintenanceRequests.stream()
-                .map(this::convertToMaintenanceRequestDTO)
-                .collect(Collectors.toList());
+        List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<MaintenanceRequestDTO>();
+        for (MaintenanceRequest maintenanceRequest : maintenanceRequests) {
+            maintenanceRequestDTOS.add(MaintenanceRequestDTO.fromModel(maintenanceRequest));
+        }
+        return maintenanceRequestDTOS;
+
+    
     }
 
-    private MaintenanceRequest convertToMaintenanceRequest(MaintenanceRequestDTO maintenanceRequestDTO) {
-        MaintenanceRequest maintenanceRequest = new MaintenanceRequest();
-        maintenanceRequest.setRequestDate(maintenanceRequestDTO.getRequestDate());
-        maintenanceRequest.setRequestDescription(maintenanceRequestDTO.getRequestDescription());
-        maintenanceRequest.setRequestStatus(maintenanceRequestDTO.getRequestStatus());
-        maintenanceRequest.setImg(maintenanceRequestDTO.getImg());
-        maintenanceRequest.setRemarks(maintenanceRequestDTO.getRemarks());
+  
 
-        return maintenanceRequest;
-    }
+    public List<MaintenanceRequestDTO> getAllMaintenanceRequestsByUserId(Long userId) {
+ 
+        List<MaintenanceRequest> maintenanceRequests = maintenanceRequestRepository.findByUserIdOrderByRequestIdDesc(userId);
+           List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<MaintenanceRequestDTO>();
+        for (MaintenanceRequest maintenanceRequest : maintenanceRequests) {
+            maintenanceRequestDTOS.add(MaintenanceRequestDTO.fromModel(maintenanceRequest));
+        }
+        return maintenanceRequestDTOS;
 
-    private MaintenanceRequestDTO convertToMaintenanceRequestDTO(MaintenanceRequest maintenanceRequest) {
-        MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
-        maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
-        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getunit_id());
-        maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
-        maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
-        maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());
-        maintenanceRequestDTO.setRequestStatus(maintenanceRequest.getRequestStatus());
-        maintenanceRequestDTO.setImg(maintenanceRequest.getImg());
-        maintenanceRequestDTO.setRemarks(maintenanceRequest.getRemarks());
-        return maintenanceRequestDTO;
     }
 }
 

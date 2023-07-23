@@ -44,6 +44,9 @@ public class ChatWebSocketHandler extends TextWebSocketHandler {
         System.out.println("WebSocket connection established: " + session.getId());
         sessions.add(session);
 
+        //print number of sessions in the server
+        System.out.println("Number of sessions: " + sessions.size());
+
     }
 
     @Override
@@ -85,6 +88,8 @@ public void broadcastMessage(ChatMessage chatMessage) {
         // Handle WebSocket connection closed
         System.out.println("WebSocket connection closed: " + session.getId() + ", Status: " + status.getCode());
         sessions.remove(session);
+          System.out.println("Number of sessions: " + sessions.size());
+
 
     }
 }

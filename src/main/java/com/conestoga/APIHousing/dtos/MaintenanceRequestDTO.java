@@ -1,14 +1,20 @@
 package com.conestoga.APIHousing.dtos;
 
 import java.time.LocalDate;
+import java.util.Date;
+
+import com.conestoga.APIHousing.model.MaintenanceRequest;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class MaintenanceRequestDTO {
     private Long requestId;
     private Long unitId;
     private Long userId;
-    private LocalDate requestDate;
+    //should be date and time
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date requestDate;
     private String requestDescription;
-    private String requestStatus;
+    private int requestStatus;
     private String img;
     private String remarks;
 
@@ -38,11 +44,11 @@ public class MaintenanceRequestDTO {
         this.userId = userId;
     }
 
-    public LocalDate getRequestDate() {
+    public Date getRequestDate() {
         return requestDate;
     }
 
-    public void setRequestDate(LocalDate requestDate) {
+    public void setRequestDate(Date requestDate) {
         this.requestDate = requestDate;
     }
 
@@ -54,11 +60,11 @@ public class MaintenanceRequestDTO {
         this.requestDescription = requestDescription;
     }
 
-    public String getRequestStatus() {
+    public int getRequestStatus() {
         return requestStatus;
     }
 
-    public void setRequestStatus(String requestStatus) {
+    public void setRequestStatus(int requestStatus) {
         this.requestStatus = requestStatus;
     }
 
@@ -76,6 +82,35 @@ public class MaintenanceRequestDTO {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+
+    //convert to model from DTO
+
+    public static MaintenanceRequestDTO fromModel(MaintenanceRequest maintenanceRequest) {
+        MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
+        maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
+        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getunit_id());
+        maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
+        maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
+        maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());
+        maintenanceRequestDTO.setRequestStatus(maintenanceRequest.getRequestStatus());
+        maintenanceRequestDTO.setImg(maintenanceRequest.getImg());
+        maintenanceRequestDTO.setRemarks(maintenanceRequest.getRemarks());
+        return maintenanceRequestDTO;
+    }
+
+    //convert to DTO from model
+
+    public  MaintenanceRequest toModel() {
+        MaintenanceRequest maintenanceRequest = new MaintenanceRequest();
+        maintenanceRequest.setRequestId(this.getRequestId());
+        maintenanceRequest.setRequestDate(this.getRequestDate());
+        maintenanceRequest.setRequestDescription(this.getRequestDescription());
+        maintenanceRequest.setRequestStatus(this.getRequestStatus());
+        maintenanceRequest.setImg(this.getImg());
+        maintenanceRequest.setRemarks(this.getRemarks());
+        return maintenanceRequest;
     }
     
 }

@@ -70,7 +70,7 @@ public class AccountService  {
             accountRepository.save(existingAccount);
         }
 
-        return new LoginResponse(token,convertToAccountDTO( existingAccountOptional.get()));
+        return new LoginResponse(token,convertToAccountDTO(existingAccountOptional.get()));
     }
 
    
@@ -141,7 +141,7 @@ public class AccountService  {
         account.setCollegeName(accountDTO.getCollegeName());
         account.setStudentId(accountDTO.getStudentId());
         account.setPostalCode(accountDTO.getPostalCode());
-        account.setRole(accountDTO.getrole());
+        account.setRole(accountDTO.getRole());
         account.setImg(accountDTO.getImg());
 
         return account;

@@ -67,8 +67,11 @@ public class MaintenanceRequestService {
     public MaintenanceRequestDTO updateMaintenanceRequest(Long requestId, MaintenanceRequestDTO maintenanceRequestDTO) {
         MaintenanceRequest existingMaintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (existingMaintenanceRequest != null) {
-            MaintenanceRequest updatedMaintenanceRequest = maintenanceRequestDTO.toModel();
-            MaintenanceRequest savedMaintenanceRequest = maintenanceRequestRepository.save(updatedMaintenanceRequest);
+            existingMaintenanceRequest.setRequestId(requestId);
+            existingMaintenanceRequest.setRequestDescription(maintenanceRequestDTO.getRequestDescription());
+            existingMaintenanceRequest.setRequestStatus(maintenanceRequestDTO.getRequestStatus());
+            existingMaintenanceRequest.setRemarks(maintenanceRequestDTO.getRemarks());
+            MaintenanceRequest savedMaintenanceRequest = maintenanceRequestRepository.save(existingMaintenanceRequest);
             return MaintenanceRequestDTO.fromModel(savedMaintenanceRequest);
         }
         return null;

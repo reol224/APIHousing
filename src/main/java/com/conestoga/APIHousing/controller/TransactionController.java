@@ -9,7 +9,7 @@ import com.conestoga.APIHousing.service.TransactionService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping("/api/transactions")
 public class TransactionController {
 
     private final TransactionService transactionService;
@@ -29,7 +29,8 @@ public class TransactionController {
     // Get transactions by payer ID
     @GetMapping("/{payerId}")
     public ResponseEntity<List<TransactionDTO>> getTransactionsByPayerId(@PathVariable String payerId) {
-        List<TransactionDTO> transactions = transactionService.getTransactionsByPayerId(payerId);
+        final int id = Integer.parseInt(payerId);
+        List<TransactionDTO> transactions = transactionService.getTransactionsByPayerId(id);
         return ResponseEntity.ok(transactions);
     }
 

@@ -53,8 +53,7 @@ public class Account {
     @Column(name = "img")
     private String img;
 
-    @Column(name = "stripe_customer_id")
-    private String stripeCustomerId;
+  
     
 
     public Long getId() {
@@ -180,11 +179,5 @@ public class Account {
         this.img = img;
     }
 
-    public String getStripeCustomerId() {
-        return stripeCustomerId;
-    }
-
-    public void setStripeCustomerId(String stripeCustomerId) {
-        this.stripeCustomerId = stripeCustomerId;
-    }
+ 
 }

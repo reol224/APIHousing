@@ -24,14 +24,14 @@ public class TransactionService {
     }
 
     public List<TransactionDTO> getAllTransactions() {
-        List<Transaction> transactions = transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findAllByOrderByIdDesc();
         return transactions.stream()
                 .map(TransactionDTO::new)
                 .collect(Collectors.toList());
     }
 
-    public List<TransactionDTO> getTransactionsByPayerId(String payerId) {
-        List<Transaction> transactions = transactionRepository.findByPayerId(payerId);
+    public List<TransactionDTO> getTransactionsByPayerId(int payerId) {
+        List<Transaction> transactions = transactionRepository.findByPayerIdOrderByIdDesc(payerId);
         return transactions.stream()
                 .map(TransactionDTO::new)
                 .collect(Collectors.toList());

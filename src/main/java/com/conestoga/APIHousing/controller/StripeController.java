@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.logging.Logger;
 import com.stripe.model.Event;
 import com.stripe.model.EventDataObjectDeserializer;
+import com.stripe.model.Invoice;
 
 
 @RestController
@@ -94,7 +95,7 @@ public class StripeController {
         Transaction transaction = new Transaction();
 
         String payerName = paymentIntent.getMetadata().get("payerName");
-        String payerId = paymentIntent.getMetadata().get("payerId");
+        int payerId = Integer.parseInt(paymentIntent.getMetadata().get("payerId"));
         int paymentFor = Integer.parseInt(paymentIntent.getMetadata().get("paymentFor"));
         String externalId = paymentIntent.getMetadata().get("externalId");
 

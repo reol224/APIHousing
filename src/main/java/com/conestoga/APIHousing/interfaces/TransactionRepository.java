@@ -10,6 +10,10 @@ import java.util.List;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-    // Add a method to get transactions by payerId
-    List<Transaction> findByPayerId(String payerId);
+    
+    //findByPayerIdOrderByRequestIdDesc
+    List<Transaction> findByPayerIdOrderByIdDesc(int payerId);
+
+    //get all desc
+    List<Transaction> findAllByOrderByIdDesc();
 }

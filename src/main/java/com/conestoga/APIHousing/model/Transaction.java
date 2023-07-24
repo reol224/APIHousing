@@ -16,7 +16,11 @@ public class Transaction {
     private String currency;
     private String paymentStatus;
     private String payerName;
-    private String payerId;
+
+    @Column(name = "payer_id")
+    private int payerId;
+
+
     /**
      * 1 is rent, 2 is events
      */
@@ -30,7 +34,7 @@ public class Transaction {
     }
 
     public Transaction(Long id, String paymentIntentId, BigDecimal amount, String currency, String paymentStatus,
-                       String payerName, String payerId, int paymentFor, String paymentMethod, Timestamp createdAt, String description,
+                       String payerName, int payerId, int paymentFor, String paymentMethod, Timestamp createdAt, String description,
                        Integer externalId) {
         this.id = id;
         this.paymentIntentId = paymentIntentId;
@@ -103,11 +107,11 @@ public class Transaction {
         this.payerName = payerName;
     }
 
-    public String getPayerId() {
+    public int getPayerId() {
         return payerId;
     }
 
-    public void setPayerId(String payerId) {
+    public void setPayerId(int payerId) {
         this.payerId = payerId;
     }
 

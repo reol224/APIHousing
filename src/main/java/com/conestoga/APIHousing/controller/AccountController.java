@@ -89,7 +89,7 @@ public class AccountController {
 
             // Associate the Stripe customer ID with the newly created account
             //createdAccount.setStripeCustomerId(customer.getId()); // Assuming you have a setter for the Stripe customer ID in your Account class
-            customer.setId(createdAccount.getStripeCustomerId());
+            // customer.setId(createdAccount.getStripeCustomerId());
 
 
             logger.info("Successfully created Stripe customer: " + customer.getId());

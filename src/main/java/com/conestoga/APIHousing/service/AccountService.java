@@ -45,8 +45,7 @@ public class AccountService  {
     }
 
     public LoginResponse loginAccount(LoginRequest loginRequest) {
-        // Print request body
-        // System.out.println(loginRequest);
+      
 
         // Create a new authentication token
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
@@ -66,7 +65,11 @@ public class AccountService  {
           Optional<Account> existingAccountOptional = accountRepository.findByEmail(loginRequest.getEmail());
         if (existingAccountOptional.isPresent()) {
             Account existingAccount = existingAccountOptional.get();
-            existingAccount.setFcm(loginRequest.getFcm());
+            //check if loginRequest.getFcm() is empty or null
+            if(loginRequest.getFcm() != null && !loginRequest.getFcm().isEmpty())
+            {
+                existingAccount.setFcm(loginRequest.getFcm());
+            }
             accountRepository.save(existingAccount);
         }
 
@@ -130,7 +133,6 @@ public class AccountService  {
     public Account convertToAccount(AccountDTO accountDTO) {
         Account account = new Account();
         account.setEmail(accountDTO.getEmail());
-        account.setPassword(accountDTO.getPassword());
         account.setEmail(accountDTO.getEmail());
         account.setFirstName(accountDTO.getFirstName());
         account.setLastName(accountDTO.getLastName());
@@ -150,7 +152,6 @@ public class AccountService  {
     private AccountDTO convertToAccountDTO(Account account) {
       return new AccountDTO(
         account.getId(),
-        account.getPassword(),
         account.getEmail(),
         account.getFirstName(),
         account.getLastName(),

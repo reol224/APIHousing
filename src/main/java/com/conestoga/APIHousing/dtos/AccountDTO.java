@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class AccountDTO {
     private Long id;
     private String stripeCustomerId;
-    private String password;
     private String email;
     private String firstName;
     private String lastName;
@@ -22,12 +21,11 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public AccountDTO(Long id, String password, String email, String firstName, String lastName,
+    public AccountDTO(Long id,  String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role,
                       String img
     ) {
         this.id = id;
-        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -43,11 +41,10 @@ public class AccountDTO {
 
     }
 
-    public AccountDTO(String password, String email, String firstName, String lastName,
+    public AccountDTO(String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode,
                       int role, String img
     ) {
-        this.password = password;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,13 +69,6 @@ public class AccountDTO {
     }
 
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getEmail() {
         return email;
@@ -185,6 +175,6 @@ public class AccountDTO {
     }
 
     public AccountDTO copy() {
-        return new AccountDTO(id, password, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode, role, img);
+        return new AccountDTO(id, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode, role, img);
     }
 }

@@ -190,7 +190,6 @@ public class StripeController {
                 logger.info("Customer Phone: " + invoice.getCustomerPhone());
                 logger.info("Customer Address: " + invoice.getCustomerAddress().getCity() + ", " + invoice.getCustomerAddress().getCountry());
                 logger.info("Amount Paid: " + invoice.getAmountPaid());
-                logger.info("Amount Due: " + invoice.getAmountDue());
             }
 
 

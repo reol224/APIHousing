@@ -35,13 +35,13 @@ public class AccountService  {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public Account createAccount(AccountDTO accountDTO) throws IOException {
+    public AccountDTO createAccount(AccountDTO accountDTO) throws IOException {
         Account account = convertToAccount(accountDTO);
         if(account.getImg() != null && !account.getImg().isEmpty()){
                     account.setImg(FileUpload.convertBase64ToFile(account.getImg()));
         }
 
-        return accountRepository.save(account);
+        return convertToAccountDTO(accountRepository.save(account));
     }
 
     public LoginResponse loginAccount(LoginRequest loginRequest) {
@@ -133,7 +133,7 @@ public class AccountService  {
     public Account convertToAccount(AccountDTO accountDTO) {
         Account account = new Account();
         account.setEmail(accountDTO.getEmail());
-        account.setEmail(accountDTO.getEmail());
+        account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
         account.setFirstName(accountDTO.getFirstName());
         account.setLastName(accountDTO.getLastName());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
@@ -163,7 +163,8 @@ public class AccountService  {
         account.getStudentId(),
         account.getPostalCode(),
         account.getRole(),
-        account.getImg()
+        account.getImg(),
+        null
       );
     }
 }

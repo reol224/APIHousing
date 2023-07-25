@@ -60,51 +60,13 @@ public class AccountController {
     }
 
 
-    @PostMapping("/create")
-    public ResponseEntity<Account> createAccount(@RequestBody AccountDTO accountDTO) throws IOException, StripeException {
-        Account createdAccount = accountService.createAccount(accountDTO);
-
-        try {
-            CustomerCreateParams params =
-                    CustomerCreateParams.builder()
-                            .setName(createdAccount.getFirstName() + " " + createdAccount.getLastName()) // Use the account holder's name
-                            .setPhone(createdAccount.getPhoneNumber()) // Use the account holder's phone
-                            .setEmail(createdAccount.getEmail()) // Use the account holder's email
-                            .setAddress(
-                                    CustomerCreateParams.Address.builder()
-                                            .setLine1(createdAccount.getAddress())
-                                            .setCity("Kitchener")
-                                            .setState("ON")
-                                            .setPostalCode("N2G 4M4")
-                                            .setCountry("CA")
-                                            .build())
-                            .putExtraParam("College Name", createdAccount.getCollegeName())
-                            .putExtraParam("Student ID", createdAccount.getStudentId())
-                            .putExtraParam("Postal Code", createdAccount.getPostalCode())
-                            .setDescription("Example description")
-                            // Set other relevant data (address, metadata, payment method, etc.) from the account
-                            .build();
-
-            Customer customer = Customer.create(params);
-
-            // Associate the Stripe customer ID with the newly created account
-            //createdAccount.setStripeCustomerId(customer.getId()); // Assuming you have a setter for the Stripe customer ID in your Account class
-            // customer.setId(createdAccount.getStripeCustomerId());
-
-
-            logger.info("Successfully created Stripe customer: " + customer.getId());
-
-            // Return the newly created account with Stripe customer information
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
-
-        } catch (StripeException ex) {
-            // Handle any exceptions that might occur during the Stripe API call
-            // You can log the error, notify the user, or take appropriate action
-            logger.info("Error creating Stripe customer: " + ex.getMessage());
-            // In case of an error, you can decide how to handle it. For example, you might want to delete the created account if the customer creation fails.
-            accountService.deleteAccount(createdAccount.getId()); // Assuming you have a method to delete the account by ID in your accountService
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+       @PostMapping("/create")
+    public ResponseEntity<AccountDTO> createAccount(@RequestBody AccountDTO accountDTO) throws IOException {
+        // print request body
+        System.out.println("Request body:");
+        System.out.println(accountDTO);
+        AccountDTO createdAccount = accountService.createAccount(accountDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAccount);
     }
 
     @GetMapping("/{id}")

@@ -17,13 +17,14 @@ public class AccountDTO {
     private String postalCode;
     private int role;
     private String img;
+    private String password;
 
     public AccountDTO() {
     }
 
     public AccountDTO(Long id,  String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode, int role,
-                      String img
+                      String img, String password
     ) {
         this.id = id;
         this.email = email;
@@ -38,12 +39,13 @@ public class AccountDTO {
         this.postalCode = postalCode;
         this.role = role;
         this.img = img;
+        this.password = password;
 
     }
 
     public AccountDTO(String email, String firstName, String lastName,
                       String phoneNumber, String address, LocalDate dateOfBirth, String fcm, String collegeName, String studentId, String postalCode,
-                      int role, String img
+                      int role, String img, String password
     ) {
         this.email = email;
         this.firstName = firstName;
@@ -57,6 +59,7 @@ public class AccountDTO {
         this.postalCode = postalCode;
         this.role = role;
         this.img = img;
+        this.password = password;
     }
 
     // Getters and Setters
@@ -166,6 +169,15 @@ public class AccountDTO {
         return img;
     }
 
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public String getStripeCustomerId() {
         return stripeCustomerId;
     }
@@ -174,7 +186,5 @@ public class AccountDTO {
         this.stripeCustomerId = stripeCustomerId;
     }
 
-    public AccountDTO copy() {
-        return new AccountDTO(id, email, firstName, lastName, phoneNumber, address, dateOfBirth, fcm, collegeName, studentId, postalCode, role, img);
-    }
+    
 }

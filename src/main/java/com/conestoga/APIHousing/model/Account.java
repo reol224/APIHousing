@@ -2,6 +2,8 @@ package com.conestoga.APIHousing.model;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -31,7 +33,8 @@ public class Account {
 
     @Column(name = "address")
     private String address;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 

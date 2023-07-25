@@ -30,6 +30,9 @@ public class Event {
     @Column(name = "event_status")
     private int eventStatus;//Event status: int (1 upcoming, 2 ongoing, or  3completed.)
 
+      @Column(name = "fee")
+    private int fee;
+
 
     // Getters and Setters
 
@@ -95,5 +98,13 @@ public class Event {
 
     public void setEventStatus(int eventStatus) {
         this.eventStatus = eventStatus;
+    }
+
+    public int getFee() {
+        return fee;
+    }
+
+    public void setFee(int fee) {
+        this.fee = fee;
     }
 }

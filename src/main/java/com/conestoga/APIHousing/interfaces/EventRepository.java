@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e WHERE e.eventStatus IN (1, 2)")
-    List<Event> findActiveEvents();
+    List<Event> findActiveEventsOrderByIdDesc();
+
+        List<Event> findAllByOrderByIdDesc();
 
 }

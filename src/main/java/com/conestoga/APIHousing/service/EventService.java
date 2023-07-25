@@ -30,11 +30,11 @@ public class EventService {
     }
 
     public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+        return eventRepository.findAllByOrderByIdDesc();
     }
 
     public List<Event> getActiveEvents() {
-        return eventRepository.findActiveEvents();
+        return eventRepository.findActiveEventsOrderByIdDesc();
     }
 
     public Event getEventById(Long eventId) throws Exception {

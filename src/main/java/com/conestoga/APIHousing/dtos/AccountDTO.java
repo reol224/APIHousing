@@ -2,6 +2,8 @@ package com.conestoga.APIHousing.dtos;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class AccountDTO {
     private Long id;
     private String stripeCustomerId;
@@ -10,7 +12,11 @@ public class AccountDTO {
     private String lastName;
     private String phoneNumber;
     private String address;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
+
     private String fcm;
     private String collegeName;
     private String studentId;

@@ -10,6 +10,7 @@ import com.conestoga.APIHousing.utils.ErrorResponse;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -116,6 +117,29 @@ public class AccountController {
     @GetMapping("/test")
     public ResponseEntity<String> test2() {
         return ResponseEntity.ok("Test worked!");
+    }
+
+    //reset password
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String password = requestBody.get("password");
+        // Check if the user with the provided email exists in your user database
+        AccountDTO account = accountService.getAccountByEmail(email);
+        if (account == null) {
+            return ResponseEntity.badRequest().body("Email not registered");
+        }
+
+        else {
+           boolean result = accountService.updatePassword(password, email);
+              if(result){
+                return ResponseEntity.ok("Password updated successfully");
+              }
+              else{
+                return ResponseEntity.badRequest().body("Error updating password");
+              }
+        }
+       
     }
 
 

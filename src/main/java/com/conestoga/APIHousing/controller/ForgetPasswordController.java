@@ -1,5 +1,10 @@
 package com.conestoga.APIHousing.controller;
 
+import com.conestoga.APIHousing.dtos.AccountDTO;
+import com.conestoga.APIHousing.model.Account;
+import com.conestoga.APIHousing.model.Pin;
+import com.conestoga.APIHousing.service.AccountService;
+import com.conestoga.APIHousing.service.PinService;
 import com.stripe.param.issuing.CardUpdateParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +24,18 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 public class ForgetPasswordController {
     private Map<String, String> resetTokens = new ConcurrentHashMap<>();
+    private PinService pinService;
 
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @PostMapping("/forget-password")
-    public ResponseEntity<String> forgetPassword(@RequestBody Map<String, String> requestBody) {
+    @Autowired
+    public ForgetPasswordController(PinService pinService ) {
+        this.pinService = pinService;
+    }
+
+    @PostMapping("/api/send-pin")
+    public ResponseEntity<String> sendPin(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
 
         // Check if the user with the provided email exists in your user database
@@ -43,10 +54,30 @@ public class ForgetPasswordController {
         return ResponseEntity.ok("Reset token sent to your email address.");
     }
 
+
+    //validate the reset token
+    @PostMapping("/api/validate")
+    public ResponseEntity<Boolean> validateResetToken(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
+        String pin = requestBody.get("pin");
+
+        boolean result= pinService.checkPinByEmailAndPinCode(email, pin);
+
+
+        // if result is false return bad requese
+        if(!result){
+            return ResponseEntity.badRequest().body(result);
+        }
+
+        // If all the checks are passed, return a success response.
+        return ResponseEntity.ok(result);
+    }
+
+ 
     private String generateRandomResetToken() {
-        // Generate a random reset token (e.g., a 6-digit code)
+        // Generate a random reset token of 4 digits
         Random random = new Random();
-        int token = 100_000 + random.nextInt(900_000);
+        int token = random.nextInt(10000);
         return String.valueOf(token);
     }
 
@@ -60,6 +91,7 @@ public class ForgetPasswordController {
             helper.setText("Your password reset token is: " + resetToken);
 
             javaMailSender.send(message);
+            pinService.savePin(new Pin(email, resetToken));
         } catch (MessagingException e) {
             e.printStackTrace();
             // Handle the exception or log the error appropriately

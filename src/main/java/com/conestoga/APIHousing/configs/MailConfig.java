@@ -7,16 +7,22 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+import com.icegreen.greenmail.util.GreenMail;
+import com.icegreen.greenmail.util.ServerSetup;
+import com.icegreen.greenmail.util.ServerSetupTest;
+
 @Configuration
 public class MailConfig {
 
     @Bean
     public JavaMailSender javaMailSender() {
+         
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("smtp.gmail.com"); // You can change this if you use a different email provider
+        mailSender.setHost("in-v3.mailjet.com"); // You can change this if you use a different email provider
         mailSender.setPort(587);
-        mailSender.setUsername("YOUR_GMAIL_ADDRES");
-        mailSender.setPassword("YOUR_GMAIL_PASSWORD");
+        mailSender.setUsername("c1d21f2db63170ad9cffcf57bd74ccd7");
+        mailSender.setPassword("66864bfd273602dd0d7fbb8b5f3aa17e");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

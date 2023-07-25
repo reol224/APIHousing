@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -84,6 +85,11 @@ public class AccountService  {
         return accountOptional.map(this::convertToAccountDTO).orElse(null);
     }
 
+    public AccountDTO getAccountByEmail(String email) {
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        return accountOptional.map(this::convertToAccountDTO).orElse(null);
+    }
+
     public Account updateAccount(String accountId, AccountDTO accountDTO) {
         long id;
         try {
@@ -94,8 +100,9 @@ public class AccountService  {
 
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (accountOptional.isPresent()) {
-            Account account = accountOptional.get();
-          account =  convertToAccount(accountDTO);
+            Account account = convertToAccount(accountDTO);
+
+         
             // account.setEmail(accountDTO.getEmail());
             // account.setPassword(accountDTO.getPassword());
             // account.setEmail(accountDTO.getEmail());
@@ -123,6 +130,19 @@ public class AccountService  {
         return false;
     }
 
+
+    @Transactional
+    public boolean updatePassword(String password, String email) {
+        Optional<Account> accountOptional = accountRepository.findByEmail(email);
+        if (accountOptional.isPresent()) {
+            Account account = accountOptional.get();
+            account.setPassword(password);
+            accountRepository.save(account);
+            return true;
+        } else {
+    
+            return false;    }
+    }
     public List<AccountDTO> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
         return accounts.stream()

@@ -133,7 +133,7 @@ public class AccountController {
         else {
            boolean result = accountService.updatePassword(password, email);
               if(result){
-                return ResponseEntity.ok("Password updated successfully");
+                return ResponseEntity.ok().body(null);
               }
               else{
                 return ResponseEntity.badRequest().body("Error updating password");

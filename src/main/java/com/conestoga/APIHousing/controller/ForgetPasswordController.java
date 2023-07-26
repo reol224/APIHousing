@@ -35,7 +35,7 @@ public class ForgetPasswordController {
     }
 
     @PostMapping("/api/send-pin")
-    public ResponseEntity<String> sendPin(@RequestBody Map<String, String> requestBody) {
+    public ResponseEntity<Map<String, String>> sendPin(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
 
         // Check if the user with the provided email exists in your user database
@@ -51,7 +51,7 @@ public class ForgetPasswordController {
         // Send the reset token to the user's email address
         sendResetTokenToEmail(email, resetToken);
 
-        return ResponseEntity.ok("Reset token sent to your email address.");
+        return ResponseEntity.ok().body(null);
     }
 
 
@@ -70,7 +70,7 @@ public class ForgetPasswordController {
         }
 
         // If all the checks are passed, return a success response.
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok().build();
     }
 
  

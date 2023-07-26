@@ -6,6 +6,9 @@ package com.conestoga.APIHousing.controller;
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.conestoga.APIHousing.service.ChatMessageService;
 import com.conestoga.APIHousing.service.FirebaseService;
+import com.conestoga.APIHousing.utils.Constants;
+
+import jnr.constants.Constant;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +60,7 @@ public ResponseEntity<List<ChatMessage>> getChatMessages(@RequestParam(defaultVa
     @PostMapping
     public ResponseEntity<ChatMessage> saveChatMessage(@RequestBody ChatMessage chatMessage) throws IOException {
         ChatMessage savedChatMessage = chatMessageService.saveChatMessage(chatMessage);
-        firebaseService.sendPushNotification(chatMessage.getSenderName(), chatMessage.getBriefMsg());
+        firebaseService.sendPushNotification(chatMessage.getSenderName(), chatMessage.getBriefMsg(),null);
         return new ResponseEntity<>(savedChatMessage, HttpStatus.CREATED);
     }
 }

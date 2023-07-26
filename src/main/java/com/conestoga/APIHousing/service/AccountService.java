@@ -85,6 +85,8 @@ public class AccountService  {
         return accountOptional.map(this::convertToAccountDTO).orElse(null);
     }
 
+    
+
     public AccountDTO getAccountByEmail(String email) {
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
         return accountOptional.map(this::convertToAccountDTO).orElse(null);
@@ -186,5 +188,14 @@ public class AccountService  {
         account.getImg(),
         null
       );
+    }
+
+    public String getFcmToken(Long userId) {
+        Optional<Account> accountOptional = accountRepository.findById(userId);
+        if (accountOptional.isPresent()) {
+            Account account = accountOptional.get();
+            return account.getFcm();
+        }
+        return null;
     }
 }

@@ -1,7 +1,12 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.model.Event;
+import com.conestoga.APIHousing.model.Notification;
+import com.conestoga.APIHousing.model.Rsvp;
 import com.conestoga.APIHousing.service.EventService;
+import com.conestoga.APIHousing.service.NotificationService;
+import com.conestoga.APIHousing.utils.Constants;
+
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +19,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/events")
 public class EventController {
     private final EventService eventService;
+    private final NotificationService notificationService;
 
     @Autowired
-    public EventController(EventService eventService) {
+    public EventController(EventService eventService, NotificationService notificationService) {
         this.eventService = eventService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping
@@ -61,12 +68,12 @@ public ResponseEntity<String> rsvpForEvent( @RequestBody Map<String, Long> reque
     Long userId = requestBody.get("user_id");
         Long eventId = requestBody.get("event_id");
 
-    boolean success = eventService.rsvpForEvent(eventId, userId);
-    if (success) {
+    Rsvp resp = eventService.rsvpForEvent(eventId, userId);
+    
+     notificationService.create(new Notification("You RSVPed for "+resp.getEvent().getEventName(), userId, Constants.NOTIFICATION_TYPE_EVENT));
+
         return new ResponseEntity<>( HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>("Failed to RSVP for event", HttpStatus.BAD_REQUEST);
-    }
+    
 }
 
 @GetMapping("/hasRsvp")
@@ -81,12 +88,10 @@ public ResponseEntity<String> cancelRsvpForEvent(@RequestBody Map<String, Long> 
     Long userId = requestBody.get("user_id");
     Long eventId = requestBody.get("event_id");
 
-    boolean success = eventService.cancelRsvpForEvent(eventId, userId);
-    if (success) {
+    Rsvp response = eventService.cancelRsvpForEvent(eventId, userId);
+    notificationService.create(new Notification("You cancelled your RSVP for "+response.getEvent().getEventName(), userId, Constants.NOTIFICATION_TYPE_EVENT));
         return new ResponseEntity<>( HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>("Failed to cancel RSVP for event", HttpStatus.BAD_REQUEST);
-    }
 }
+   
 
 }

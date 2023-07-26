@@ -1,8 +1,12 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.model.Notice;
+import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.service.FirebaseService;
 import com.conestoga.APIHousing.service.NoticeService;
+import com.conestoga.APIHousing.service.NotificationService;
+import com.conestoga.APIHousing.utils.Constants;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +19,13 @@ import java.util.List;
 public class NoticeController {
 
     private final NoticeService noticeService;
-    private final FirebaseService firebaseService;
+    private final NotificationService notificationService;
 
 
     @Autowired
-    public NoticeController(NoticeService noticeService, FirebaseService firebaseService) {
+    public NoticeController(NoticeService noticeService, NotificationService notificationService) {
         this.noticeService = noticeService;
-        this.firebaseService = firebaseService;
+        this.notificationService = notificationService;
     }
 
     @GetMapping
@@ -34,12 +38,8 @@ public class NoticeController {
     @PostMapping
     public ResponseEntity<Notice> createNotice(@RequestBody Notice Notice) {
         Notice createdNotice = noticeService.createNotice(Notice);
-        if (createdNotice != null) {
-            firebaseService.sendPushNotification(createdNotice.getTitle(), createdNotice.getBody());
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdNotice);
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+        notificationService.create(new Notification("New Notice: "+createdNotice.getTitle(), null, Constants.NOTIFICATION_TYPE_NOTICE));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdNotice);
     }
     
 

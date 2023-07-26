@@ -1,5 +1,13 @@
 package com.conestoga.APIHousing.service;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.EventRepository;
 import com.conestoga.APIHousing.interfaces.RsvpRepository;
@@ -7,13 +15,6 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
 import com.conestoga.APIHousing.utils.FileUpload;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -46,24 +47,24 @@ public class EventService {
     }
 
     @Transactional
-    public boolean rsvpForEvent(Long eventId, Long userId) throws Exception  {
+    public Rsvp rsvpForEvent(Long eventId, Long userId) throws Exception  {
         Event event = getEventById(eventId);
         Account user  = accountRepository.findById(userId).orElseThrow();
         Rsvp rsvp = new Rsvp(user, event);
-        rsvpRepository.save(rsvp);
-        return true;
+        return rsvpRepository.save(rsvp);
     }
 
   @Transactional
-public boolean cancelRsvpForEvent(Long eventId, Long userId) throws Exception {
+public Rsvp cancelRsvpForEvent(Long eventId, Long userId) throws Exception {
     Optional<Rsvp> optionalRsvp = rsvpRepository.findByEventIdAndUserId(eventId, userId);
     if (optionalRsvp.isPresent()) {
         Rsvp rsvp = optionalRsvp.get();
-        rsvpRepository.delete(rsvp);
-        return true;
-    } else {
+         rsvpRepository.delete(rsvp);
+            return rsvp;
+   
+    } 
         throw new Exception("RSVP not found for Event ID: " + eventId + " and User ID: " + userId);
-    }
+    
 }
 
   public Event createEvent(Event event) throws Exception {

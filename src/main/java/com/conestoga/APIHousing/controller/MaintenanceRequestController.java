@@ -1,7 +1,11 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.dtos.MaintenanceRequestDTO;
+import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.service.MaintenanceRequestService;
+import com.conestoga.APIHousing.service.NotificationService;
+import com.conestoga.APIHousing.utils.Constants;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +18,11 @@ import java.util.List;
 public class MaintenanceRequestController {
 
     private final MaintenanceRequestService maintenanceRequestService;
+    private final NotificationService notificationService;
 
-    public MaintenanceRequestController(MaintenanceRequestService maintenanceRequestService) {
+    public MaintenanceRequestController(MaintenanceRequestService maintenanceRequestService, NotificationService notificationService) {
         this.maintenanceRequestService = maintenanceRequestService;
+        this.notificationService = notificationService;
     }
 
     @PostMapping
@@ -24,6 +30,7 @@ public class MaintenanceRequestController {
             @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) throws IOException {
         MaintenanceRequestDTO createdMaintenanceRequest = maintenanceRequestService
                 .createMaintenanceRequest(maintenanceRequestDTO);
+        notificationService.create(new Notification("New maintainence request created!", maintenanceRequestDTO.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMaintenanceRequest);
     }
 
@@ -42,6 +49,8 @@ public class MaintenanceRequestController {
         MaintenanceRequestDTO updatedMaintenanceRequest = maintenanceRequestService.updateMaintenanceRequest(requestId,
                 maintenanceRequestDTO);
         if (updatedMaintenanceRequest != null) {
+                    notificationService.create(new Notification("There is an update to your maintenance request", maintenanceRequestDTO.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
+
             return ResponseEntity.ok(updatedMaintenanceRequest);
         }
         return ResponseEntity.notFound().build();

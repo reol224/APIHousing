@@ -60,11 +60,11 @@ public class BookingController {
         //prepare readale date string for notification. like July 1, 2021 to July 5, 2021
         String readableDate = bookedFrom.getMonth().name() + " " + bookedFrom.getDayOfMonth() + ", " + bookedFrom.getYear() + " to " + bookedTo.getMonth().name() + " " + bookedTo.getDayOfMonth() + ", " + bookedTo.getYear();
 
-         notificationService.create(new Notification("You booked "+item.getName()+" from "+readableDate, request.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
+         notificationService.create(new Notification("You booked "+item.getName()+" from "+readableDate, request.getUserId(), Constants.NOTIFICATION_TYPE_Booking));
 
 
         bookingService.bookItem(item, request.userId, bookedFrom, bookedTo);
-        return ResponseEntity.ok("Item booked successfully.");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/status/{itemId}")

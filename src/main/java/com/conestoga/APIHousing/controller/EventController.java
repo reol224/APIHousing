@@ -54,6 +54,17 @@ public ResponseEntity<String> deleteEvent(@PathVariable Long id) {
         return new ResponseEntity<>("Failed to delete event", HttpStatus.BAD_REQUEST);
     }
 }
+//putmapping for event
+@PutMapping("/update")
+public ResponseEntity<Event> updateEvent(@RequestBody Event event) {
+    try {
+        Event updatedEvent = eventService.createEvent(event);
+        return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+    } catch (Exception e) {
+        e.printStackTrace();
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    }
+}
 
 
 

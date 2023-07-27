@@ -114,7 +114,7 @@ public class LeaseService {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
         leaseDTO.setUserId(lease.getUser().getId());
-        leaseDTO.setSubresidenceId(lease.getSubresidence().getunit_id());
+        leaseDTO.setSubresidenceId(lease.getSubresidence().getUnitId());
         leaseDTO.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
         leaseDTO.setUser(AccountService.convertToAccountDTO(lease.getUser()));
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());

@@ -90,7 +90,7 @@ public class MaintenanceRequestDTO {
     public static MaintenanceRequestDTO fromModel(MaintenanceRequest maintenanceRequest) {
         MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
         maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
-        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getunit_id());
+        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getUnitId());
         maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
         maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
         maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());

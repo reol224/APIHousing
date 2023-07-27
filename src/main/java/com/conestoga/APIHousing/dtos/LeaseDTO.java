@@ -8,38 +8,26 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LeaseDTO {
    private Long leaseId;
+
+    private Long userId;
     private AccountDTO user;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseStartDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseEndDate;
     private int leaseStatus;
+
+    private Long subresidenceId;
     private SubresidenceDTO subresidence;
+
     private String unitNo;
 
 
 
-    //to model
-    public Lease toModel() {
-        Lease lease = new Lease();
-        lease.setLeaseId(this.leaseId);
-        lease.setLeaseStartDate(this.leaseStartDate);
-        lease.setLeaseEndDate(this.leaseEndDate);
-        lease.setLeaseStatus(this.leaseStatus);
-        lease.setSubresience(this.subresidence.convertToModel());
-        lease.setUnitNo(this.unitNo);
-        return lease;
-    }
 
-    //fromDtro to model
-    public  LeaseDTO (Lease lease) {
-        this.setLeaseId(lease.getLeaseId());
-        this.setLeaseStartDate(lease.getLeaseStartDate());
-        this.setLeaseEndDate(lease.getLeaseEndDate());
-        this.setLeaseStatus(lease.getLeaseStatus());
-        this.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
-        this.setUnitNo(lease.getUnitNo());
-    }
+
+ 
 
     public LeaseDTO() {
 
@@ -53,6 +41,14 @@ public class LeaseDTO {
         this.leaseId = leaseId;
     }
 
+    // setter and getter for userId
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
  
     public AccountDTO getUser() {
         return user;
@@ -85,6 +81,15 @@ public class LeaseDTO {
 
     public void setLeaseStatus(int leaseStatus) {
         this.leaseStatus = leaseStatus;
+    }
+
+    // setter and getter for subresidenceId
+    public Long getSubresidenceId() {
+        return subresidenceId;
+    }
+
+    public void setSubresidenceId(Long subresidenceId) {
+        this.subresidenceId = subresidenceId;
     }
 
     public SubresidenceDTO getSubresidence() {

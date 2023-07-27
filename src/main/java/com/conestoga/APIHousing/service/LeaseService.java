@@ -32,8 +32,8 @@ public class LeaseService {
     public LeaseDTO createLease(LeaseDTO leaseDTO) {
         Lease lease = convertToLease(leaseDTO);
         lease.setLeaseStatus(0);
-        Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
-        Account user = accountRepository.findById(leaseDTO.getUser().getId()).orElse(null);
+        Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidenceId()).orElse(null);
+        Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
         if (subresidence != null && user != null) {
             lease.setSubresience(subresidence);
@@ -53,15 +53,17 @@ public class LeaseService {
         Optional<Lease> leaseOptional = leaseRepository.findById(leaseId);
         if (leaseOptional.isPresent()) {
             Lease lease = leaseOptional.get();
-            Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
-            Account user = accountRepository.findById(leaseDTO.getUser().getId()).orElse(null);
+            Subresidence Subresidence = subresidenceRepository.findById(leaseDTO.getSubresidenceId()).orElse(null);
+            Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
-            if (subresidence != null && user != null) {
-                lease.setSubresience(subresidence);
+            if (Subresidence != null && user != null) {
+                lease.setSubresience(Subresidence);
                 lease.setUser(user);
                 lease.setLeaseStartDate(leaseDTO.getLeaseStartDate());
                 lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
                 lease.setLeaseStatus(leaseDTO.getLeaseStatus());
+                lease.setUnitNo(leaseDTO.getUnitNo());
+                
                 Lease updatedLease = leaseRepository.save(lease);
                 return convertToLeaseDTO(updatedLease);
             }
@@ -111,6 +113,8 @@ public class LeaseService {
     private LeaseDTO convertToLeaseDTO(Lease lease) {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
+        leaseDTO.setUserId(lease.getUser().getId());
+        leaseDTO.setSubresidenceId(lease.getSubresidence().getunit_id());
         leaseDTO.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
         leaseDTO.setUser(AccountService.convertToAccountDTO(lease.getUser()));
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());

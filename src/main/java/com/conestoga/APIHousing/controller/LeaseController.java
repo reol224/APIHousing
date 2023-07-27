@@ -1,7 +1,11 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.dtos.LeaseDTO;
+import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.service.LeaseService;
+import com.conestoga.APIHousing.service.NotificationService;
+import com.conestoga.APIHousing.utils.Constants;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,15 +17,20 @@ import java.util.List;
 public class LeaseController {
 
     private final LeaseService leaseService;
+    private final NotificationService notificationService;
 
-    public LeaseController(LeaseService leaseService) {
+    public LeaseController(LeaseService leaseService, NotificationService notificationService) {
         this.leaseService = leaseService;
+        this.notificationService = notificationService;
     }
 
     @PostMapping("/create")
     public ResponseEntity<LeaseDTO> createLease(@RequestBody LeaseDTO leaseDTO) {
         try {
             LeaseDTO createdLease = leaseService.createLease(leaseDTO);
+
+                         notificationService.create(new Notification("You have applied for lease", createdLease.getUserId(), Constants.NOTIFICATION_TYPE_Housing));
+
             
             return ResponseEntity.status(HttpStatus.CREATED).body(createdLease);
         } catch (Exception e) {
@@ -52,6 +61,16 @@ public class LeaseController {
         try {
             LeaseDTO updatedLease = leaseService.updateLease(leaseId, leaseDTO);
             if (updatedLease != null) {
+                String msg = "";
+                if(updatedLease.getLeaseStatus()==1)
+                {
+                    msg = "Your lease for "+updatedLease.getUnitNo()+ " has been approved";
+                }
+                else{
+                    msg = "Your lease for "+updatedLease.getUnitNo()+ " has been rejected";
+                }
+                         notificationService.create(new Notification(msg, updatedLease.getUserId(), Constants.NOTIFICATION_TYPE_Housing));
+
                 return ResponseEntity.ok(updatedLease);
             }
             return ResponseEntity.notFound().build();

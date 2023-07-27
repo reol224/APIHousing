@@ -2,15 +2,15 @@ package com.conestoga.APIHousing.model;
 
 import org.springframework.data.annotation.Id;
 
-import com.conestoga.APIHousing.dtos.UnitDTO;
+import com.conestoga.APIHousing.dtos.SubresidenceDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "units")
-public class Unit {
+@Table(name = "subresidence")
+public class Subresidence {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,6 @@ public class Unit {
      @JsonIgnore  // Add this annotation to break the cycle in JSON serialization
 
     private Residence residence;
-
-    @Column(name = "unit_number")
-    private String unitNumber;
 
     @Column(name = "unit_type")
     private String unitType;
@@ -38,8 +35,6 @@ public class Unit {
     @Column(name = "img")
     private String img;
 
-
-  
 
     public Long getunit_id() {
         return unit_id;
@@ -57,13 +52,6 @@ public class Unit {
         this.residence = residence;
     }
 
-    public String getUnitNumber() {
-        return unitNumber;
-    }
-
-    public void setUnitNumber(String unitNumber) {
-        this.unitNumber = unitNumber;
-    }
 
     public String getUnitType() {
         return unitType;

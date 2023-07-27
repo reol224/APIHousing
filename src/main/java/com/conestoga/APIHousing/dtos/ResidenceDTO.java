@@ -20,7 +20,7 @@ public class ResidenceDTO {
     private String address;
     private Long managerId;
     private Optional<String> img;
-    private List<UnitDTO> units;
+    private List<SubresidenceDTO> units;
     //dto from model
     public ResidenceDTO(Residence residence) {
         this.residenceId = residence.getResidenceId();
@@ -29,7 +29,7 @@ public class ResidenceDTO {
         this.description = residence.getDescription();
         this.managerId = residence.getManager().getId();
         this.img = Optional.ofNullable(residence.getImg());
-           this.units = residence.getUnits().stream().map(UnitDTO::new).collect(Collectors.toList());
+           this.units = residence.getSubResidences().stream().map(SubresidenceDTO::new).collect(Collectors.toList());
    
     }
 
@@ -87,11 +87,11 @@ public class ResidenceDTO {
         this.managerId = managerId;
     }
 
-    public List<UnitDTO> getUnits() {
+    public List<SubresidenceDTO> getUnits() {
         return units;
     }
 
-    public void setUnits(List<UnitDTO> units) {
+    public void setUnits(List<SubresidenceDTO> units) {
         this.units = units;
     }
 

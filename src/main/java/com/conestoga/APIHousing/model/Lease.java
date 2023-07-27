@@ -18,11 +18,15 @@ public class Lease {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
-    private Unit unit;
+    private Subresidence subresidence;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Account user;
+
+
+    @Column(name = "unit_no")
+    private String unitNo;
 
     @Column(name = "lease_start_date")
     private Date leaseStartDate;
@@ -45,12 +49,12 @@ public class Lease {
         this.leaseId = leaseId;
     }
 
-    public Unit getUnit() {
-        return unit;
+    public Subresidence getSubresidence() {
+        return subresidence;
     }
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
+    public void setSubresience(Subresidence subresidence) {
+        this.subresidence = subresidence;
     }
 
     public Account getUser() {
@@ -91,5 +95,13 @@ public class Lease {
 
     public void setLeaseStatus(int leaseStatus) {
         this.leaseStatus = leaseStatus;
+    }
+
+    public String getUnitNo() {
+        return unitNo;
+    }
+
+    public void setUnitNo(String unitNo) {
+        this.unitNo = unitNo;
     }
 }

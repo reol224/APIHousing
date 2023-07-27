@@ -2,7 +2,7 @@ package com.conestoga.APIHousing.interfaces;
 
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.MaintenanceRequest;
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface MaintenanceRequestRepository extends JpaRepository<MaintenanceRequest, Long> {
-    List<MaintenanceRequest> findByUnit(Unit unit);
+    List<MaintenanceRequest> findByUnit(Subresidence unit);
 
     List<MaintenanceRequest> findByUser(Account user);
 

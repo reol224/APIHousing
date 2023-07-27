@@ -16,7 +16,7 @@ public class MaintenanceRequest {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "unit_id")
-    private Unit unit;
+    private Subresidence unit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -45,11 +45,11 @@ public class MaintenanceRequest {
         this.requestId = requestId;
     }
 
-    public Unit getUnit() {
+    public Subresidence getUnit() {
         return unit;
     }
 
-    public void setUnit(Unit unit) {
+    public void setUnit(Subresidence unit) {
         this.unit = unit;
     }
 

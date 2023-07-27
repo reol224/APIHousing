@@ -3,10 +3,10 @@ package com.conestoga.APIHousing.service;
 import com.conestoga.APIHousing.dtos.MaintenanceRequestDTO;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.MaintenanceRequestRepository;
-import com.conestoga.APIHousing.interfaces.UnitRepository;
+import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.MaintenanceRequest;
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 import com.conestoga.APIHousing.utils.FileUpload;
 
 import org.springframework.stereotype.Service;
@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 public class MaintenanceRequestService {
 
     private final MaintenanceRequestRepository maintenanceRequestRepository;
-    private final UnitRepository unitRepository;
+    private final SubresidenceRepository unitRepository;
     private final AccountRepository accountRepository;
 
     public MaintenanceRequestService(MaintenanceRequestRepository maintenanceRequestRepository,
-                                     UnitRepository unitRepository,
+                                     SubresidenceRepository unitRepository,
                                      AccountRepository accountRepository) {
         this.maintenanceRequestRepository = maintenanceRequestRepository;
         this.unitRepository = unitRepository;
@@ -33,7 +33,7 @@ public class MaintenanceRequestService {
 
     public MaintenanceRequestDTO createMaintenanceRequest(MaintenanceRequestDTO maintenanceRequestDTO) throws IOException {
         MaintenanceRequest maintenanceRequest = maintenanceRequestDTO.toModel();
-        Unit unit = unitRepository.findById(maintenanceRequestDTO.getUnitId()).orElse(null);
+        Subresidence unit = unitRepository.findById(maintenanceRequestDTO.getUnitId()).orElse(null);
         Account user = accountRepository.findById(maintenanceRequestDTO.getUserId()).orElse(null);
         if (unit != null && user != null) {
             maintenanceRequest.setUnit(unit);

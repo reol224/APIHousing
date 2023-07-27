@@ -3,7 +3,7 @@ package com.conestoga.APIHousing.dtos;
 import java.util.Date;
 
 import com.conestoga.APIHousing.model.Lease;
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LeaseDTO {
@@ -15,7 +15,8 @@ public class LeaseDTO {
     private Date leaseEndDate;
     private Integer leaseLength;
     private int leaseStatus;
-        private UnitDTO unit;
+    private SubresidenceDTO subresidence;
+    private String unitNo;
 
 
 
@@ -27,7 +28,8 @@ public class LeaseDTO {
         lease.setLeaseEndDate(this.leaseEndDate);
         lease.setLeaseLength(this.leaseLength);
         lease.setLeaseStatus(this.leaseStatus);
-        lease.setUnit(this.unit.convertToUnit());
+        lease.setSubresience(this.subresidence.convertToModel());
+        lease.setUnitNo(this.unitNo);
         return lease;
     }
 
@@ -38,7 +40,8 @@ public class LeaseDTO {
         this.setLeaseEndDate(lease.getLeaseEndDate());
         this.setLeaseLength(lease.getLeaseLength());
         this.setLeaseStatus(lease.getLeaseStatus());
-        this.setunit(new UnitDTO(lease.getUnit()));
+        this.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
+        this.setUnitNo(lease.getUnitNo());
     }
 
     public LeaseDTO() {
@@ -53,14 +56,7 @@ public class LeaseDTO {
         this.leaseId = leaseId;
     }
 
-    public UnitDTO getunit() {
-        return unit;
-    }
-
-    public void setunit(UnitDTO unit) {
-        this.unit = unit;
-    }
-
+ 
     public Long getUserId() {
         return userId;
     }
@@ -99,5 +95,21 @@ public class LeaseDTO {
 
     public void setLeaseStatus(int leaseStatus) {
         this.leaseStatus = leaseStatus;
+    }
+
+    public SubresidenceDTO getSubresidence() {
+        return subresidence;
+    }
+
+    public void setSubresidence(SubresidenceDTO subresidence) {
+        this.subresidence = subresidence;
+    }
+
+    public String getUnitNo() {
+        return unitNo;
+    }
+
+    public void setUnitNo(String unitNo) {
+        this.unitNo= unitNo;
     }
 }

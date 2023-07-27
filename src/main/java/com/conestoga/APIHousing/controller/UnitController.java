@@ -1,6 +1,6 @@
 package com.conestoga.APIHousing.controller;
 
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 import com.conestoga.APIHousing.service.UnitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +21,14 @@ public class UnitController {
     }
 
     @PostMapping
-    public ResponseEntity<Unit> createUnit(@RequestBody Unit unit) throws IOException {
-        Unit createdUnit = unitService.createUnit(unit);
+    public ResponseEntity<Subresidence> createUnit(@RequestBody Subresidence unit) throws IOException {
+        Subresidence createdUnit = unitService.createUnit(unit);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUnit);
     }
 
     @GetMapping("/{unitId}")
-    public ResponseEntity<Unit> getUnitById(@PathVariable Long unitId) {
-        Unit unit = unitService.getUnitById(unitId);
+    public ResponseEntity<Subresidence> getUnitById(@PathVariable Long unitId) {
+        Subresidence unit = unitService.getUnitById(unitId);
         if (unit != null) {
             return ResponseEntity.ok(unit);
         }
@@ -36,8 +36,8 @@ public class UnitController {
     }
 
     @PutMapping("/{unitId}")
-    public ResponseEntity<Unit> updateUnit(@PathVariable Long unitId, @RequestBody Unit unit) throws IOException {
-        Unit updatedUnit = unitService.updateUnit(unitId, unit);
+    public ResponseEntity<Subresidence> updateUnit(@PathVariable Long unitId, @RequestBody Subresidence unit) throws IOException {
+        Subresidence updatedUnit = unitService.updateUnit(unitId, unit);
         if (updatedUnit != null) {
             return ResponseEntity.ok(updatedUnit);
         }
@@ -54,8 +54,8 @@ public class UnitController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Unit>> getAllUnits() {
-        List<Unit> units = unitService.getAllUnits();
+    public ResponseEntity<List<Subresidence>> getAllUnits() {
+        List<Subresidence> units = unitService.getAllUnits();
         return ResponseEntity.ok(units);
     }
 

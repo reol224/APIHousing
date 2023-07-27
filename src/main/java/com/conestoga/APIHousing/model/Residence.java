@@ -33,7 +33,7 @@ public class Residence {
 
        // Add the @OneToMany mapping for units
     @OneToMany(mappedBy = "residence", fetch = FetchType.LAZY)
-    private List<Unit> units;
+    private List<Subresidence> subResidences;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,12 +45,12 @@ public class Residence {
  
     // Getters and setters for the existing properties
 
-    public List<Unit> getUnits() {
-        return units;
+    public List<Subresidence> getSubResidences() {
+        return subResidences;
     }
 
-    public void setUnits(List<Unit> units) {
-        this.units = units;
+    public void setSubResidences(List<Subresidence> units) {
+        this.subResidences = units;
     }
   
     public Long getResidenceId() {

@@ -1,13 +1,13 @@
 package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.dtos.LeaseDTO;
-import com.conestoga.APIHousing.dtos.UnitDTO;
+import com.conestoga.APIHousing.dtos.SubresidenceDTO;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.LeaseRepository;
-import com.conestoga.APIHousing.interfaces.UnitRepository;
+import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Lease;
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,22 +18,22 @@ import java.util.stream.Collectors;
 public class LeaseService {
 
     private final LeaseRepository leaseRepository;
-    private final UnitRepository unitRepository;
+    private final SubresidenceRepository subresidenceRepository;
     private final AccountRepository accountRepository;
 
-    public LeaseService(LeaseRepository leaseRepository, UnitRepository unitRepository, AccountRepository accountRepository) {
+    public LeaseService(LeaseRepository leaseRepository, SubresidenceRepository subresidenceRepository, AccountRepository accountRepository) {
         this.leaseRepository = leaseRepository;
-        this.unitRepository = unitRepository;
+        this.subresidenceRepository = subresidenceRepository;
         this.accountRepository = accountRepository;
     }
 
     public LeaseDTO createLease(LeaseDTO leaseDTO) {
         Lease lease = convertToLease(leaseDTO);
-        Unit unit = unitRepository.findById(leaseDTO.getunit().getUnitId()).orElse(null);
+        Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
         Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
-        if (unit != null && user != null) {
-            lease.setUnit(unit);
+        if (subresidence != null && user != null) {
+            lease.setSubresience(subresidence);
             lease.setUser(user);
             Lease createdLease = leaseRepository.save(lease);
             return convertToLeaseDTO(createdLease);
@@ -50,11 +50,11 @@ public class LeaseService {
         Optional<Lease> leaseOptional = leaseRepository.findById(leaseId);
         if (leaseOptional.isPresent()) {
             Lease lease = leaseOptional.get();
-            Unit unit = unitRepository.findById(leaseDTO.getunit().getUnitId()).orElse(null);
+            Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
             Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
 
-            if (unit != null && user != null) {
-                lease.setUnit(unit);
+            if (subresidence != null && user != null) {
+                lease.setSubresience(subresidence);
                 lease.setUser(user);
                 lease.setLeaseStartDate(leaseDTO.getLeaseStartDate());
                 lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
@@ -103,18 +103,20 @@ public class LeaseService {
         lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
         lease.setLeaseLength(leaseDTO.getLeaseLength());
         lease.setLeaseStatus(leaseDTO.getLeaseStatus());
+        lease.setUnitNo(leaseDTO.getUnitNo());
         return lease;
     }
 
     private LeaseDTO convertToLeaseDTO(Lease lease) {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
-        leaseDTO.setunit(new UnitDTO(lease.getUnit()));
+        leaseDTO.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
         leaseDTO.setUserId(lease.getUser().getUserId());
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());
         leaseDTO.setLeaseEndDate(lease.getLeaseEndDate());
         leaseDTO.setLeaseLength(lease.getLeaseLength());
         leaseDTO.setLeaseStatus(lease.getLeaseStatus());
+        leaseDTO.setUnitNo(lease.getUnitNo());
         return leaseDTO;
     }
 }

@@ -2,9 +2,9 @@ package com.conestoga.APIHousing.dtos;
 
 import java.math.BigDecimal;
 
-import com.conestoga.APIHousing.model.Unit;
+import com.conestoga.APIHousing.model.Subresidence;
 
-public class UnitDTO {
+public class SubresidenceDTO {
 
     private Long unitId;
     private Long residenceId;
@@ -13,27 +13,23 @@ public class UnitDTO {
     private String unitDescription;
     private BigDecimal monthlyRent;
     private String img;
-    private String test;
         //dto from model
 
     //from model to dto
-    public UnitDTO(Unit unit) {
+    public SubresidenceDTO(Subresidence unit) {
         this.unitId = unit.getunit_id();
         this.residenceId = unit.getResidence().getResidenceId();
-        this.unitNumber = unit.getUnitNumber();
         this.unitType = unit.getUnitType();
         this.unitDescription = unit.getUnitDescription();
         this.monthlyRent = unit.getMonthlyRent();
-        this.test = "test";
         this.img = unit.getImg();
         
     }
 
     //to model
-    public Unit convertToUnit() {
-        Unit unit = new Unit();
+    public Subresidence convertToModel() {
+        Subresidence unit = new Subresidence();
         unit.setunit_id(this.unitId);
-        unit.setUnitNumber(this.unitNumber);
         unit.setUnitType(this.unitType);
         unit.setUnitDescription(this.unitDescription);
         unit.setMonthlyRent(this.monthlyRent);
@@ -41,7 +37,7 @@ public class UnitDTO {
         return unit;
     }
 
-    public UnitDTO() {
+    public SubresidenceDTO() {
 
     }
 

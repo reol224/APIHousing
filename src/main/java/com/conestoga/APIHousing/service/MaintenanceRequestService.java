@@ -64,13 +64,13 @@ public class MaintenanceRequestService {
         return null;
     }
 
-    public MaintenanceRequestDTO updateMaintenanceRequest(Long requestId, MaintenanceRequestDTO maintenanceRequestDTO) {
+    public MaintenanceRequestDTO updateMaintenanceRequest(Long requestId, int status, String remarks) {
         MaintenanceRequest existingMaintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (existingMaintenanceRequest != null) {
             existingMaintenanceRequest.setRequestId(requestId);
-            existingMaintenanceRequest.setRequestDescription(maintenanceRequestDTO.getRequestDescription());
-            existingMaintenanceRequest.setRequestStatus(maintenanceRequestDTO.getRequestStatus());
-            existingMaintenanceRequest.setRemarks(maintenanceRequestDTO.getRemarks());
+            existingMaintenanceRequest.setRequestDescription(existingMaintenanceRequest.getRequestDescription());
+            existingMaintenanceRequest.setRequestStatus(status);
+            existingMaintenanceRequest.setRemarks(remarks);
             MaintenanceRequest savedMaintenanceRequest = maintenanceRequestRepository.save(existingMaintenanceRequest);
             return MaintenanceRequestDTO.fromModel(savedMaintenanceRequest);
         }

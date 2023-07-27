@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/maintenance-requests")
@@ -45,11 +46,13 @@ public class MaintenanceRequestController {
 
     @PutMapping("/{requestId}")
     public ResponseEntity<MaintenanceRequestDTO> updateMaintenanceRequest(@PathVariable Long requestId,
-                                                                          @RequestBody MaintenanceRequestDTO maintenanceRequestDTO) {
+                                                                          @RequestBody Map<String,String> reqBody ) {
+          int status = Integer.parseInt( reqBody.get("requestStatus"));
+          String remarks = reqBody.get("remarks");
         MaintenanceRequestDTO updatedMaintenanceRequest = maintenanceRequestService.updateMaintenanceRequest(requestId,
-                maintenanceRequestDTO);
+                status, remarks);
         if (updatedMaintenanceRequest != null) {
-                    notificationService.create(new Notification("There is an update to your maintenance request", maintenanceRequestDTO.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
+                    notificationService.create(new Notification("There is an update to your maintenance request", updatedMaintenanceRequest.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
 
             return ResponseEntity.ok(updatedMaintenanceRequest);
         }

@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.model.booking.BookableObject;
 import com.conestoga.APIHousing.model.booking.Booking;
 import com.conestoga.APIHousing.service.AccountService;
+import com.conestoga.APIHousing.service.NotificationService;
 import com.conestoga.APIHousing.service.Booking.BookingService;
+import com.conestoga.APIHousing.utils.Constants;
 import com.conestoga.APIHousing.utils.ErrorResponse;
 
 @RestController
@@ -25,6 +28,9 @@ import com.conestoga.APIHousing.utils.ErrorResponse;
 public class BookingController {
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private NotificationService notificationService;
 
 
     @GetMapping("/items")
@@ -50,6 +56,12 @@ public class BookingController {
 
         LocalDate bookedFrom = LocalDate.parse(request.getBookedFrom());
         LocalDate bookedTo = LocalDate.parse(request.getBookedTo());
+
+        //prepare readale date string for notification. like July 1, 2021 to July 5, 2021
+        String readableDate = bookedFrom.getMonth().name() + " " + bookedFrom.getDayOfMonth() + ", " + bookedFrom.getYear() + " to " + bookedTo.getMonth().name() + " " + bookedTo.getDayOfMonth() + ", " + bookedTo.getYear();
+
+         notificationService.create(new Notification("You booked "+item.getName()+" from "+readableDate, request.getUserId(), Constants.NOTIFICATION_TYPE_MAINTENANCE));
+
 
         bookingService.bookItem(item, request.userId, bookedFrom, bookedTo);
         return ResponseEntity.ok("Item booked successfully.");

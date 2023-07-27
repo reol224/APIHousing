@@ -17,6 +17,7 @@ public class Constants {
     public static final int NOTIFICATION_TYPE_MAINTENANCE= 3;
     public static final int NOTIFICATION_TYPE_ROOMMATE= 4;
      public static final int NOTIFICATION_TYPE_NOTICE = 5;
+     public static final int NOTIFICATION_TYPE_Booking = 6;
 
 
 

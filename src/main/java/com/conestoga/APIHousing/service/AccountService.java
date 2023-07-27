@@ -38,6 +38,8 @@ public class AccountService  {
 
     public AccountDTO createAccount(AccountDTO accountDTO) throws IOException {
         Account account = convertToAccount(accountDTO);
+         account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
+
         if(account.getImg() != null && !account.getImg().isEmpty()){
                     account.setImg(FileUpload.convertBase64ToFile(account.getImg()));
         }
@@ -82,14 +84,24 @@ public class AccountService  {
 
     public AccountDTO getAccountById(Long id) {
         Optional<Account> accountOptional = accountRepository.findById(id);
-        return accountOptional.map(this::convertToAccountDTO).orElse(null);
+        // return accountOptional.map(this::convertToAccountDTO).orElse(null);
+        if (accountOptional.isPresent()) {
+            return convertToAccountDTO(accountOptional.get());
+        } else {
+            return null;
+        }
     }
 
     
 
     public AccountDTO getAccountByEmail(String email) {
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
-        return accountOptional.map(this::convertToAccountDTO).orElse(null);
+        // return accountOptional.map(this::convertToAccountDTO).orElse(null);
+        if (accountOptional.isPresent()) {
+            return convertToAccountDTO(accountOptional.get());
+        } else {
+            return null;
+        }
     }
 
     public Account updateAccount(String accountId, AccountDTO accountDTO) {
@@ -147,15 +159,15 @@ public class AccountService  {
     }
     public List<AccountDTO> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
-        return accounts.stream()
-                .map(this::convertToAccountDTO)
-                .collect(Collectors.toList());
+        // return accounts.stream()
+        //         .map(this::convertToAccountDTO)
+        //         .collect(Collectors.toList());
+        return accounts.stream().map(account -> convertToAccountDTO(account)).collect(Collectors.toList());
     }
 
-    public Account convertToAccount(AccountDTO accountDTO) {
+    public static Account convertToAccount(AccountDTO accountDTO) {
         Account account = new Account();
         account.setEmail(accountDTO.getEmail());
-        account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
         account.setFirstName(accountDTO.getFirstName());
         account.setLastName(accountDTO.getLastName());
         account.setPhoneNumber(accountDTO.getPhoneNumber());
@@ -171,7 +183,7 @@ public class AccountService  {
         return account;
     }
 
-    private AccountDTO convertToAccountDTO(Account account) {
+    public static AccountDTO convertToAccountDTO(Account account) {
       return new AccountDTO(
         account.getId(),
         account.getEmail(),

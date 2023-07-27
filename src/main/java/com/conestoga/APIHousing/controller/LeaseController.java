@@ -22,6 +22,7 @@ public class LeaseController {
     public ResponseEntity<LeaseDTO> createLease(@RequestBody LeaseDTO leaseDTO) {
         try {
             LeaseDTO createdLease = leaseService.createLease(leaseDTO);
+            
             return ResponseEntity.status(HttpStatus.CREATED).body(createdLease);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

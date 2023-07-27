@@ -34,8 +34,7 @@ public class Lease {
     @Column(name = "lease_end_date")
     private Date leaseEndDate;
 
-    @Column(name = "lease_length")
-    private Integer leaseLength;
+
 
     @Column(name = "lease_status")
     private int leaseStatus;
@@ -81,13 +80,6 @@ public class Lease {
         this.leaseEndDate = leaseEndDate;
     }
 
-    public Integer getLeaseLength() {
-        return leaseLength;
-    }
-
-    public void setLeaseLength(Integer leaseLength) {
-        this.leaseLength = leaseLength;
-    }
 
     public int getLeaseStatus() {
         return leaseStatus;

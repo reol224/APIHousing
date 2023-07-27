@@ -8,6 +8,8 @@ import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Lease;
 import com.conestoga.APIHousing.model.Subresidence;
+
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,8 +31,9 @@ public class LeaseService {
 
     public LeaseDTO createLease(LeaseDTO leaseDTO) {
         Lease lease = convertToLease(leaseDTO);
+        lease.setLeaseStatus(0);
         Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
-        Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
+        Account user = accountRepository.findById(leaseDTO.getUser().getId()).orElse(null);
 
         if (subresidence != null && user != null) {
             lease.setSubresience(subresidence);
@@ -51,14 +54,13 @@ public class LeaseService {
         if (leaseOptional.isPresent()) {
             Lease lease = leaseOptional.get();
             Subresidence subresidence = subresidenceRepository.findById(leaseDTO.getSubresidence().getUnitId()).orElse(null);
-            Account user = accountRepository.findById(leaseDTO.getUserId()).orElse(null);
+            Account user = accountRepository.findById(leaseDTO.getUser().getId()).orElse(null);
 
             if (subresidence != null && user != null) {
                 lease.setSubresience(subresidence);
                 lease.setUser(user);
                 lease.setLeaseStartDate(leaseDTO.getLeaseStartDate());
                 lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
-                lease.setLeaseLength(leaseDTO.getLeaseLength());
                 lease.setLeaseStatus(leaseDTO.getLeaseStatus());
                 Lease updatedLease = leaseRepository.save(lease);
                 return convertToLeaseDTO(updatedLease);
@@ -101,7 +103,6 @@ public class LeaseService {
         Lease lease = new Lease();
         lease.setLeaseStartDate(leaseDTO.getLeaseStartDate());
         lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
-        lease.setLeaseLength(leaseDTO.getLeaseLength());
         lease.setLeaseStatus(leaseDTO.getLeaseStatus());
         lease.setUnitNo(leaseDTO.getUnitNo());
         return lease;
@@ -111,10 +112,9 @@ public class LeaseService {
         LeaseDTO leaseDTO = new LeaseDTO();
         leaseDTO.setLeaseId(lease.getLeaseId());
         leaseDTO.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
-        leaseDTO.setUserId(lease.getUser().getUserId());
+        leaseDTO.setUser(AccountService.convertToAccountDTO(lease.getUser()));
         leaseDTO.setLeaseStartDate(lease.getLeaseStartDate());
         leaseDTO.setLeaseEndDate(lease.getLeaseEndDate());
-        leaseDTO.setLeaseLength(lease.getLeaseLength());
         leaseDTO.setLeaseStatus(lease.getLeaseStatus());
         leaseDTO.setUnitNo(lease.getUnitNo());
         return leaseDTO;

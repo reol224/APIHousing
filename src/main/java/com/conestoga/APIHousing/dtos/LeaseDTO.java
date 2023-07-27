@@ -8,12 +8,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class LeaseDTO {
    private Long leaseId;
-    private Long userId;
+    private AccountDTO user;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseStartDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date leaseEndDate;
-    private Integer leaseLength;
     private int leaseStatus;
     private SubresidenceDTO subresidence;
     private String unitNo;
@@ -26,7 +25,6 @@ public class LeaseDTO {
         lease.setLeaseId(this.leaseId);
         lease.setLeaseStartDate(this.leaseStartDate);
         lease.setLeaseEndDate(this.leaseEndDate);
-        lease.setLeaseLength(this.leaseLength);
         lease.setLeaseStatus(this.leaseStatus);
         lease.setSubresience(this.subresidence.convertToModel());
         lease.setUnitNo(this.unitNo);
@@ -38,7 +36,6 @@ public class LeaseDTO {
         this.setLeaseId(lease.getLeaseId());
         this.setLeaseStartDate(lease.getLeaseStartDate());
         this.setLeaseEndDate(lease.getLeaseEndDate());
-        this.setLeaseLength(lease.getLeaseLength());
         this.setLeaseStatus(lease.getLeaseStatus());
         this.setSubresidence(new SubresidenceDTO(lease.getSubresidence()));
         this.setUnitNo(lease.getUnitNo());
@@ -57,12 +54,12 @@ public class LeaseDTO {
     }
 
  
-    public Long getUserId() {
-        return userId;
+    public AccountDTO getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(AccountDTO user) {
+        this.user = user;
     }
 
     public Date getLeaseStartDate() {
@@ -81,13 +78,6 @@ public class LeaseDTO {
         this.leaseEndDate = leaseEndDate;
     }
 
-    public Integer getLeaseLength() {
-        return leaseLength;
-    }
-
-    public void setLeaseLength(Integer leaseLength) {
-        this.leaseLength = leaseLength;
-    }
 
     public int getLeaseStatus() {
         return leaseStatus;

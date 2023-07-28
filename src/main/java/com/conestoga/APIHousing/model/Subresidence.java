@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class Subresidence {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "unit_id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

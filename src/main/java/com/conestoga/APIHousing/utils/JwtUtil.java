@@ -13,26 +13,63 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
+    @Value("${jwt.secret}")
+    private String secretKey;
+
     @Value("${jwt.expiration}")
     private int expiration;
 
-    public String generateToken(String username) {
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+    private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expiration * 1000);
+    // public String generateToken(String username) {
 
+    //     Date now = new Date();
+    //     Date expiryDate = new Date(now.getTime() + expiration * 1000);
+
+    //     return Jwts.builder()
+    //             .setSubject(username)
+    //             .setIssuedAt(now)
+    //             .setExpiration(expiryDate)
+    //       .signWith(key, SignatureAlgorithm.HS256)
+    //             .compact();
+    // }
+
+        public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
-                .setIssuedAt(now)
-                .setExpiration(expiryDate)
-                // signWith() takes in a key and an algorithm
-                .signWith(key)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public boolean validateToken(String token, String username) {
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
+    // public boolean validateToken(String token) {
+    //     SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+
+    //     try {
+    //         Claims claims = Jwts.parserBuilder()
+    //                 .setSigningKey(key)
+    //                 .build()
+    //                 .parseClaimsJws(token)
+    //                 .getBody();
+
+    //         return !claims.getExpiration().before(new Date());
+    //     } catch (Exception ex) {
+    //         // Exception indicates token is not valid
+    //         return false;
+    //     }
+
+      public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    
+    }
+
+    public String extractUsername(String token) {
+        SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
 
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -40,11 +77,6 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
 
-        return claims.getSubject().equals(username) && !isTokenExpired(claims);
-    }
-
-    private boolean isTokenExpired(Claims claims) {
-        Date expirationDate = claims.getExpiration();
-        return expirationDate.before(new Date());
+        return claims.getSubject();
     }
 }

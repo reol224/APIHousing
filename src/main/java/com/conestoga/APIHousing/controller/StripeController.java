@@ -1,8 +1,11 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.dtos.PaymentRequestDTO;
+import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.model.Transaction;
+import com.conestoga.APIHousing.service.NotificationService;
 import com.conestoga.APIHousing.service.TransactionService;
+import com.conestoga.APIHousing.utils.Constants;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
@@ -29,10 +32,12 @@ import com.stripe.model.Invoice;
 @RequestMapping("/api/payments")
 public class StripeController {
     final TransactionService transactionService;
+    final NotificationService notificationService;
 
     @Autowired
-    public StripeController(TransactionService transactionService) {
+    public StripeController(TransactionService transactionService, NotificationService notificationService) {
         this.transactionService = transactionService;
+        this.notificationService = notificationService;
     }
 
     Logger logger = Logger.getLogger(StripeController.class.getName());
@@ -114,10 +119,19 @@ public class StripeController {
         {
            transaction.setExternalId(Integer.parseInt(externalId));
         }
-        transaction.setDescription(paymentFor == 1 ? "Rent Payment" : "Event Payment");
+        String description = paymentFor == 1 ? "Rent Payment" : "Event Payment";
+        transaction.setDescription(description);
 
         //save transaction
-        transactionService.createTransaction(transaction);
+       try {
+        //int to long
+        var userId = Long.valueOf(payerId);
+         transactionService.createTransaction(transaction);
+             notificationService.create(new Notification("You paid $"+paymentIntent.getAmount()+" for "+description,userId , Constants.NOTIFICATION_TYPE_PAYMENT));
+
+       } catch (Exception e) {
+        // TODO: handle exception
+       }
     }
 
     @GetMapping("/test")

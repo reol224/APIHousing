@@ -66,7 +66,7 @@ public class ResetPasswordController {
         // Here, you would implement the logic to update the user's password in your user database
         // For demonstration purposes, we'll just print the new password here
         // Update the password using the Account entity
-        account.setPassword(newPassword);
+       // account.setPassword(newPassword);
 
         // Save the updated account in the database
         accountRepository.save(account);

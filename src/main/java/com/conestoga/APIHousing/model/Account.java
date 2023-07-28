@@ -142,7 +142,7 @@ public class Account {
     }
 
     public void setPassword(String password) {
-        password = new BCryptPasswordEncoder().encode(password);
+        // password = new BCryptPasswordEncoder().encode(password);
         this.password = password;
     }
 

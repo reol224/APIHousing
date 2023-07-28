@@ -55,6 +55,7 @@ public class AccountService  {
                 loginRequest.getEmail(), loginRequest.getPassword());
 
         // Authenticate the user
+        
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
         // Set the authenticated authentication object in the SecurityContextHolder
@@ -150,7 +151,7 @@ public class AccountService  {
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
         if (accountOptional.isPresent()) {
             Account account = accountOptional.get();
-            account.setPassword(password);
+            account.setPassword(passwordEncoder.encode(password));
             accountRepository.save(account);
             return true;
         } else {

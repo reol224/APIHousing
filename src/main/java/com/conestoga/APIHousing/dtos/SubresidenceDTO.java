@@ -17,7 +17,7 @@ public class SubresidenceDTO {
 
     //from model to dto
     public SubresidenceDTO(Subresidence unit) {
-        this.unitId = unit.getunit_id();
+        this.unitId = unit.getUnitId();
         this.residenceId = unit.getResidence().getResidenceId();
         this.unitType = unit.getUnitType();
         this.unitDescription = unit.getUnitDescription();
@@ -29,7 +29,7 @@ public class SubresidenceDTO {
     //to model
     public Subresidence convertToModel() {
         Subresidence unit = new Subresidence();
-        unit.setunit_id(this.unitId);
+        unit.setUnitId(this.unitId);
         unit.setUnitType(this.unitType);
         unit.setUnitDescription(this.unitDescription);
         unit.setMonthlyRent(this.monthlyRent);

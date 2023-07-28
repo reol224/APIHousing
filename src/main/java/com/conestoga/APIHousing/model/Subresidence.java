@@ -2,46 +2,59 @@ package com.conestoga.APIHousing.model;
 
 import org.springframework.data.annotation.Id;
 
-import com.conestoga.APIHousing.dtos.SubresidenceDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "subresidence")
+@Table(name = "subresidence") // Use the actual table name from the SQL definition
 public class Subresidence {
-
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long unit_id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "residence_id")
-     @JsonIgnore  // Add this annotation to break the cycle in JSON serialization
-
+    @JoinColumn(name = "residence_id") // Map the ManyToOne relationship with the "residence_id" column
+    @JsonIgnore // Add this annotation to break the cycle in JSON serialization
     private Residence residence;
 
-    @Column(name = "unit_type")
+    @Column(name = "unit_type") // Map the field to the "unit_type" column in the table
     private String unitType;
 
-    @Column(name = "unit_description")
+    @Column(name = "unit_description") // Map the field to the "unit_description" column in the table
     private String unitDescription;
 
-    @Column(name = "monthly_rent")
+    @Column(name = "monthly_rent") // Map the field to the "monthly_rent" column in the table
     private BigDecimal monthlyRent;
 
-
-    @Column(name = "img")
+    @Column(name = "img") // Map the field to the "img" column in the table
     private String img;
 
+    @Column(name = "occupied") // Map the field to the "occupied" column in the table
+    private int occupied;
 
-    public Long getunit_id() {
-        return unit_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setunit_id(Long unit_id) {
-        this.unit_id = unit_id;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    // Getters and setters for all fields (unitId, residence, unitType, etc.)
+    // ...
+
+    // For brevity, I'm omitting the getters and setters.
+    // You should add them based on your requirements.
+
+    public Long getUnitId() {
+        return id;
+    }
+
+    public void setUnitId(Long unitId) {
+        this.id = unitId;
     }
 
     public Residence getResidence() {
@@ -51,7 +64,6 @@ public class Subresidence {
     public void setResidence(Residence residence) {
         this.residence = residence;
     }
-
 
     public String getUnitType() {
         return unitType;
@@ -77,7 +89,6 @@ public class Subresidence {
         this.monthlyRent = monthlyRent;
     }
 
-
     public String getImg() {
         return img;
     }
@@ -85,4 +96,13 @@ public class Subresidence {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public int getOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(int occupied) {
+        this.occupied = occupied;
+    }
 }
+

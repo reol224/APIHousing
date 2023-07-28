@@ -7,6 +7,8 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.google.api.Authentication;
+
 import javax.crypto.SecretKey;
 import java.util.Date;
 
@@ -21,26 +23,20 @@ public class JwtUtil {
 
     private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    // public String generateToken(String username) {
+    public String generateToken(String username) {
 
-    //     Date now = new Date();
-    //     Date expiryDate = new Date(now.getTime() + expiration * 1000);
+        Date now = new Date();
+        Date expiryDate = new Date(now.getTime() + expiration * 1000);
 
-    //     return Jwts.builder()
-    //             .setSubject(username)
-    //             .setIssuedAt(now)
-    //             .setExpiration(expiryDate)
-    //       .signWith(key, SignatureAlgorithm.HS256)
-    //             .compact();
-    // }
-
-        public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
-                .signWith(key, SignatureAlgorithm.HS256)
+                .setIssuedAt(now)
+                .setExpiration(expiryDate)
+          .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
+ 
 
     // public boolean validateToken(String token) {
     //     SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
@@ -79,4 +75,8 @@ public class JwtUtil {
 
         return claims.getSubject();
     }
+
+
+
+   
 }

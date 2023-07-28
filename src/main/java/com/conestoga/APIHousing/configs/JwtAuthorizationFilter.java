@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
@@ -31,16 +32,19 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 
      //list of all the urls that do not need to be authenticated
         String[] allowedUrls = {
-        "/api/accounts/login",
-         "/api/accounts/register", 
-         "/api/accounts/reset-password",
-         "/api/send-pin", 
-         "/api/validate", 
+        "/accounts/login",
+         "/accounts/register", 
+         "/accounts/reset-password",
+         "/send-pin", 
+         "/validate", 
+         "/uploads",
+         "/chat"
         };
 
     // Allow access to the allowed urls
     for (String url : allowedUrls) {
-        if (requestURI.equals(url)) {
+        if (requestURI.contains(url)) {
+            //proceed to the next filter in the chain
             chain.doFilter(request, response);
             return;
         }
@@ -49,6 +53,8 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
     String header = request.getHeader("Authorization");
 
     if (StringUtils.isEmpty(header) || !header.startsWith("Bearer ")) {
+     
+        
         // If there is no token or token is invalid, clear the context and return a 401 Unauthorized response
         SecurityContextHolder.clearContext();
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -73,15 +79,5 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 
     chain.doFilter(request, response);
 }
-     private Authentication getAuthentication(String token) {
-           String username = jwtUtil.extractUsername(token);
-
-                // Create an authentication token
-                Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, null);
-
-                // Set the authentication in the SecurityContextHolder
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                return authentication;
-    }
+   
 }

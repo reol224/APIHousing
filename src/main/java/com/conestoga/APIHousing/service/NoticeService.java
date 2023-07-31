@@ -2,9 +2,12 @@ package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.interfaces.NoticeRepository;
 import com.conestoga.APIHousing.model.Notice;
+import com.conestoga.APIHousing.utils.FileUpload;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -23,7 +26,11 @@ public class NoticeService {
     }
 
 
-    public Notice createNotice(Notice notice) {
+    public Notice createNotice(Notice notice) throws IOException {
+         if(notice.getImgUrl() != null && !notice.getImgUrl().isEmpty()){
+                    notice.setImgUrl((FileUpload.convertBase64ToFile(notice.getImgUrl())));
+        }
+
         return noticeRepository.save(notice);
     }
 

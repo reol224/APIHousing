@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class NoticeController {
 
    
     @PostMapping
-    public ResponseEntity<Notice> createNotice(@RequestBody Notice Notice) {
+    public ResponseEntity<Notice> createNotice(@RequestBody Notice Notice) throws IOException {
         Notice createdNotice = noticeService.createNotice(Notice);
         notificationService.create(new Notification("New Notice: "+createdNotice.getTitle(), null, Constants.NOTIFICATION_TYPE_NOTICE));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNotice);

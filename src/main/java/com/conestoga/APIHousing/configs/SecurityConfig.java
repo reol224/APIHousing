@@ -47,10 +47,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(jwtAuthorizationFilterBean(), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+                .anyRequest().authenticated();
+                // .and()
+                // .addFilterBefore(jwtAuthorizationFilterBean(), UsernamePasswordAuthenticationFilter.class)
+                // .exceptionHandling().authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
     }
 
@@ -61,8 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // Define JwtAuthorizationFilter as a bean with dependencies
-    @Bean
-    public JwtAuthorizationFilter jwtAuthorizationFilterBean() {
-        return new JwtAuthorizationFilter(jwtUtil);
-    }
+    // @Bean
+    // public JwtAuthorizationFilter jwtAuthorizationFilterBean() {
+    //     return new JwtAuthorizationFilter(jwtUtil);
+    // }
 }

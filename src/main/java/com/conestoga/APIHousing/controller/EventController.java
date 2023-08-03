@@ -93,6 +93,13 @@ public ResponseEntity<Boolean> hasRsvp(@RequestParam Long event_id, @RequestPara
     // return in json {"rsvp": true/false}
     return new ResponseEntity<>(hasRsvp, HttpStatus.OK);
 }
+//get count of rsvp for event id
+@GetMapping("/rsvpCount/{id}")
+public ResponseEntity<Long> getRsvpCount(@PathVariable Long id) {
+    Long rsvpCount = eventService.getRsvpCount(id);
+    // return in json {"rsvpCount": 5}
+    return new ResponseEntity<>(rsvpCount, HttpStatus.OK);
+}
 
 @DeleteMapping("/rsvp")
 public ResponseEntity<String> cancelRsvpForEvent(@RequestBody Map<String, Long> requestBody) throws Exception {

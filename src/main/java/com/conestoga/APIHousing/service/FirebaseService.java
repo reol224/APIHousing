@@ -6,10 +6,12 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +35,7 @@ public class FirebaseService {
         }
     }
 
-      public void sendPushNotification(String title, String description) {
+    public void sendPushNotification(String title, String description) {
         sendPushNotification(title, description, null); // Call the overloaded method with null FCM token
     }
 
@@ -56,9 +58,9 @@ public class FirebaseService {
 
         try {
             String response = FirebaseMessaging.getInstance().send(message);
-            logger.warning("Successfully sent message: " + response);
+            logger.info("Successfully sent message: " + response);
         } catch (Exception e) {
-           logger.warning("Error sending message: " + e.getMessage());
+            logger.warning("Error sending message: " + e.getMessage());
         }
     }
 

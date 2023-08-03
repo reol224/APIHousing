@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class UnitService {
-
+    Logger logger = Logger.getLogger(UnitService.class.getName());
     private final SubresidenceRepository unitRepository;
     private final ResidenceRepository residenceRepository;
 
@@ -25,26 +26,30 @@ public class UnitService {
     }
 
     public Subresidence createUnit(Subresidence unit) throws IOException {
-    unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
-     return unitRepository.save(unit);
+        unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
+        logger.info("Unit created: " + unit);
+        return unitRepository.save(unit);
 
     }
 
     public Subresidence getUnitById(Long unitId) {
         Optional<Subresidence> unitOptional = unitRepository.findById(unitId);
+        if (unitOptional.isPresent()){
+            logger.info("Unit found: " + unitOptional.get());
+        } else {
+            logger.info("Unit not found for id: " + unitId);
+        }
         return unitOptional.orElse(null);
     }
 
     public Subresidence updateUnit(Long unitId, Subresidence unit) throws IOException {
         Optional<Subresidence> unitOptional = unitRepository.findById(unitId);
         if (unitOptional.isPresent()) {
-          
-                unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
-
-
-            // return convertToDTO(updatedUnit);
-
+            unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
+            logger.info("Unit updated: " + unit);
             return unit;
+        } else {
+            logger.info("Unit not found for id: " + unitId);
         }
         return null;
     }
@@ -53,17 +58,17 @@ public class UnitService {
         Optional<Subresidence> unitOptional = unitRepository.findById(unitId);
         if (unitOptional.isPresent()) {
             unitRepository.delete(unitOptional.get());
+            logger.info("Unit deleted: " + unitOptional.get());
             return true;
+        } else {
+            logger.info("Unit not found for id: " + unitId);
         }
         return false;
     }
 
     public List<Subresidence> getAllUnits() {
         List<Subresidence> units = unitRepository.findAll();
-        // return units.stream()
-        //         .map(this::convertToDTO)
-        //         .collect(Collectors.toList());
-
+        logger.info("Units found: " + units.size());
         return units;
     }
 

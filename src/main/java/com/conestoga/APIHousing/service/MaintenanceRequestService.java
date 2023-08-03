@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class MaintenanceRequestService {
-
+    Logger logger = Logger.getLogger(MaintenanceRequestService.class.getName());
     private final MaintenanceRequestRepository maintenanceRequestRepository;
     private final SubresidenceRepository unitRepository;
     private final AccountRepository accountRepository;
@@ -41,17 +42,22 @@ public class MaintenanceRequestService {
 
             //if dto's date is null, set current date
             if (maintenanceRequestDTO.getRequestDate() == null) {
+                logger.info("Date is null");
                 maintenanceRequest.setRequestDate(new java.util.Date());
+                logger.info("Date is set to current date");
             }
-            
-            
+
+
             //if image is not null, upload image
             if (maintenanceRequestDTO.getImg() != null) {
-               maintenanceRequest.setImg(FileUpload.convertBase64ToFile( (maintenanceRequestDTO.getImg())));
+                logger.info("Image is not null");
+                maintenanceRequest.setImg(FileUpload.convertBase64ToFile((maintenanceRequestDTO.getImg())));
+                logger.info("Image is uploaded");
             }
             MaintenanceRequest createdMaintenanceRequest = maintenanceRequestRepository.save(maintenanceRequest);
-            return   MaintenanceRequestDTO.fromModel(createdMaintenanceRequest);
+            return MaintenanceRequestDTO.fromModel(createdMaintenanceRequest);
         }
+        logger.info("Unit or user is null");
         return null;
     }
 
@@ -59,21 +65,26 @@ public class MaintenanceRequestService {
     public MaintenanceRequestDTO getMaintenanceRequestById(Long requestId) {
         MaintenanceRequest maintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (maintenanceRequest != null) {
+            logger.info("Maintenance request found for id: " + requestId);
             return MaintenanceRequestDTO.fromModel(maintenanceRequest);
         }
+        logger.info("Maintenance request not found for id: " + requestId);
         return null;
     }
 
     public MaintenanceRequestDTO updateMaintenanceRequest(Long requestId, int status, String remarks) {
         MaintenanceRequest existingMaintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (existingMaintenanceRequest != null) {
+            logger.info("Maintenance request found for id: " + requestId);
             existingMaintenanceRequest.setRequestId(requestId);
             existingMaintenanceRequest.setRequestDescription(existingMaintenanceRequest.getRequestDescription());
             existingMaintenanceRequest.setRequestStatus(status);
             existingMaintenanceRequest.setRemarks(remarks);
             MaintenanceRequest savedMaintenanceRequest = maintenanceRequestRepository.save(existingMaintenanceRequest);
+            logger.info("Maintenance request updated for id: " + requestId);
             return MaintenanceRequestDTO.fromModel(savedMaintenanceRequest);
         }
+        logger.info("Maintenance request not found for id: " + requestId);
         return null;
     }
 
@@ -81,8 +92,10 @@ public class MaintenanceRequestService {
         MaintenanceRequest maintenanceRequest = maintenanceRequestRepository.findById(requestId).orElse(null);
         if (maintenanceRequest != null) {
             maintenanceRequestRepository.delete(maintenanceRequest);
+            logger.info("Maintenance request deleted for id: " + requestId);
             return true;
         }
+        logger.info("Maintenance request not found for id: " + requestId);
         return false;
     }
 
@@ -92,20 +105,21 @@ public class MaintenanceRequestService {
         for (MaintenanceRequest maintenanceRequest : maintenanceRequests) {
             maintenanceRequestDTOS.add(MaintenanceRequestDTO.fromModel(maintenanceRequest));
         }
+        logger.info("All maintenance requests found");
         return maintenanceRequestDTOS;
 
-    
+
     }
 
-  
 
     public List<MaintenanceRequestDTO> getAllMaintenanceRequestsByUserId(Long userId) {
- 
+
         List<MaintenanceRequest> maintenanceRequests = maintenanceRequestRepository.findByUserIdOrderByRequestIdDesc(userId);
-           List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<MaintenanceRequestDTO>();
+        List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<>();
         for (MaintenanceRequest maintenanceRequest : maintenanceRequests) {
             maintenanceRequestDTOS.add(MaintenanceRequestDTO.fromModel(maintenanceRequest));
         }
+        logger.info("All maintenance requests found for user id: " + userId);
         return maintenanceRequestDTOS;
 
     }

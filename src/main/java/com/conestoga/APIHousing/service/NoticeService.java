@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class NoticeService {
-
+    Logger logger = Logger.getLogger(NoticeService.class.getName());
     private final NoticeRepository noticeRepository;
 
     @Autowired
@@ -21,20 +22,22 @@ public class NoticeService {
     }
 
     public List<Notice> getAllNotices() {
-        List<Notice> notices = noticeRepository.findAll();
-        return notices;
+        logger.info("All notices returned");
+        return noticeRepository.findAll();
     }
 
 
     public Notice createNotice(Notice notice) throws IOException {
          if(notice.getImgUrl() != null && !notice.getImgUrl().isEmpty()){
                     notice.setImgUrl((FileUpload.convertBase64ToFile(notice.getImgUrl())));
+                    logger.info("Notice created: " + notice);
         }
 
         return noticeRepository.save(notice);
     }
 
     public void deleteNotice(Long id) {
+        logger.info("Notice deleted for id: " + id);
         noticeRepository.deleteById(id);
     }
 

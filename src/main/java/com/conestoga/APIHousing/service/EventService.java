@@ -95,4 +95,9 @@ public boolean deleteEvent(Long id) {
     }
 }
 
+public Long getRsvpCount(Long event_id) {
+    return rsvpRepository.countByEventId(event_id);
+  
+}
+
 }

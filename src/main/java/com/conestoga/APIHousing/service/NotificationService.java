@@ -6,13 +6,14 @@ import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.utils.Constants;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationService {
-
+    Logger logger = Logger.getLogger(NotificationService.class.getName());
     private final NotificationRepository notificationRepository;
     private final FirebaseService firebaseService;
     private final AccountService accountService;
@@ -27,16 +28,21 @@ public class NotificationService {
 
     //find by user id
     public List<Notification> findByUserId(Long userId) {
+        logger.info("Notification found for user: " + userId);
         return notificationRepository.findByUserIdOrderByIdDesc(userId);
     }
+
     //create
     public Notification create(Notification notification) {
         Notification n = notificationRepository.save(notification);
         String fcm = null;
-        if(notification.getUserId() != null) {
+        if (notification.getUserId() != null) {
+            logger.info("Notification created for user: " + notification.getUserId());
             fcm = accountService.getFcmToken(notification.getUserId());
-        } 
-        firebaseService.sendPushNotification(notification.getTitle(),"", fcm);
+        }
+        firebaseService.sendPushNotification(notification.getTitle(), "", fcm);
+        logger.info("Notification sent to user: " + notification.getUserId());
+        logger.info("Text: " + notification.getTitle());
         return n;
 
 

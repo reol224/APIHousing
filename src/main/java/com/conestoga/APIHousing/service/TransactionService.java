@@ -9,13 +9,14 @@ import com.conestoga.APIHousing.model.Transaction;
 
 import java.util.List;
 
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
 
 @Service
 public class TransactionService {
-
+    Logger logger = Logger.getLogger(TransactionService.class.getName());
     private final TransactionRepository transactionRepository;
 
     @Autowired
@@ -25,6 +26,7 @@ public class TransactionService {
 
     public List<TransactionDTO> getAllTransactions() {
         List<Transaction> transactions = transactionRepository.findAllByOrderByIdDesc();
+        logger.info("Transactions found: " + transactions.size());
         return transactions.stream()
                 .map(TransactionDTO::new)
                 .collect(Collectors.toList());
@@ -32,6 +34,7 @@ public class TransactionService {
 
     public List<TransactionDTO> getTransactionsByPayerId(int payerId) {
         List<Transaction> transactions = transactionRepository.findByPayerIdOrderByIdDesc(payerId);
+        logger.info("Transactions found: " + transactions.size() + " for payerId: " + payerId);
         return transactions.stream()
                 .map(TransactionDTO::new)
                 .collect(Collectors.toList());
@@ -39,7 +42,7 @@ public class TransactionService {
 
     public Transaction createTransaction(Transaction transaction) {
         Transaction t = transactionRepository.save(transaction);
-         System.out.println("Transaction saved");
+        logger.info("Transaction created: " + t.toString());
         return t;
     }
 }

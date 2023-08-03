@@ -26,7 +26,7 @@ public class PinService {
     public boolean checkPinByEmailAndPinCode(String email, String pinCode) {
         Pin pin = pinRepository.findPinByEmail(email, pinCode);
         if (email == null || pinCode == null) {
-            logger.info("Email or PinCode is null");
+            logger.warning("Email or PinCode is null");
             return false;
         } else {
             logger.info("Pin found for user: " + email);

@@ -9,16 +9,19 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Lease;
 import com.conestoga.APIHousing.model.Subresidence;
 
+import java.util.Collections;
+
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class LeaseService {
-
+    Logger logger = Logger.getLogger(LeaseService.class.getName());
     private final LeaseRepository leaseRepository;
     private final SubresidenceRepository subresidenceRepository;
     private final AccountRepository accountRepository;
@@ -39,14 +42,23 @@ public class LeaseService {
             lease.setSubresience(subresidence);
             lease.setUser(user);
             Lease createdLease = leaseRepository.save(lease);
+            logger.info("Lease created: " + createdLease.getLeaseId());
             return convertToLeaseDTO(createdLease);
         }
+        logger.warning("Lease not created");
         return null;
     }
 
     public LeaseDTO getLeaseById(Long leaseId) {
         Optional<Lease> leaseOptional = leaseRepository.findById(leaseId);
-        return leaseOptional.map(this::convertToLeaseDTO).orElse(null);
+        if (leaseOptional.isPresent()) {
+            Lease lease = leaseOptional.get();
+            logger.info("Lease found: " + lease.getLeaseId());
+            return convertToLeaseDTO(lease);
+        } else {
+            logger.warning("Lease not found");
+            return null;
+        }
     }
 
     public LeaseDTO updateLease(Long leaseId, LeaseDTO leaseDTO) {
@@ -63,19 +75,23 @@ public class LeaseService {
                 lease.setLeaseEndDate(leaseDTO.getLeaseEndDate());
                 lease.setLeaseStatus(leaseDTO.getLeaseStatus());
                 lease.setUnitNo(leaseDTO.getUnitNo());
-                
+
                 Lease updatedLease = leaseRepository.save(lease);
+                logger.info("Lease updated: " + updatedLease.getLeaseId());
                 return convertToLeaseDTO(updatedLease);
             }
         }
+        logger.warning("Lease not updated");
         return null;
     }
 
     public boolean deleteLease(Long leaseId) {
         if (leaseRepository.existsById(leaseId)) {
             leaseRepository.deleteById(leaseId);
+            logger.info("Lease deleted: " + leaseId);
             return true;
         }
+        logger.warning("Lease not deleted");
         return false;
     }
 
@@ -86,13 +102,11 @@ public class LeaseService {
                 .collect(Collectors.toList());
     }
 
-    //getLeaseByUserId
     public List<LeaseDTO> getLeaseByUserId(Long userId) {
-        //FIND ACCOUNT BY USERID
         Optional<Account> accountOptional = accountRepository.findById(userId);
-        // if account exists, find leases by account, else return null
-        if (!accountOptional.isPresent()) {
-            return null;
+        if (accountOptional.isEmpty()) {
+            logger.warning("Account not found");
+            return Collections.emptyList();
         }
 
         List<Lease> leases = leaseRepository.findByUser(accountOptional.get());

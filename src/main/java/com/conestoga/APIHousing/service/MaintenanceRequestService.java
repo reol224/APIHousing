@@ -57,7 +57,7 @@ public class MaintenanceRequestService {
             MaintenanceRequest createdMaintenanceRequest = maintenanceRequestRepository.save(maintenanceRequest);
             return MaintenanceRequestDTO.fromModel(createdMaintenanceRequest);
         }
-        logger.info("Unit or user is null");
+        logger.warning("Unit or user is null");
         return null;
     }
 
@@ -68,7 +68,7 @@ public class MaintenanceRequestService {
             logger.info("Maintenance request found for id: " + requestId);
             return MaintenanceRequestDTO.fromModel(maintenanceRequest);
         }
-        logger.info("Maintenance request not found for id: " + requestId);
+        logger.warning("Maintenance request not found for id: " + requestId);
         return null;
     }
 
@@ -84,7 +84,7 @@ public class MaintenanceRequestService {
             logger.info("Maintenance request updated for id: " + requestId);
             return MaintenanceRequestDTO.fromModel(savedMaintenanceRequest);
         }
-        logger.info("Maintenance request not found for id: " + requestId);
+        logger.warning("Maintenance request not found for id: " + requestId);
         return null;
     }
 
@@ -95,7 +95,7 @@ public class MaintenanceRequestService {
             logger.info("Maintenance request deleted for id: " + requestId);
             return true;
         }
-        logger.info("Maintenance request not found for id: " + requestId);
+        logger.warning("Maintenance request not found for id: " + requestId);
         return false;
     }
 

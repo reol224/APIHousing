@@ -52,7 +52,7 @@ class RsvpService {
 
     public Optional<Rsvp> findByEventIdAndUserId(Long eventId, Long userId) {
         if (eventId == null || userId == null) {
-            logger.info("EventId or UserId is null");
+            logger.warning("EventId or UserId is null");
             return Optional.empty();
         } else {
             logger.info("RSVP found for user: " + userId + " and event: " + eventId);

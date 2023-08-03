@@ -44,7 +44,7 @@ public class RoommateProfileService {
             logger.info("RoommateProfileService: createRoommateProfile");
             return roommateProfileRepository.save(roommateProfile);
         } else {
-            logger.info("RoommateProfileService: createRoommateProfile: Account not created");
+            logger.warning("RoommateProfileService: createRoommateProfile: Account not created");
             return null;
         }
 
@@ -69,7 +69,7 @@ public class RoommateProfileService {
 
             return roommateProfileRepository.save(existingProfile);
         }
-        logger.info("RoommateProfileService: updateRoommateProfile: RoommateProfile not updated");
+        logger.warning("RoommateProfileService: updateRoommateProfile: RoommateProfile not updated");
         return null;
     }
 

@@ -37,7 +37,7 @@ public class UnitService {
         if (unitOptional.isPresent()){
             logger.info("Unit found: " + unitOptional.get());
         } else {
-            logger.info("Unit not found for id: " + unitId);
+            logger.warning("Unit not found for id: " + unitId);
         }
         return unitOptional.orElse(null);
     }
@@ -49,7 +49,7 @@ public class UnitService {
             logger.info("Unit updated: " + unit);
             return unit;
         } else {
-            logger.info("Unit not found for id: " + unitId);
+            logger.warning("Unit not found for id: " + unitId);
         }
         return null;
     }
@@ -61,7 +61,7 @@ public class UnitService {
             logger.info("Unit deleted: " + unitOptional.get());
             return true;
         } else {
-            logger.info("Unit not found for id: " + unitId);
+            logger.warning("Unit not found for id: " + unitId);
         }
         return false;
     }

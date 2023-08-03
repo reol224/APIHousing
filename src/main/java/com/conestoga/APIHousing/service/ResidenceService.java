@@ -31,7 +31,7 @@ public class ResidenceService {
             logger.info("Residence created: " + createdResidence.getName());
             return new ResidenceDTO(createdResidence);
         }
-        logger.info("Manager not found for id: " + residenceDTO.getManagerId());
+        logger.warning("Manager not found for id: " + residenceDTO.getManagerId());
         return null;
     }
 
@@ -41,7 +41,7 @@ public class ResidenceService {
             logger.info("Residence found: " + residence.getName());
             return new ResidenceDTO(residence);
         }
-        logger.info("Residence not found for id: " + residenceId);
+        logger.warning("Residence not found for id: " + residenceId);
         return null;
     }
 
@@ -53,7 +53,7 @@ public class ResidenceService {
             logger.info("Residence updated: " + savedResidence.getName());
             return new ResidenceDTO(savedResidence);
         }
-        logger.info("Residence not found for id: " + residenceId);
+        logger.warning("Residence not found for id: " + residenceId);
         return null;
     }
 
@@ -64,7 +64,7 @@ public class ResidenceService {
             logger.info("Residence deleted: " + residence.getName());
             return true;
         }
-        logger.info("Residence not found for id: " + residenceId);
+        logger.warning("Residence not found for id: " + residenceId);
         return false;
     }
 

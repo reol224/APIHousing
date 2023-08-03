@@ -8,11 +8,12 @@ import com.conestoga.APIHousing.model.Residence;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class ResidenceService {
-
+    Logger logger = Logger.getLogger(ResidenceService.class.getName());
     private final ResidenceRepository residenceRepository;
     private final AccountRepository accountRepository;
 
@@ -27,27 +28,32 @@ public class ResidenceService {
         if (manager != null) {
             residence.setManager(manager);
             Residence createdResidence = residenceRepository.save(residence);
+            logger.info("Residence created: " + createdResidence.getName());
             return new ResidenceDTO(createdResidence);
         }
+        logger.info("Manager not found for id: " + residenceDTO.getManagerId());
         return null;
     }
 
     public ResidenceDTO getResidenceById(Long residenceId) {
         Residence residence = residenceRepository.findById(residenceId).orElse(null);
         if (residence != null) {
-                       return new ResidenceDTO(residence);
+            logger.info("Residence found: " + residence.getName());
+            return new ResidenceDTO(residence);
         }
+        logger.info("Residence not found for id: " + residenceId);
         return null;
     }
 
     public ResidenceDTO updateResidence(Long residenceId, ResidenceDTO residenceDTO) {
         Residence existingResidence = residenceRepository.findById(residenceId).orElse(null);
         if (existingResidence != null) {
-            Residence updatedResidence = existingResidence;
-            updatedResidence.setManager(existingResidence.getManager());
-            Residence savedResidence = residenceRepository.save(updatedResidence);
+            existingResidence.setManager(existingResidence.getManager());
+            Residence savedResidence = residenceRepository.save(existingResidence);
+            logger.info("Residence updated: " + savedResidence.getName());
             return new ResidenceDTO(savedResidence);
         }
+        logger.info("Residence not found for id: " + residenceId);
         return null;
     }
 
@@ -55,24 +61,20 @@ public class ResidenceService {
         Residence residence = residenceRepository.findById(residenceId).orElse(null);
         if (residence != null) {
             residenceRepository.delete(residence);
+            logger.info("Residence deleted: " + residence.getName());
             return true;
         }
+        logger.info("Residence not found for id: " + residenceId);
         return false;
     }
 
     public List<ResidenceDTO> getAllResidences() {
         List<Residence> residences = residenceRepository.findAll();
 
-        //stream and map and conver to ResidenceDTO by ResidenceDTO constructor
-             return residences.stream().map(ResidenceDTO::new).collect(Collectors.toList());
-
-        // return residences.stream()
-        //         .map()
-        //         .collect(Collectors.toList());
+        //stream and map and convert to ResidenceDTO by ResidenceDTO constructor
+        return residences.stream().map(ResidenceDTO::new).collect(Collectors.toList());
     }
 
-  
 
-  
 }
 

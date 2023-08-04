@@ -10,15 +10,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MaintenanceRequestRepository extends JpaRepository<MaintenanceRequest, Long> {
-    List<MaintenanceRequest> findByUnit(Subresidence unit);
+  List<MaintenanceRequest> findByUnit(Subresidence unit);
 
-    List<MaintenanceRequest> findByUser(Account user);
+  List<MaintenanceRequest> findByUser(Account user);
 
-    List<MaintenanceRequest> findByRequestStatus(String requestStatus);
+  List<MaintenanceRequest> findByRequestStatus(String requestStatus);
 
-    List<MaintenanceRequest> findByRequestDateAfter(LocalDate date);
+  List<MaintenanceRequest> findByRequestDateAfter(LocalDate date);
 
-    //find by user id and sort by request date
-    List<MaintenanceRequest> findByUserIdOrderByRequestIdDesc(Long userId);
-
+  // find by user id and sort by request date
+  List<MaintenanceRequest> findByUserIdOrderByRequestIdDesc(Long userId);
 }

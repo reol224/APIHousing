@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoommateProfileRepository extends JpaRepository<RoommateProfile, Long> {
-    // Add any custom queries or methods if needed
-        Optional<RoommateProfile> findByUserId(Long userId);
-
+  // Add any custom queries or methods if needed
+  Optional<RoommateProfile> findByUserId(Long userId);
 }

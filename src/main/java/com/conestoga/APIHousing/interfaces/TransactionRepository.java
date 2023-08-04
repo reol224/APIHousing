@@ -8,10 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TransactionRepository extends JpaRepository<Transaction, Integer> {
 
-    
-    //findByPayerIdOrderByRequestIdDesc
-    List<Transaction> findByPayerIdOrderByIdDesc(int payerId);
+  // findByPayerIdOrderByRequestIdDesc
+  List<Transaction> findByPayerIdOrderByIdDesc(int payerId);
 
-    //get all desc
-    List<Transaction> findAllByOrderByIdDesc();
+  // get all desc
+  List<Transaction> findAllByOrderByIdDesc();
 }

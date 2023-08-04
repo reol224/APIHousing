@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
-    List<Booking> findByItemId(Long itemId);
-    
-        boolean existsByItemId(Long itemId);
+  List<Booking> findByItemId(Long itemId);
 
-        List<Booking> findByUserId(Long userId);
+  boolean existsByItemId(Long itemId);
 
-    // Add more custom queries as per requirements
+  List<Booking> findByUserId(Long userId);
+
+  // Add more custom queries as per requirements
 }

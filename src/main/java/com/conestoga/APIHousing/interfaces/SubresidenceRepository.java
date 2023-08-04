@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubresidenceRepository extends JpaRepository<Subresidence, Long> {
-    List<Subresidence> findByResidence(Residence residence);
+  List<Subresidence> findByResidence(Residence residence);
 
-    List<Subresidence> findByUnitType(String unitType);
+  List<Subresidence> findByUnitType(String unitType);
 
-    List<Subresidence> findByMonthlyRentLessThan(BigDecimal rent);
+  List<Subresidence> findByMonthlyRentLessThan(BigDecimal rent);
 }

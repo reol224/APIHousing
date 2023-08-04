@@ -9,13 +9,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LeaseRepository extends JpaRepository<Lease, Long> {
-    List<Lease> findByUser(Account user);
+  List<Lease> findByUser(Account user);
 
-    List<Lease> findByLeaseStatus(String leaseStatus);
+  List<Lease> findByLeaseStatus(String leaseStatus);
 
-    List<Lease> findByLeaseStartDateAfter(LocalDate date);
+  List<Lease> findByLeaseStartDateAfter(LocalDate date);
 
-    List<Lease> findByLeaseEndDateAfter(LocalDate date);
-
-
+  List<Lease> findByLeaseEndDateAfter(LocalDate date);
 }

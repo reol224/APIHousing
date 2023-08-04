@@ -1,11 +1,10 @@
 package com.conestoga.APIHousing.interfaces;
 
-import java.util.Optional;
-
+import com.conestoga.APIHousing.model.RoommateProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.conestoga.APIHousing.model.RoommateProfile;
+import java.util.Optional;
 
 @Repository
 public interface RoommateProfileRepository extends JpaRepository<RoommateProfile, Long> {

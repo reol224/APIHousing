@@ -1,19 +1,16 @@
 package com.conestoga.APIHousing.service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import javax.transaction.Transactional;
-
-import org.apache.http.HttpException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.RoommateProfileRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.RoommateProfile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 
 @Service

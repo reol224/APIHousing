@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.dtos.ResidenceDTO;
-import com.conestoga.APIHousing.model.Residence;
 import com.conestoga.APIHousing.service.ResidenceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

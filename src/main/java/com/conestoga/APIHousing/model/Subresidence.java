@@ -1,7 +1,5 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.data.annotation.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;

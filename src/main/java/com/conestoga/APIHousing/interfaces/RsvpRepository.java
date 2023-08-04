@@ -1,8 +1,9 @@
 package com.conestoga.APIHousing.interfaces;
 
 import com.conestoga.APIHousing.model.Rsvp;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
 
 
 

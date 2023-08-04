@@ -5,18 +5,17 @@ import com.conestoga.APIHousing.interfaces.ChatMessageRepository;
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.conestoga.APIHousing.utils.Constants;
 import com.conestoga.APIHousing.utils.FileUpload;
-
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.logging.Logger;
 
 
 @Service

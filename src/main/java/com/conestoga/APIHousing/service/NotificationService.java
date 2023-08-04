@@ -3,13 +3,11 @@ package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.interfaces.NotificationRepository;
 import com.conestoga.APIHousing.model.Notification;
-import com.conestoga.APIHousing.utils.Constants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.logging.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 @Service
 public class NotificationService {

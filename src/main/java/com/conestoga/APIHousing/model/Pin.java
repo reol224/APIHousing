@@ -1,7 +1,7 @@
 package com.conestoga.APIHousing.model;
-import com.conestoga.APIHousing.utils.Constants;
-import java.util.Date;
+
 import javax.persistence.*;
+import java.util.Date;
 
 
 

@@ -1,14 +1,12 @@
 package com.conestoga.APIHousing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.conestoga.APIHousing.dtos.TransactionDTO;
 import com.conestoga.APIHousing.interfaces.TransactionRepository;
 import com.conestoga.APIHousing.model.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 

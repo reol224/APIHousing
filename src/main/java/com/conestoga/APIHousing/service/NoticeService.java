@@ -3,7 +3,6 @@ package com.conestoga.APIHousing.service;
 import com.conestoga.APIHousing.interfaces.NoticeRepository;
 import com.conestoga.APIHousing.model.Notice;
 import com.conestoga.APIHousing.utils.FileUpload;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

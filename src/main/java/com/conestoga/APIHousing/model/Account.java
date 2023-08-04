@@ -1,7 +1,5 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;

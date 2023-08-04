@@ -6,14 +6,13 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Service;
 
 
 @Service

@@ -1,13 +1,10 @@
 package com.conestoga.APIHousing.model;
 
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-
-import com.conestoga.APIHousing.dtos.ResidenceDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.List;
 
 @Entity
 @Table(name = "residences")

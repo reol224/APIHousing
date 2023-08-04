@@ -1,10 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.util.Date;
-
-import com.conestoga.APIHousing.model.Lease;
-import com.conestoga.APIHousing.model.Subresidence;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class LeaseDTO {
    private Long leaseId;

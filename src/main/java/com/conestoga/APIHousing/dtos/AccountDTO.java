@@ -1,8 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
 
 public class AccountDTO {
     private Long id;

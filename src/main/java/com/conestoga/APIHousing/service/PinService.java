@@ -1,8 +1,7 @@
 package com.conestoga.APIHousing.service;
 
-import com.conestoga.APIHousing.model.Pin;
 import com.conestoga.APIHousing.interfaces.PinRepository;
-
+import com.conestoga.APIHousing.model.Pin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

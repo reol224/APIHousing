@@ -1,11 +1,10 @@
 package com.conestoga.APIHousing.dtos;
 
+import com.conestoga.APIHousing.model.Residence;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import com.conestoga.APIHousing.model.Residence;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
 //impoer javautil.List;
 

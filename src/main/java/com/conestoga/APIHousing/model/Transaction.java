@@ -1,7 +1,8 @@
 package com.conestoga.APIHousing.model;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import javax.persistence.*;
 
 
 @Entity

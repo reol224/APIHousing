@@ -1,18 +1,15 @@
 package com.conestoga.APIHousing.service;
 
-import com.conestoga.APIHousing.dtos.SubresidenceDTO;
 import com.conestoga.APIHousing.interfaces.ResidenceRepository;
 import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Subresidence;
 import com.conestoga.APIHousing.utils.FileUpload;
-
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 @Service
 public class UnitService {

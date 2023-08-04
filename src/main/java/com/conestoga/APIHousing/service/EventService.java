@@ -1,14 +1,5 @@
 package com.conestoga.APIHousing.service;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.EventRepository;
 import com.conestoga.APIHousing.interfaces.RsvpRepository;
@@ -16,6 +7,14 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
 import com.conestoga.APIHousing.utils.FileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 
 @Service

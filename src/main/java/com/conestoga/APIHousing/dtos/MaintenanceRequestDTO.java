@@ -1,10 +1,9 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class MaintenanceRequestDTO {
     private Long requestId;

@@ -2,13 +2,14 @@ package com.conestoga.APIHousing.configs.chat;
 
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ChatWebSocketHandler extends TextWebSocketHandler {

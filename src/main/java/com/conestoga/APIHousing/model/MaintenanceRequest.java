@@ -1,10 +1,7 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
-
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "maintenance_requests")

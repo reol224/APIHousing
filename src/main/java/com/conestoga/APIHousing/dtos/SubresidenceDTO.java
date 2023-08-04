@@ -1,8 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.math.BigDecimal;
-
 import com.conestoga.APIHousing.model.Subresidence;
+
+import java.math.BigDecimal;
 
 public class SubresidenceDTO {
 

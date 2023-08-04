@@ -8,14 +8,11 @@ import com.conestoga.APIHousing.service.TransactionService;
 import com.conestoga.APIHousing.utils.Constants;
 import com.stripe.exception.SignatureVerificationException;
 import com.stripe.exception.StripeException;
-import com.stripe.model.Customer;
-import com.stripe.model.PaymentIntent;
-import com.stripe.model.StripeObject;
+import com.stripe.model.*;
 import com.stripe.net.Webhook;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.InvoiceCreateParams;
 import com.stripe.param.PaymentIntentCreateParams;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.logging.Logger;
-import com.stripe.model.Event;
-import com.stripe.model.EventDataObjectDeserializer;
-import com.stripe.model.Invoice;
 
 
 @RestController

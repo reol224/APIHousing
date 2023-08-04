@@ -1,18 +1,16 @@
 package com.conestoga.APIHousing.service.Booking;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.Booking.BookableObjectRepository;
 import com.conestoga.APIHousing.interfaces.Booking.BookingRepository;
-import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.booking.BookableObject;
 import com.conestoga.APIHousing.model.booking.Booking;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookingService {

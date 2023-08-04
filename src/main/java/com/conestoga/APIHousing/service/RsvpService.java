@@ -6,11 +6,11 @@ import com.conestoga.APIHousing.interfaces.RsvpRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.logging.Logger;
 
 
 

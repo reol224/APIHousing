@@ -1,9 +1,8 @@
 package com.conestoga.APIHousing.interfaces.Booking;
 
+import com.conestoga.APIHousing.model.booking.BookableObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.conestoga.APIHousing.model.booking.BookableObject;
 
 @Repository
 public interface BookableObjectRepository extends JpaRepository<BookableObject, Long> {

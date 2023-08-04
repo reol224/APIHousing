@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.model;
 
 import javax.persistence.*;
-
 import java.sql.Timestamp;
 
 @Entity

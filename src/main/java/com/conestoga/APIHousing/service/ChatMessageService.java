@@ -18,44 +18,50 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ChatMessageService {
-    private final ChatMessageRepository chatMessageRepository;
-    Logger logger = Logger.getLogger(ChatMessageService.class.getName());
+  private final ChatMessageRepository chatMessageRepository;
+  Logger logger = Logger.getLogger(ChatMessageService.class.getName());
 
-    @Autowired
-    public ChatMessageService(ChatMessageRepository chatMessageRepository) {
-        this.chatMessageRepository = chatMessageRepository;
+  private final ChatWebSocketHandler webSocketHandler;
+
+  @Autowired
+  public ChatMessageService(
+      ChatMessageRepository chatMessageRepository, ChatWebSocketHandler webSocketHandler) {
+    this.chatMessageRepository = chatMessageRepository;
+    this.webSocketHandler = webSocketHandler;
+  }
+
+  public List<ChatMessage> getAllChatMessages() {
+    return chatMessageRepository.findAll();
+  }
+
+  public List<ChatMessage> getChatMessages(int page) {
+    Pageable pageable = PageRequest.of(page, Constants.PAGE_SIZE, Sort.by("id").descending());
+    Page<ChatMessage> chatMessagePage = chatMessageRepository.findAll(pageable);
+    if (chatMessagePage.isEmpty()) {
+      logger.warning("No chat messages found");
+      return Collections.emptyList();
     }
+    return chatMessagePage.getContent();
+  }
 
-    public List<ChatMessage> getAllChatMessages() {
-        return chatMessageRepository.findAll();
+  public ChatMessage saveChatMessage(ChatMessage chatMessage) throws IOException {
+    if (chatMessage.getContentType().equals(Constants.CONTENT_IMG)) {
+      chatMessage.setContent(FileUpload.convertBase64ToFile(chatMessage.getContent()));
     }
+    ChatMessage savedChatMessage = chatMessageRepository.save(chatMessage);
+    webSocketHandler.broadcastMessage(savedChatMessage);
+    return savedChatMessage;
+  }
 
+  public boolean hasMoreMessages(int page) {
+    int totalMessages =
+        (int) chatMessageRepository.count(); // Get the total number of chat messages
+    int totalPages =
+        (int)
+            Math.ceil(
+                (double) totalMessages
+                    / Constants.PAGE_SIZE); // Calculate the total number of pages
 
-    public List<ChatMessage> getChatMessages(int page) {
-        Pageable pageable = PageRequest.of(page, Constants.PAGE_SIZE, Sort.by("id").descending());
-        Page<ChatMessage> chatMessagePage = chatMessageRepository.findAll(pageable);
-        if (chatMessagePage.isEmpty()) {
-            logger.warning("No chat messages found");
-            return Collections.emptyList();
-        }
-        return chatMessagePage.getContent();
-    }
-
-    public ChatMessage saveChatMessage(ChatMessage chatMessage) throws IOException {
-        if (chatMessage.getContentType().equals(Constants.CONTENT_IMG)) {
-            chatMessage.setContent(FileUpload.convertBase64ToFile(chatMessage.getContent()));
-        }
-        ChatMessage savedChatMessage = chatMessageRepository.save(chatMessage);
-        ChatWebSocketHandler.getInstance().broadcastMessage(savedChatMessage); // Broadcast the message
-        return savedChatMessage;
-    }
-
-    public boolean hasMoreMessages(int page) {
-        int totalMessages = (int) chatMessageRepository.count(); // Get the total number of chat messages
-        int totalPages = (int) Math.ceil((double) totalMessages / Constants.PAGE_SIZE); // Calculate the total number of pages
-
-        return page < totalPages; // Return true if there are more pages after the current page
-    }
-
-
+    return page < totalPages; // Return true if there are more pages after the current page
+  }
 }

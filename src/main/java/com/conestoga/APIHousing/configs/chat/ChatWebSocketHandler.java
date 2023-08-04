@@ -2,92 +2,75 @@ package com.conestoga.APIHousing.configs.chat;
 
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
-    //make it singleton
-    private static ChatWebSocketHandler instance = null;
     private final List<WebSocketSession> sessions = new ArrayList<>();
-         private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
-    public ChatWebSocketHandler() {
-    }
-
-    public static ChatWebSocketHandler getInstance() {
-        if (instance == null) {
-            instance = new ChatWebSocketHandler();
-        }
-        return instance;
-    }
-
-    //get all sessions
-    private List<WebSocketSession> getSessions() {
-        return sessions;
-    }
-
-
+    private static final Logger logger = LoggerFactory.getLogger(ChatWebSocketHandler.class);
 
     @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-      
+    public void afterConnectionEstablished(WebSocketSession session) {
         // Handle a new WebSocket connection
-        System.out.println("WebSocket connection established: " + session.getId());
+        logger.info("WebSocket connection established: {}", session.getId());
         sessions.add(session);
 
-        //print number of sessions in the server
-        System.out.println("Number of sessions: " + sessions.size());
-
+        // Print number of sessions on the server
+        logger.info("Number of sessions: {}", sessions.size());
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-    //      String payload = message.getPayload();
-    // System.out.println("Received message: " + payload);
-
-    // // Convert the JSON payload to a ChatMessage object
-    // ChatMessage chatMessage = objectMapper.readValue(payload, ChatMessage.class);
-
-    // // Save the chat message using the ChatMessageService
-    // chatMessageService.saveChatMessage(chatMessage);
-
-       
-    //     // Save the chat message using the ChatMessageService
-    //     chatMessageService.saveChatMessage(chatMessage);
-
-    //     // Broadcast the message to other connected clients if needed
-    //     // Example:
-    //     broadcastMessage(message);
+        logger.info("Received message: {}", message.getPayload());
+        ChatMessage chatMessage = objectMapper.readValue(message.getPayload(), ChatMessage.class);
+        broadcastMessage(chatMessage);
+        session.sendMessage(message);
     }
 
-public void broadcastMessage(ChatMessage chatMessage) {
-    try {
-        TextMessage message = new TextMessage(objectMapper.writeValueAsString(chatMessage));
+    public void broadcastMessage(ChatMessage chatMessage) {
+        TextMessage message;
+        try {
+            message = new TextMessage(objectMapper.writeValueAsString(chatMessage));
+        } catch (IOException e) {
+            logger.error("Failed to convert chat message to JSON: {}", e.getMessage());
+            return;
+        }
+
         for (WebSocketSession session : getSessions()) {
             if (session.isOpen()) {
-                session.sendMessage(message);
+                try {
+                    session.sendMessage(message);
+                } catch (IOException e) {
+                    logger.error("Exception occurred while sending message to WebSocket client: {}", e.getMessage());
+                    // Handle exception if message sending fails
+                }
             }
         }
-    } catch (Exception e) {
-        System.out.println("Exception occurred while sending message to WebSocket client: " + e.getMessage());
-        // Handle exception if message sending fails
     }
-}
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         // Handle WebSocket connection closed
-        System.out.println("WebSocket connection closed: " + session.getId() + ", Status: " + status.getCode());
+        logger.info("WebSocket connection closed: {}, Status: {}", session.getId(), status.getCode());
         sessions.remove(session);
-          System.out.println("Number of sessions: " + sessions.size());
+        logger.info("Number of sessions: {}", sessions.size());
+    }
 
-
+    // Encapsulate the list of WebSocket sessions
+    private List<WebSocketSession> getSessions() {
+        return sessions;
     }
 }

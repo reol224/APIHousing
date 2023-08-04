@@ -7,6 +7,11 @@ import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.utils.FileUpload;
 import com.conestoga.APIHousing.utils.JwtUtil;
+import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,19 +20,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 @Service
 public class AccountService {
-    Logger logger = Logger.getLogger(AccountService.class.getName());
     private final AccountRepository accountRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    Logger logger = Logger.getLogger(AccountService.class.getName());
 
     public AccountService(AccountRepository accountRepository, AuthenticationManager authenticationManager,
                           JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
@@ -35,6 +34,43 @@ public class AccountService {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    public static Account convertToAccount(AccountDTO accountDTO) {
+        Account account = new Account();
+        account.setEmail(accountDTO.getEmail());
+        account.setFirstName(accountDTO.getFirstName());
+        account.setLastName(accountDTO.getLastName());
+        account.setPhoneNumber(accountDTO.getPhoneNumber());
+        account.setAddress(accountDTO.getAddress());
+        account.setDateOfBirth(accountDTO.getDateOfBirth());
+        account.setFcm(accountDTO.getFcm());
+        account.setCollegeName(accountDTO.getCollegeName());
+        account.setStudentId(accountDTO.getStudentId());
+        account.setPostalCode(accountDTO.getPostalCode());
+        account.setRole(accountDTO.getRole());
+        account.setImg(accountDTO.getImg());
+
+        return account;
+    }
+
+    public static AccountDTO convertToAccountDTO(Account account) {
+        return new AccountDTO(
+                account.getId(),
+                account.getEmail(),
+                account.getFirstName(),
+                account.getLastName(),
+                account.getPhoneNumber(),
+                account.getAddress(),
+                account.getDateOfBirth(),
+                account.getFcm(),
+                account.getCollegeName(),
+                account.getStudentId(),
+                account.getPostalCode(),
+                account.getRole(),
+                account.getImg(),
+                null
+        );
     }
 
     public AccountDTO createAccount(AccountDTO accountDTO) throws IOException {
@@ -79,12 +115,10 @@ public class AccountService {
         return new LoginResponse(token, convertToAccountDTO(existingAccountOptional.get()));
     }
 
-
     public AccountDTO getAccountById(Long id) {
         Optional<Account> accountOptional = accountRepository.findById(id);
         return accountOptional.map(AccountService::convertToAccountDTO).orElse(null);
     }
-
 
     public AccountDTO getAccountByEmail(String email) {
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
@@ -135,7 +169,6 @@ public class AccountService {
         return false;
     }
 
-
     @Transactional
     public boolean updatePassword(String password, String email) {
         Optional<Account> accountOptional = accountRepository.findByEmail(email);
@@ -154,43 +187,6 @@ public class AccountService {
     public List<AccountDTO> getAllAccounts() {
         List<Account> accounts = accountRepository.findAll();
         return accounts.stream().map(AccountService::convertToAccountDTO).collect(Collectors.toList());
-    }
-
-    public static Account convertToAccount(AccountDTO accountDTO) {
-        Account account = new Account();
-        account.setEmail(accountDTO.getEmail());
-        account.setFirstName(accountDTO.getFirstName());
-        account.setLastName(accountDTO.getLastName());
-        account.setPhoneNumber(accountDTO.getPhoneNumber());
-        account.setAddress(accountDTO.getAddress());
-        account.setDateOfBirth(accountDTO.getDateOfBirth());
-        account.setFcm(accountDTO.getFcm());
-        account.setCollegeName(accountDTO.getCollegeName());
-        account.setStudentId(accountDTO.getStudentId());
-        account.setPostalCode(accountDTO.getPostalCode());
-        account.setRole(accountDTO.getRole());
-        account.setImg(accountDTO.getImg());
-
-        return account;
-    }
-
-    public static AccountDTO convertToAccountDTO(Account account) {
-        return new AccountDTO(
-                account.getId(),
-                account.getEmail(),
-                account.getFirstName(),
-                account.getLastName(),
-                account.getPhoneNumber(),
-                account.getAddress(),
-                account.getDateOfBirth(),
-                account.getFcm(),
-                account.getCollegeName(),
-                account.getStudentId(),
-                account.getPostalCode(),
-                account.getRole(),
-                account.getImg(),
-                null
-        );
     }
 
     public String getFcmToken(Long userId) {

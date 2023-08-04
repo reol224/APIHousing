@@ -5,12 +5,11 @@ import com.google.cloud.functions.RawBackgroundFunction;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
 
 @Service
 public class DatabaseUpdaterService implements RawBackgroundFunction {

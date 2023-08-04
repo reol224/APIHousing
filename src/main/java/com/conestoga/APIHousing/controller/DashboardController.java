@@ -3,14 +3,12 @@ package com.conestoga.APIHousing.controller;
 import com.conestoga.APIHousing.dtos.MaintenanceRequestDTO;
 import com.conestoga.APIHousing.dtos.TransactionDTO;
 import com.conestoga.APIHousing.service.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")

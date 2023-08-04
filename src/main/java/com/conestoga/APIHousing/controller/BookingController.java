@@ -7,13 +7,12 @@ import com.conestoga.APIHousing.service.Booking.BookingService;
 import com.conestoga.APIHousing.service.NotificationService;
 import com.conestoga.APIHousing.utils.Constants;
 import com.conestoga.APIHousing.utils.ErrorResponse;
+import java.time.LocalDate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")

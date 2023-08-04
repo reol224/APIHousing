@@ -1,9 +1,8 @@
 package com.conestoga.APIHousing.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import javax.persistence.*;
 import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -79,101 +78,101 @@ public class Account {
         return password;
     }
 
+    public void setPassword(String password) {
+        // password = new BCryptPasswordEncoder().encode(password);
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getFcm() {
-        return fcm;
-    }
-
-    public String getCollegeName() {
-        return collegeName;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public int getRole(){
-        return role;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        // password = new BCryptPasswordEncoder().encode(password);
-        this.password = password;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getFcm() {
+        return fcm;
+    }
+
     public void setFcm(String fcm) {
         this.fcm = fcm;
+    }
+
+    public String getCollegeName() {
+        return collegeName;
     }
 
     public void setCollegeName(String collegeName) {
         this.collegeName = collegeName;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
+
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
     }
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
+    public int getRole(){
+        return role;
+    }
+
     public void setRole(int role){
         this.role = role;
+    }
+
+    public String getImg() {
+        return img;
     }
 
     public void setImg(String img) {

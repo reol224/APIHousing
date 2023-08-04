@@ -53,18 +53,17 @@ public class BookableObject {
     public boolean isBooked() {
         return booked; }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked; }
-
     public String getName() {
         return name; }
 
     public void setName(String name) {
         this.name = name; }
 
-    
     public boolean getBooked() {
         return booked; }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked; }
 
     public void setBooked(Boolean booked) {
         this.booked = booked; }

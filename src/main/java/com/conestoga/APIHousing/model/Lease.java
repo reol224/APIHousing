@@ -1,7 +1,7 @@
 package com.conestoga.APIHousing.model;
 
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "leases")

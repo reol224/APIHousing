@@ -7,22 +7,20 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
 import com.conestoga.APIHousing.utils.FileUpload;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EventService {
-    Logger logger = Logger.getLogger(EventService.class.getName());
     private final EventRepository eventRepository;
     private final RsvpRepository rsvpRepository;
     private final AccountRepository accountRepository;
+    Logger logger = Logger.getLogger(EventService.class.getName());
 
     @Autowired
     public EventService(EventRepository eventRepository, RsvpRepository rsvpRepository, AccountRepository accountRepository) {

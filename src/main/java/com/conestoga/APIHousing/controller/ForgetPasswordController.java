@@ -2,6 +2,11 @@ package com.conestoga.APIHousing.controller;
 
 import com.conestoga.APIHousing.model.Pin;
 import com.conestoga.APIHousing.service.PinService;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,16 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
-
 @RestController
 public class ForgetPasswordController {
-    private Map<String, String> resetTokens = new ConcurrentHashMap<>();
-    private PinService pinService;
+    private final Map<String, String> resetTokens = new ConcurrentHashMap<>();
+    private final PinService pinService;
 
     @Autowired
     private JavaMailSender javaMailSender;

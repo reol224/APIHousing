@@ -2,10 +2,9 @@ package com.conestoga.APIHousing.service;
 
 import com.stripe.Stripe;
 import com.stripe.net.RequestOptions;
+import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 
 @Service
 public class StripeService {

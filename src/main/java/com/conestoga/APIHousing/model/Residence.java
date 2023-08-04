@@ -2,9 +2,8 @@ package com.conestoga.APIHousing.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "residences")

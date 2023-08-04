@@ -1,9 +1,8 @@
 package com.conestoga.APIHousing.model.booking;
 
 import com.conestoga.APIHousing.model.Account;
-
-import javax.persistence.*;
 import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "booking")

@@ -13,30 +13,25 @@ import com.stripe.net.Webhook;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.InvoiceCreateParams;
 import com.stripe.param.PaymentIntentCreateParams;
+import java.sql.Timestamp;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.Timestamp;
-import java.util.logging.Logger;
-
 
 @RestController
 @RequestMapping("/api/payments")
 public class StripeController {
     final TransactionService transactionService;
     final NotificationService notificationService;
+    Logger logger = Logger.getLogger(StripeController.class.getName());
 
     @Autowired
     public StripeController(TransactionService transactionService, NotificationService notificationService) {
         this.transactionService = transactionService;
         this.notificationService = notificationService;
     }
-
-    Logger logger = Logger.getLogger(StripeController.class.getName());
-
-
 
  @PostMapping("/stripe-webhook")
     public ResponseEntity<String> handleStripeWebhook(@RequestHeader("Stripe-Signature") String signature, @RequestBody String payload) {

@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.conestoga.APIHousing.model.Transaction;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 

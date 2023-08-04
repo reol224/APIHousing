@@ -4,18 +4,17 @@ import com.conestoga.APIHousing.interfaces.ResidenceRepository;
 import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Subresidence;
 import com.conestoga.APIHousing.utils.FileUpload;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UnitService {
-    Logger logger = Logger.getLogger(UnitService.class.getName());
     private final SubresidenceRepository unitRepository;
     private final ResidenceRepository residenceRepository;
+    Logger logger = Logger.getLogger(UnitService.class.getName());
 
     public UnitService(SubresidenceRepository unitRepository, ResidenceRepository residenceRepository) {
         this.unitRepository = unitRepository;

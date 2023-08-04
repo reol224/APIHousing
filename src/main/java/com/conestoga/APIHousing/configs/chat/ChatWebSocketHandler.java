@@ -2,34 +2,30 @@ package com.conestoga.APIHousing.configs.chat;
 
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 public class ChatWebSocketHandler extends TextWebSocketHandler {
 
     //make it singleton
     private static ChatWebSocketHandler instance = null;
+    private final List<WebSocketSession> sessions = new ArrayList<>();
+         private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Autowired
+    public ChatWebSocketHandler() {
+    }
 
     public static ChatWebSocketHandler getInstance() {
         if (instance == null) {
             instance = new ChatWebSocketHandler();
         }
         return instance;
-    }
-    private List<WebSocketSession> sessions = new ArrayList<>();
-
-         private ObjectMapper objectMapper = new ObjectMapper();
-
-
-    @Autowired
-    public ChatWebSocketHandler() {
     }
 
     //get all sessions

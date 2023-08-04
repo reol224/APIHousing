@@ -3,11 +3,10 @@ package com.conestoga.APIHousing.interfaces;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.conestoga.APIHousing.model.Subresidence;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MaintenanceRequestRepository extends JpaRepository<MaintenanceRequest, Long> {

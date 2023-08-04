@@ -3,18 +3,17 @@ package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.interfaces.NotificationRepository;
 import com.conestoga.APIHousing.model.Notification;
+import java.util.List;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.logging.Logger;
-
 @Service
 public class NotificationService {
-    Logger logger = Logger.getLogger(NotificationService.class.getName());
     private final NotificationRepository notificationRepository;
     private final FirebaseService firebaseService;
     private final AccountService accountService;
+    Logger logger = Logger.getLogger(NotificationService.class.getName());
 
 
     @Autowired

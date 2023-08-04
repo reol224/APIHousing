@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 public class LeaseDTO {

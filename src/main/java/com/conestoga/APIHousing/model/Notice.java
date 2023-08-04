@@ -1,7 +1,7 @@
 package com.conestoga.APIHousing.model;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "notices")

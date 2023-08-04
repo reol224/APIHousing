@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDate;
 
 public class AccountDTO {
@@ -127,61 +126,60 @@ public class AccountDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setFcm(String fcm) {
-        this.fcm = fcm;
-    }
-
     public String getFcm() {
         return fcm;
     }
 
-    public void setCollegeName(String collegeName) {
-        this.collegeName = collegeName;
+    public void setFcm(String fcm) {
+        this.fcm = fcm;
     }
 
     public String getCollegeName() {
         return collegeName;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
     }
 
     public String getStudentId() {
         return studentId;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getPostalCode() {
         return postalCode;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public int getRole() {
         return role;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getImg() {
         return img;
     }
 
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getStripeCustomerId() {

@@ -1,7 +1,6 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.conestoga.APIHousing.model.Subresidence;
-
 import java.math.BigDecimal;
 
 public class SubresidenceDTO {
@@ -26,6 +25,10 @@ public class SubresidenceDTO {
         
     }
 
+    public SubresidenceDTO() {
+
+    }
+
     //to model
     public Subresidence convertToModel() {
         Subresidence unit = new Subresidence();
@@ -35,10 +38,6 @@ public class SubresidenceDTO {
         unit.setMonthlyRent(this.monthlyRent);
         unit.setImg(this.img);
         return unit;
-    }
-
-    public SubresidenceDTO() {
-
     }
 
     public Long getUnitId() {

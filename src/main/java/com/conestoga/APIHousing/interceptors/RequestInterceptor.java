@@ -16,14 +16,14 @@ public class RequestInterceptor implements HandlerInterceptor {
       HttpServletRequest request, HttpServletResponse response, Object handler) {
     String apiPath = request.getRequestURI();
 
-    System.out.println("------------------");
+    logger.info("------------------");
     // print path and method and other info
-    System.out.println(
+    logger.info(
         "API Path: " + apiPath + " - " + request.getMethod() + " - " + response.getStatus());
     // print agent
-    System.out.println("Agent: " + request.getHeader("User-Agent"));
+    logger.info("Agent: " + request.getHeader("User-Agent"));
     // print IP
-    System.out.println("IP: " + request.getRemoteAddr());
+    logger.info("IP: " + request.getRemoteAddr());
 
     return true;
   }

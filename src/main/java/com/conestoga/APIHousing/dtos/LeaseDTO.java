@@ -20,15 +20,9 @@ public class LeaseDTO {
 
     private String unitNo;
 
-
-
-
-
- 
-
-    public LeaseDTO() {
-
-    }
+  public LeaseDTO() {
+    // TODO document why this constructor is empty
+  }
 
     public Long getLeaseId() {
         return leaseId;

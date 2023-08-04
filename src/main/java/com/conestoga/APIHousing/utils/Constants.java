@@ -17,4 +17,7 @@ public class Constants {
   public static final int NOTIFICATION_TYPE_NOTICE = 5;
   public static final int NOTIFICATION_TYPE_Booking = 6;
   public static final int NOTIFICATION_TYPE_Housing = 7;
+
+  private Constants() {
+  }
 }

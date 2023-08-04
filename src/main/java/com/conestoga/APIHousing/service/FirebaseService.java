@@ -20,7 +20,7 @@ public class FirebaseService {
     private static FirebaseApp firebaseApp;
 
     @PostConstruct
-    public void initializeFirebase() throws IOException {
+    public static void initializeFirebase() throws IOException {
         if (firebaseApp == null) {
             InputStream serviceAccount = new ClassPathResource("firebase/serviceAccountKey.json").getInputStream();
 
@@ -62,5 +62,6 @@ public class FirebaseService {
     }
 
     public void getAllNotifications() {
+        //Does not exist yet as API
     }
 }

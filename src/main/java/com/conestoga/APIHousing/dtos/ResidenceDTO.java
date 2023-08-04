@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//impoer javautil.List;
 
-//include not null fields
 
-// @JsonInclude(JsonInclude.Include.ALWAYS)
 public class ResidenceDTO {
 
     private Long residenceId;

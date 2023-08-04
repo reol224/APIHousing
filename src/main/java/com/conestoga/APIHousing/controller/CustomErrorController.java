@@ -1,7 +1,8 @@
-
 package com.conestoga.APIHousing.controller;
 
 import java.util.Map;
+import java.util.logging.Logger;
+
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
@@ -13,37 +14,29 @@ import org.springframework.web.context.request.WebRequest;
 
 @RestController
 public class CustomErrorController implements ErrorController {
+  Logger logger = Logger.getLogger(CustomErrorController.class.getName());
+  private final ErrorAttributes errorAttributes;
 
-    private final ErrorAttributes errorAttributes;
+  public CustomErrorController(ErrorAttributes errorAttributes) {
+    this.errorAttributes = errorAttributes;
+  }
 
-    public CustomErrorController(ErrorAttributes errorAttributes) {
-        this.errorAttributes = errorAttributes;
+  @RequestMapping("/error")
+  public ResponseEntity<String> handleError(WebRequest request) {
+    // Get the error attributes from the request
+    Map<String, Object> errorAtributesMap =
+        this.errorAttributes.getErrorAttributes(
+            request, ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
+
+    logger.info("Error attributes " + errorAtributesMap.values());
+    for (Map.Entry<String, Object> entry : errorAtributesMap.entrySet()) {
+      logger.info(entry.getKey() + " : " + entry.getValue());
     }
 
-    @RequestMapping("/error")
-    public ResponseEntity<String> handleError(WebRequest request) {
-        // Get the error attributes from the request
-        Map<String, Object> errorAttributes = this.errorAttributes.getErrorAttributes(request,
-                ErrorAttributeOptions.of(ErrorAttributeOptions.Include.STACK_TRACE));
-
-                System.out.println(errorAttributes.toString());
-            //print the error attributes if  they have aany
-            //print error attributes in a loop
-            for (Map.Entry<String, Object> entry : errorAttributes.entrySet()) {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-            }
-                
-
-      
-        // // Construct the error response
-        // StringBuilder response = new StringBuilder();
-        // response.append("Error: ").append(errorMessage).append("\n\n");
-        // response.append("Stack Trace:\n").append(stackTrace);
-
-        // Return the error response with HTTP status 500
-        return new ResponseEntity<>(errorAttributes.toString(),
-                errorAttributes.get("status").toString().equals("404") ? HttpStatus.NOT_FOUND
-                        : HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
+    return new ResponseEntity<>(
+        errorAtributesMap.toString(),
+        errorAtributesMap.get("status").toString().equals("404")
+            ? HttpStatus.NOT_FOUND
+            : HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 }

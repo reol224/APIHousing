@@ -48,4 +48,7 @@ public class FileUpload {
     UUID uuid = UUID.randomUUID();
     return uuid.toString().replaceAll("-", "") + ".png";
   }
+
+  private FileUpload() {
+  }
 }

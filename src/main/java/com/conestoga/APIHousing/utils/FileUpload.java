@@ -13,14 +13,14 @@ public class FileUpload {
   // path
   public static String convertBase64ToFile(String base64String) throws IOException {
     final String publicFolder = "uploads";
-    // if the base64 string is a url path like upload, reutrn the url
-    if (base64String.contains("uploads/")) {
+    // if the base64 string is an url path like upload, return the url
+    if (base64String.contains("uploads\\")) {
       return base64String;
     }
 
     // Decode the base64 string to bytes
     byte[] bytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64String);
-    final String staticFolder = "static/" + publicFolder;
+    final String staticFolder = "static\\" + publicFolder;
 
     // Define the directory where you want to save the file (using the user's home directory)
     File uploadDir = new File(staticFolder);
@@ -39,15 +39,27 @@ public class FileUpload {
       throw new IOException("Failed to save the file: " + fileName, e);
     }
 
-    final String finalFile = publicFolder + File.separator + fileName;
+    final String finalFile = staticFolder + File.separator + fileName;
     logger.info("File saved as :" + finalFile);
     return finalFile;
   }
 
   private static String generateRandomFileName() {
     UUID uuid = UUID.randomUUID();
-    return uuid.toString().replaceAll("-", "") + ".png";
+    String uuidString = uuid.toString().replaceAll("-", "");
+
+    // Ensure the uuidString is at least 32 characters long
+    if (uuidString.length() >= 32) {
+      return uuidString.substring(0, 32) + ".png";
+    } else {
+      // Handle the case when uuidString is too short (unlikely to happen)
+      return uuidString + ".png";
+    }
   }
+
+
+
+
 
   private FileUpload() {
   }

@@ -42,8 +42,13 @@ class RsvpService {
         Rsvp rsvp = rsvpRepository.findByEventIdAndUserId(eventId, userId)
                 .orElseThrow();
         rsvpRepository.delete(rsvp);
-        logger.info("RSVP deleted for user: " + userId + " and event: " + eventId);
-        return rsvpRepository.findByEventIdAndUserId(eventId, userId).isEmpty();
+        if (rsvpRepository.findByEventIdAndUserId(eventId, userId).isEmpty()) {
+            logger.info("RSVP cancelled for user: " + userId + " and event: " + eventId);
+            return true;
+        } else {
+            logger.warning("RSVP not cancelled for user: " + userId + " and event: " + eventId);
+            return false;
+        }
     }
 
     public Optional<Rsvp> findByEventIdAndUserId(Long eventId, Long userId) {

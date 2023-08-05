@@ -10,13 +10,9 @@ import org.springframework.stereotype.Service;
 public class StripeService {
 
     @Value("${Stripe.apiKey}")
-    private static String stripeKey;
+    private String stripeKey;
 
-    @PostConstruct
-    public static void init() {
+    public void init() {
         Stripe.apiKey = stripeKey;
-        RequestOptions requestOptions = RequestOptions.builder()
-                .setApiKey(stripeKey)
-                .build();
     }
 }

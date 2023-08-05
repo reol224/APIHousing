@@ -37,7 +37,7 @@ public class TransactionService {
 
     public Transaction createTransaction(Transaction transaction) {
         Transaction t = transactionRepository.save(transaction);
-        logger.info("Transaction created: " + t);
+        logger.info("Transaction created");
         return t;
     }
 }

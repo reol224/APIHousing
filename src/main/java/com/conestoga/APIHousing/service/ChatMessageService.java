@@ -8,6 +8,7 @@ import com.conestoga.APIHousing.utils.FileUpload;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -48,6 +49,8 @@ public class ChatMessageService {
         if (chatMessage.getContentType().equals(Constants.CONTENT_IMG)) {
             chatMessage.setContent(FileUpload.convertBase64ToFile(chatMessage.getContent()));
         }
+        Date date = new Date();
+        chatMessage.setDate(date);
         ChatMessage savedChatMessage = chatMessageRepository.save(chatMessage);
         ChatWebSocketHandler.getInstance().broadcastMessage(savedChatMessage); // Broadcast the message
         return savedChatMessage;

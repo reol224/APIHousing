@@ -103,21 +103,8 @@ public class AccountService {
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (accountOptional.isPresent()) {
             Account account = convertToAccount(accountDTO);
+            account.setId(id);
 
-
-            // account.setEmail(accountDTO.getEmail());
-            // account.setPassword(accountDTO.getPassword());
-            // account.setEmail(accountDTO.getEmail());
-            // account.setFirstName(accountDTO.getFirstName());
-            // account.setLastName(accountDTO.getLastName());
-            // account.setPhoneNumber(accountDTO.getPhoneNumber());
-            // account.setAddress(accountDTO.getAddress());
-            // account.setDateOfBirth(accountDTO.getDateOfBirth());
-            // account.setFcm(accountDTO.getFcm());
-            // account.setCollegeName(accountDTO.getCollegeName());
-            // account.setStudentId(accountDTO.getStudentId());
-            // account.setPostalCode(accountDTO.getPostalCode());
-            // account.setRole(accountDTO.getrole());
 
             return accountRepository.save(account);
         }

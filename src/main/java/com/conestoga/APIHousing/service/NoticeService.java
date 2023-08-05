@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -28,6 +29,7 @@ public class NoticeService {
 
 
     public Notice createNotice(Notice notice) throws IOException {
+        notice.setCreatedAt(Timestamp.valueOf(java.time.LocalDateTime.now()));
          if(notice.getImgUrl() != null && !notice.getImgUrl().isEmpty()){
                     notice.setImgUrl((FileUpload.convertBase64ToFile(notice.getImgUrl())));
                     logger.info("Notice created: " + notice);

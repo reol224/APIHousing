@@ -23,28 +23,24 @@ public class BookableObject {
     @Column(name = "img_url")
     private String imgUrl;
 
-    @Column(name = "is_booked")
-    private boolean booked;
 
     //constructor, getters, setters, etc.
     public BookableObject() {
     }
 
-    public BookableObject(String name, String description, String type, String imgUrl, boolean booked) {
+    public BookableObject(String name, String description, String type, String imgUrl) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.imgUrl = imgUrl;
-        this.booked = booked;
     }
 
-    public BookableObject(Long id, String name, String description, String type, String imgUrl, boolean booked) {
+    public BookableObject(Long id, String name, String description, String type, String imgUrl) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.imgUrl = imgUrl;
-        this.booked = booked;
     }
 
     //getters and setters
@@ -54,12 +50,7 @@ public class BookableObject {
     public void setId(Long id) {
         this.id = id; }
 
-    
-    public boolean isBooked() {
-        return booked; }
 
-    public void setBooked(boolean booked) {
-        this.booked = booked; }
 
     public String getName() {
         return name; }
@@ -68,11 +59,7 @@ public class BookableObject {
         this.name = name; }
 
     
-    public boolean getBooked() {
-        return booked; }
 
-    public void setBooked(Boolean booked) {
-        this.booked = booked; }
 
     public String getDescription() {
         return description; }

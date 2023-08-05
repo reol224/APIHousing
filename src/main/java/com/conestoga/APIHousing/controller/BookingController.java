@@ -38,6 +38,12 @@ public class BookingController {
         return bookingService.getAllBookableObjects();
     }
 
+    //get booked dates for a bookable item
+    @GetMapping("/items/{id}")
+    public List<Booking> getBookedDatesForItem(@PathVariable Long id) {
+        return bookingService.getBookedDatesForItem(id);
+    }
+
     @PostMapping("/book")
     public ResponseEntity<Object> bookItem(@RequestBody BookingRequest request) {
         // You'll need to implement user authentication and retrieve the logged-in user
@@ -49,10 +55,7 @@ public class BookingController {
             
         }
 
-        if (item.isBooked()) {
-            return ResponseEntity.badRequest().body(new ErrorResponse(HttpStatus.BAD_REQUEST, "Bookable item is already booked."));
-        }
-
+  
 
         LocalDate bookedFrom = LocalDate.parse(request.getBookedFrom());
         LocalDate bookedTo = LocalDate.parse(request.getBookedTo());

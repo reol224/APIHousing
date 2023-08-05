@@ -31,7 +31,6 @@ public class BookingService {
     }
 
     public void bookItem(BookableObject item, Long userId, LocalDate bookedFrom, LocalDate bookedTo) {
-        item.setBooked(true);
         bookableObjectRepository.save(item);
 
         Booking booking = new Booking();
@@ -53,7 +52,6 @@ public class BookingService {
     public void updateBookedStatus(Long itemId, boolean isBooked) {
         Optional<BookableObject> optionalItem = bookableObjectRepository.findById(itemId);
         optionalItem.ifPresent(item -> {
-            item.setBooked(isBooked);
             bookableObjectRepository.save(item);
         });
     }
@@ -61,5 +59,9 @@ public class BookingService {
     public BookableObject getBookableItemById(Long itemId) {
         Optional<BookableObject> optionalItem = bookableObjectRepository.findById(itemId);
         return optionalItem.orElse(null);
+    }
+
+    public List<Booking> getBookedDatesForItem(Long id) {
+        return bookingRepository.findByItemId(id);
     }
 }

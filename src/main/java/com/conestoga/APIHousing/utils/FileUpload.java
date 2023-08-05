@@ -11,7 +11,7 @@ public class FileUpload {
     public static String convertBase64ToFile(String base64String) throws IOException {
      final String publicFolder = "uploads";
         //if the base64 string is a url path like upload, reutrn the url
-        if(base64String.contains("uploads/")){
+        if(base64String.contains("uploads/") || base64String.contains("http://") || base64String.contains("https://")){
             return base64String;
         }
 

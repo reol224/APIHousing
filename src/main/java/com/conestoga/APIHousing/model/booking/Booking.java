@@ -10,7 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.conestoga.APIHousing.model.Account; 
+import com.conestoga.APIHousing.model.Account;
+import com.fasterxml.jackson.annotation.JsonFormat; 
 
 @Entity
 @Table(name = "booking")
@@ -28,9 +29,11 @@ public class Booking {
     private BookableObject item;
 
     @Column(name = "booked_from")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookedFrom;
 
     @Column(name = "booked_to")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate bookedTo;
 
     public Booking() {

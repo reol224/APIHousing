@@ -38,16 +38,20 @@ public class UnitService {
         return unitOptional.orElse(null);
     }
 
-    public Subresidence updateUnit(Long unitId, Subresidence unit) throws IOException {
+    public Subresidence updateUnit(Long unitId, Subresidence updatedUnit) throws IOException {
         Optional<Subresidence> unitOptional = unitRepository.findById(unitId);
         if (unitOptional.isPresent()) {
-            unit.setImg(FileUpload.convertBase64ToFile(unit.getImg()));
-            logger.info("Unit updated: " + unit);
-            return unit;
+            Subresidence existingUnit = unitOptional.get();
+
+            // Copy the updated image data to the existing unit
+            existingUnit.setImg(updatedUnit.getImg());
+
+            logger.info("Unit updated: " + existingUnit);
+            return unitRepository.save(existingUnit);
         } else {
             logger.warning("Unit not found for id: " + unitId);
+            throw new IOException("Unit not found for id: " + unitId);
         }
-        return null;
     }
 
     public boolean deleteUnit(Long unitId) {

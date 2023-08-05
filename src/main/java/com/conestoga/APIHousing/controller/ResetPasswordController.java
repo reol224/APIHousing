@@ -3,6 +3,11 @@ package com.conestoga.APIHousing.controller;
 import com.conestoga.APIHousing.dtos.ResetPasswordRequestDTO;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.model.Account;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,13 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 @RestController
 public class ResetPasswordController {

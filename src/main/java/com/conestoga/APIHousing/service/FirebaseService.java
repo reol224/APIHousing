@@ -6,15 +6,12 @@ import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class FirebaseService {
@@ -23,7 +20,7 @@ public class FirebaseService {
     private static FirebaseApp firebaseApp;
 
     @PostConstruct
-    public void initializeFirebase() throws IOException {
+    public static void initializeFirebase() throws IOException {
         if (firebaseApp == null) {
             InputStream serviceAccount = new ClassPathResource("firebase/serviceAccountKey.json").getInputStream();
 
@@ -65,5 +62,6 @@ public class FirebaseService {
     }
 
     public void getAllNotifications() {
+        //Does not exist yet as API
     }
 }

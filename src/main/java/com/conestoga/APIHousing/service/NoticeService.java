@@ -3,19 +3,17 @@ package com.conestoga.APIHousing.service;
 import com.conestoga.APIHousing.interfaces.NoticeRepository;
 import com.conestoga.APIHousing.model.Notice;
 import com.conestoga.APIHousing.utils.FileUpload;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.logging.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class NoticeService {
-    Logger logger = Logger.getLogger(NoticeService.class.getName());
     private final NoticeRepository noticeRepository;
+    Logger logger = Logger.getLogger(NoticeService.class.getName());
 
     @Autowired
     public NoticeService(NoticeRepository noticeRepository) {

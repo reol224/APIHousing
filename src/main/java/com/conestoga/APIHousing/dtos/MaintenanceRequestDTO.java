@@ -1,10 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
 
 public class MaintenanceRequestDTO {
     private Long requestId;
@@ -19,6 +17,19 @@ public class MaintenanceRequestDTO {
     private String remarks;
 
     // Getters and Setters
+
+    public static MaintenanceRequestDTO fromModel(MaintenanceRequest maintenanceRequest) {
+        MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
+        maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
+        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getUnitId());
+        maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
+        maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
+        maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());
+        maintenanceRequestDTO.setRequestStatus(maintenanceRequest.getRequestStatus());
+        maintenanceRequestDTO.setImg(maintenanceRequest.getImg());
+        maintenanceRequestDTO.setRemarks(maintenanceRequest.getRemarks());
+        return maintenanceRequestDTO;
+    }
 
     public Long getRequestId() {
         return requestId;
@@ -80,24 +91,11 @@ public class MaintenanceRequestDTO {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
-    }
-
 
     //convert to model from DTO
 
-    public static MaintenanceRequestDTO fromModel(MaintenanceRequest maintenanceRequest) {
-        MaintenanceRequestDTO maintenanceRequestDTO = new MaintenanceRequestDTO();
-        maintenanceRequestDTO.setRequestId(maintenanceRequest.getRequestId());
-        maintenanceRequestDTO.setUnitId(maintenanceRequest.getUnit().getUnitId());
-        maintenanceRequestDTO.setUserId(maintenanceRequest.getUser().getUserId());
-        maintenanceRequestDTO.setRequestDate(maintenanceRequest.getRequestDate());
-        maintenanceRequestDTO.setRequestDescription(maintenanceRequest.getRequestDescription());
-        maintenanceRequestDTO.setRequestStatus(maintenanceRequest.getRequestStatus());
-        maintenanceRequestDTO.setImg(maintenanceRequest.getImg());
-        maintenanceRequestDTO.setRemarks(maintenanceRequest.getRemarks());
-        return maintenanceRequestDTO;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     //convert to DTO from model

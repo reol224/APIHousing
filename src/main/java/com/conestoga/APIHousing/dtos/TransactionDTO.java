@@ -1,9 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
+import com.conestoga.APIHousing.model.Transaction;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-
-import com.conestoga.APIHousing.model.Transaction;
 
 public class TransactionDTO {
     private Long id;

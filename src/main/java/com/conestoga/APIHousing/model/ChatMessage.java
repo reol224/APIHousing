@@ -1,8 +1,8 @@
 package com.conestoga.APIHousing.model;
+
 import com.conestoga.APIHousing.utils.Constants;
 import java.util.Date;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "chat_messages")
@@ -65,6 +65,10 @@ public class ChatMessage {
         return content;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
      public String getBriefMsg() {
         //if content type = "txt" then return content else return "sent an image"
         if(contentType.equals(Constants.CONTENT_TEXT)){
@@ -76,10 +80,6 @@ public class ChatMessage {
         }else{
             return "sent an image";
         }
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public String getContentType() {

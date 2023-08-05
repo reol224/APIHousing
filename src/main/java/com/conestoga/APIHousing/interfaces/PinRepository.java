@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PinRepository extends JpaRepository<Pin, Long> {
 
-    @Query("SELECT p FROM Pin p WHERE p.email = :email AND p.pinCode = :pinCode ORDER BY p.createdAt DESC")
-    Pin findPinByEmail(String email, String pinCode);
+  @Query(
+      "SELECT p FROM Pin p WHERE p.email = :email AND p.pinCode = :pinCode ORDER BY p.createdAt DESC")
+  Pin findPinByEmail(String email, String pinCode);
 }

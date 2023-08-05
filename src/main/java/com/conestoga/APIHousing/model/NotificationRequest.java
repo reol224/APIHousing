@@ -7,6 +7,12 @@ public class NotificationRequest {
 
     // Getters and setters
 
+    public NotificationRequest(String title, String description, String image) {
+        this.title = title;
+        this.description = description;
+        this.image = image;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -23,19 +29,13 @@ public class NotificationRequest {
         this.description = description;
     }
 
-    public NotificationRequest(String title, String description, String image) {
-        this.title = title;
-        this.description = description;
-        this.image = image;
+    //getter for image
+    public String getImage() {
+        return image;
     }
 
     //setter for image
     public void setImage(String image) {
         this.image = image;
-    }
-
-    //getter for image
-    public String getImage() {
-        return image;
     }
 }

@@ -1,27 +1,18 @@
 package com.conestoga.APIHousing.controller;
 
-import java.time.LocalDate;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.conestoga.APIHousing.model.Notification;
 import com.conestoga.APIHousing.model.booking.BookableObject;
 import com.conestoga.APIHousing.model.booking.Booking;
-import com.conestoga.APIHousing.service.AccountService;
-import com.conestoga.APIHousing.service.NotificationService;
 import com.conestoga.APIHousing.service.Booking.BookingService;
+import com.conestoga.APIHousing.service.NotificationService;
 import com.conestoga.APIHousing.utils.Constants;
 import com.conestoga.APIHousing.utils.ErrorResponse;
+import java.time.LocalDate;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bookings")

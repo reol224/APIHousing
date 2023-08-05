@@ -1,21 +1,17 @@
 package com.conestoga.APIHousing.controller;
 
 
-
+import com.conestoga.APIHousing.model.RoommateProfile;
+import com.conestoga.APIHousing.service.AccountService;
+import com.conestoga.APIHousing.service.RoommateProfileService;
+import com.conestoga.APIHousing.utils.ErrorResponse;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.conestoga.APIHousing.model.RoommateProfile;
-import com.conestoga.APIHousing.service.AccountService;
-import com.conestoga.APIHousing.service.RoommateProfileService;
-import com.conestoga.APIHousing.utils.ErrorResponse;
-
 
 @RestController
 @RequestMapping("/api/roommate_profiles")

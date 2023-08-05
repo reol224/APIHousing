@@ -5,17 +5,16 @@ import com.conestoga.APIHousing.interfaces.AccountRepository;
 import com.conestoga.APIHousing.interfaces.ResidenceRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Residence;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ResidenceService {
-    Logger logger = Logger.getLogger(ResidenceService.class.getName());
     private final ResidenceRepository residenceRepository;
     private final AccountRepository accountRepository;
+    Logger logger = Logger.getLogger(ResidenceService.class.getName());
 
     public ResidenceService(ResidenceRepository residenceRepository, AccountRepository accountRepository) {
         this.residenceRepository = residenceRepository;

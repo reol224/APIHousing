@@ -1,23 +1,18 @@
 package com.conestoga.APIHousing.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.conestoga.APIHousing.dtos.TransactionDTO;
 import com.conestoga.APIHousing.interfaces.TransactionRepository;
 import com.conestoga.APIHousing.model.Transaction;
-
 import java.util.List;
-
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TransactionService {
-    Logger logger = Logger.getLogger(TransactionService.class.getName());
     private final TransactionRepository transactionRepository;
+    Logger logger = Logger.getLogger(TransactionService.class.getName());
 
     @Autowired
     public TransactionService(TransactionRepository transactionRepository) {
@@ -42,7 +37,7 @@ public class TransactionService {
 
     public Transaction createTransaction(Transaction transaction) {
         Transaction t = transactionRepository.save(transaction);
-        logger.info("Transaction created: " + t.toString());
+        logger.info("Transaction created");
         return t;
     }
 }

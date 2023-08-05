@@ -1,17 +1,15 @@
 package com.conestoga.APIHousing.service;
 
-import com.conestoga.APIHousing.model.Pin;
 import com.conestoga.APIHousing.interfaces.PinRepository;
-
+import com.conestoga.APIHousing.model.Pin;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.logging.Logger;
-
 @Service
 public class PinService {
-    Logger logger = Logger.getLogger(PinService.class.getName());
     private final PinRepository pinRepository;
+    Logger logger = Logger.getLogger(PinService.class.getName());
 
     @Autowired
     public PinService(PinRepository pinRepository) {

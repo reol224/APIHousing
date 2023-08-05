@@ -1,9 +1,6 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity

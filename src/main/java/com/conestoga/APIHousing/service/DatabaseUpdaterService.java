@@ -1,20 +1,15 @@
 package com.conestoga.APIHousing.service;
 
-import com.google.cloud.functions.BackgroundFunction;
 import com.google.cloud.functions.Context;
 import com.google.cloud.functions.RawBackgroundFunction;
+import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.google.cloud.storage.StorageException;
-import com.google.cloud.storage.Blob;
-import com.google.gson.Gson;
+import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
-import java.util.logging.Logger;
 
 @Service
 public class DatabaseUpdaterService implements RawBackgroundFunction {

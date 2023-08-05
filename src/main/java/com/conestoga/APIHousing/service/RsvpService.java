@@ -8,19 +8,15 @@ import com.conestoga.APIHousing.model.Event;
 import com.conestoga.APIHousing.model.Rsvp;
 import java.util.Optional;
 import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-
-
 @Service
 class RsvpService {
-    Logger logger = Logger.getLogger(RsvpService.class.getName());
     private final RsvpRepository rsvpRepository;
     private final EventRepository eventRepository;
     private final AccountRepository accountRepository;
+    Logger logger = Logger.getLogger(RsvpService.class.getName());
 
     @Autowired
     public RsvpService(RsvpRepository rsvpRepository, EventRepository eventRepository, AccountRepository accountRepository) {

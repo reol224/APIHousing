@@ -1,10 +1,7 @@
 package com.conestoga.APIHousing.model;
 
-import javax.persistence.*;
-
-import org.checkerframework.checker.units.qual.t;
-
 import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "notifications")

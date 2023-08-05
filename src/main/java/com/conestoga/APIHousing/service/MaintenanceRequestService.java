@@ -8,21 +8,18 @@ import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.conestoga.APIHousing.model.Subresidence;
 import com.conestoga.APIHousing.utils.FileUpload;
-
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MaintenanceRequestService {
-    Logger logger = Logger.getLogger(MaintenanceRequestService.class.getName());
     private final MaintenanceRequestRepository maintenanceRequestRepository;
     private final SubresidenceRepository unitRepository;
     private final AccountRepository accountRepository;
+    Logger logger = Logger.getLogger(MaintenanceRequestService.class.getName());
 
     public MaintenanceRequestService(MaintenanceRequestRepository maintenanceRequestRepository,
                                      SubresidenceRepository unitRepository,

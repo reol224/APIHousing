@@ -1,10 +1,7 @@
 package com.conestoga.APIHousing.dtos;
 
-import java.util.Date;
-
-import com.conestoga.APIHousing.model.Lease;
-import com.conestoga.APIHousing.model.Subresidence;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
 
 public class LeaseDTO {
    private Long leaseId;
@@ -23,15 +20,9 @@ public class LeaseDTO {
 
     private String unitNo;
 
-
-
-
-
- 
-
-    public LeaseDTO() {
-
-    }
+  public LeaseDTO() {
+    // TODO document why this constructor is empty
+  }
 
     public Long getLeaseId() {
         return leaseId;

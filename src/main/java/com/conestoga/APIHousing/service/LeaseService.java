@@ -8,23 +8,19 @@ import com.conestoga.APIHousing.interfaces.SubresidenceRepository;
 import com.conestoga.APIHousing.model.Account;
 import com.conestoga.APIHousing.model.Lease;
 import com.conestoga.APIHousing.model.Subresidence;
-
 import java.util.Collections;
-
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
 public class LeaseService {
-    Logger logger = Logger.getLogger(LeaseService.class.getName());
     private final LeaseRepository leaseRepository;
     private final SubresidenceRepository subresidenceRepository;
     private final AccountRepository accountRepository;
+    Logger logger = Logger.getLogger(LeaseService.class.getName());
 
     public LeaseService(LeaseRepository leaseRepository, SubresidenceRepository subresidenceRepository, AccountRepository accountRepository) {
         this.leaseRepository = leaseRepository;

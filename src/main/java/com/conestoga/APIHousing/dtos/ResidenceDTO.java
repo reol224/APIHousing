@@ -1,17 +1,12 @@
 package com.conestoga.APIHousing.dtos;
 
+import com.conestoga.APIHousing.model.Residence;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.conestoga.APIHousing.model.Residence;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-//impoer javautil.List;
 
-//include not null fields
-
-// @JsonInclude(JsonInclude.Include.ALWAYS)
 public class ResidenceDTO {
 
     private Long residenceId;
@@ -33,6 +28,9 @@ public class ResidenceDTO {
    
     }
 
+    public ResidenceDTO() {
+    }
+
     //from model to dto
     public Residence convertToResidence() {
         Residence residence = new Residence();
@@ -42,9 +40,6 @@ public class ResidenceDTO {
         residence.setDescription(this.description);
         residence.setImg(this.img.get());
         return residence;
-    }
-
-    public ResidenceDTO() {
     }
 
     public Long getResidenceId() {

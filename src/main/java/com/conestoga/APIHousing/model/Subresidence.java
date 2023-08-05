@@ -1,11 +1,8 @@
 package com.conestoga.APIHousing.model;
 
-import org.springframework.data.annotation.Id;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "subresidence") // Use the actual table name from the SQL definition

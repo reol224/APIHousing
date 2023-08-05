@@ -1,8 +1,8 @@
 package com.conestoga.APIHousing.model;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "transaction")

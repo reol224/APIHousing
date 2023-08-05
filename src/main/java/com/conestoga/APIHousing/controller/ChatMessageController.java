@@ -6,10 +6,6 @@ package com.conestoga.APIHousing.controller;
 import com.conestoga.APIHousing.model.ChatMessage;
 import com.conestoga.APIHousing.service.ChatMessageService;
 import com.conestoga.APIHousing.service.FirebaseService;
-import com.conestoga.APIHousing.utils.Constants;
-
-import jnr.constants.Constant;
-
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-
-
-
-
 
 @RestController
 @RequestMapping("/api/chat")

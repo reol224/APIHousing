@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 public class JwtUtil {
 
   private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
   @Value("${jwt.secret}")
-  private String secretKey;
+  String secretKey;
+
   @Value("${jwt.expiration}")
-  private int expiration;
+  int expiration;
 
   public String generateToken(String username) {
 
@@ -57,9 +59,8 @@ public class JwtUtil {
   }
 
   public String extractUsername(String token) {
-    SecretKey hmacShaKeyFor = Keys.hmacShaKeyFor(this.secretKey.getBytes());
 
-    Claims claims = Jwts.parserBuilder().setSigningKey(hmacShaKeyFor).build().parseClaimsJws(token).getBody();
+    Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 
     return claims.getSubject();
   }

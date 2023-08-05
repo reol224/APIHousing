@@ -15,7 +15,6 @@ public class NotificationService {
     private final AccountService accountService;
     Logger logger = Logger.getLogger(NotificationService.class.getName());
 
-
     @Autowired
     public NotificationService(NotificationRepository notificationRepository, FirebaseService firebaseService, AccountService accountService) {
         this.notificationRepository = notificationRepository;
@@ -23,26 +22,23 @@ public class NotificationService {
         this.accountService = accountService;
     }
 
-    //find by user id
+    // find by user id
     public List<Notification> findByUserId(Long userId) {
         logger.info("Notification found for user: " + userId);
         return notificationRepository.findByUserIdOrderByIdDesc(userId);
     }
 
-    //create
+    // create
     public Notification create(Notification notification) {
         Notification n = notificationRepository.save(notification);
-        String fcm = null;
         if (notification.getUserId() != null) {
             logger.info("Notification created for user: " + notification.getUserId());
-            fcm = accountService.getFcmToken(notification.getUserId());
+            String fcm = accountService.getFcmToken(notification.getUserId());
+            firebaseService.sendPushNotification(notification.getTitle(), "", fcm);
+            logger.info("Notification sent to user: " + notification.getUserId());
+            logger.info("Text: " + notification.getTitle());
         }
-        firebaseService.sendPushNotification(notification.getTitle(), "", fcm);
-        logger.info("Notification sent to user: " + notification.getUserId());
-        logger.info("Text: " + notification.getTitle());
         return n;
-
-
     }
     // String getTitleByType(int type){
     //     switch (type) {

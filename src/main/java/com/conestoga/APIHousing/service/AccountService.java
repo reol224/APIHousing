@@ -1,6 +1,7 @@
 package com.conestoga.APIHousing.service;
 
 import com.conestoga.APIHousing.dtos.AccountDTO;
+import com.conestoga.APIHousing.dtos.LeaseDTO;
 import com.conestoga.APIHousing.dtos.LoginRequest;
 import com.conestoga.APIHousing.dtos.LoginResponse;
 import com.conestoga.APIHousing.interfaces.AccountRepository;
@@ -24,16 +25,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountService {
     private final AccountRepository accountRepository;
     private final AuthenticationManager authenticationManager;
+    private final LeaseService leaseService;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
     Logger logger = Logger.getLogger(AccountService.class.getName());
 
     public AccountService(AccountRepository accountRepository, AuthenticationManager authenticationManager,
-                          JwtUtil jwtUtil, PasswordEncoder passwordEncoder) {
+                          JwtUtil jwtUtil, PasswordEncoder passwordEncoder, LeaseService leaseService) {
         this.accountRepository = accountRepository;
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
         this.passwordEncoder = passwordEncoder;
+        this.leaseService = leaseService;
     }
 
     public static Account convertToAccount(AccountDTO accountDTO) {
@@ -73,6 +76,20 @@ public class AccountService {
         );
     }
 
+    public int getPendingLeasesCount() {
+        List<LeaseDTO> pendingLeases = leaseService.getLeasesByStatus(0); // Assuming 0 represents pending lease status
+        return pendingLeases.size();
+    }
+
+    public int getApprovedLeasesCount() {
+        List<LeaseDTO> approvedLeases = leaseService.getLeasesByStatus(1); // Assuming 1 represents approved lease status
+        return approvedLeases.size();
+    }
+
+    public int getDeniedLeasesCount() {
+        List<LeaseDTO> deniedLeases = leaseService.getLeasesByStatus(2); // Assuming 2 represents denied lease status
+        return deniedLeases.size();
+    }
     public AccountDTO createAccount(AccountDTO accountDTO) throws IOException {
         Account account = convertToAccount(accountDTO);
         account.setPassword(passwordEncoder.encode(accountDTO.getPassword()));

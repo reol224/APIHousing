@@ -2,6 +2,8 @@ package com.conestoga.APIHousing.dtos;
 
 import com.conestoga.APIHousing.model.MaintenanceRequest;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class MaintenanceRequestDTO {
@@ -15,6 +17,21 @@ public class MaintenanceRequestDTO {
     private int requestStatus;
     private String img;
     private String remarks;
+
+    public MaintenanceRequestDTO(long requestId, long unitId, long userId, Date requestDate, String requestDescription, int requestStatus, String img, String remarks) {
+        this.requestId = requestId;
+        this.unitId = unitId;
+        this.userId = userId;
+        this.requestDate = requestDate;
+        this.requestDescription = requestDescription;
+        this.requestStatus = requestStatus;
+        this.img = img;
+        this.remarks = remarks;
+    }
+
+    public MaintenanceRequestDTO() {
+
+    }
 
     // Getters and Setters
 

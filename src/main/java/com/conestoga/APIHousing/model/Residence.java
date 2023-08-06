@@ -2,6 +2,8 @@ package com.conestoga.APIHousing.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -26,11 +28,8 @@ public class Residence {
     @Column(name = "img")
     private String img;
 
-
-       // Add the @OneToMany mapping for units
-    @OneToMany(mappedBy = "residence", fetch = FetchType.LAZY)
-    private List<Subresidence> subResidences;
-
+  @OneToMany(mappedBy = "residence", fetch = FetchType.LAZY)
+  private List<Subresidence> subResidences = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id")

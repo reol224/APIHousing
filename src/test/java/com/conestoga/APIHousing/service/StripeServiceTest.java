@@ -12,7 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@TestPropertySource(properties = "Stripe.apiKey=<YOUR_STRIPE_KEY_HERE>")
+@TestPropertySource(properties = "Stripe.apiKey=sk_test_51NTuKiLYoxMK8QEvBxNfhsLv9c7eCKkjpiTNTvSVRjdzlDfG47DcKphK3l7L3oB3kKXDDtbHNRAoz9i4n7eotfhY00qJzqVl3I")
 class StripeServiceTest {
 
     @Autowired

@@ -22,7 +22,7 @@ public class SubresidenceDTO {
         this.unitDescription = unit.getUnitDescription();
         this.monthlyRent = unit.getMonthlyRent();
         this.img = unit.getImg();
-        
+
     }
 
     public SubresidenceDTO() {

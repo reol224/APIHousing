@@ -1,12 +1,15 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.conestoga.APIHousing.model.Transaction;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class TransactionDTO {
     private Long id;
     private BigDecimal amount;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private Timestamp createdAt;
     private String description;
     private int paymentFor;

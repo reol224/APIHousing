@@ -98,7 +98,7 @@ public class MaintenanceRequestService {
 
     public List<MaintenanceRequestDTO> getAllMaintenanceRequests() {
         List<MaintenanceRequest> maintenanceRequests = maintenanceRequestRepository.findAll();
-        List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<MaintenanceRequestDTO>();
+    List<MaintenanceRequestDTO> maintenanceRequestDTOS = new ArrayList<>();
         for (MaintenanceRequest maintenanceRequest : maintenanceRequests) {
             maintenanceRequestDTOS.add(MaintenanceRequestDTO.fromModel(maintenanceRequest));
         }
@@ -107,8 +107,6 @@ public class MaintenanceRequestService {
 
 
     }
-
-
     public List<MaintenanceRequestDTO> getAllMaintenanceRequestsByUserId(Long userId) {
 
         List<MaintenanceRequest> maintenanceRequests = maintenanceRequestRepository.findByUserIdOrderByRequestIdDesc(userId);
@@ -119,6 +117,12 @@ public class MaintenanceRequestService {
         logger.info("All maintenance requests found for user id: " + userId);
         return maintenanceRequestDTOS;
 
+    }
+
+    public int getSolvedMaintenanceRequestsCount() {
+        List<MaintenanceRequest> solvedRequests = maintenanceRequestRepository.findByRequestStatus(Integer.parseInt("1"));
+        logger.info("Solved maintenance requests count: " + solvedRequests.size());
+        return solvedRequests.size();
     }
 }
 

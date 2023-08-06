@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-
+    List<Account> findAll();
     Optional<Account> findByEmail(String email);
 
     List<Account> findByLastName(String lastName);

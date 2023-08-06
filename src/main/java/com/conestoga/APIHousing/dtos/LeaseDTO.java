@@ -1,6 +1,12 @@
 package com.conestoga.APIHousing.dtos;
 
+import com.conestoga.APIHousing.model.Subresidence;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 public class LeaseDTO {
@@ -20,7 +26,22 @@ public class LeaseDTO {
 
     private String unitNo;
 
-  public LeaseDTO() {
+    public BigDecimal getLeaseAmount() {
+        if (leaseStartDate == null || leaseEndDate == null || subresidence == null || subresidence.getMonthlyRent() == null) {
+            return BigDecimal.ZERO;
+        }
+
+        LocalDate startDate = leaseStartDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDate = leaseEndDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        long monthsBetween = ChronoUnit.MONTHS.between(startDate.withDayOfMonth(1), endDate.withDayOfMonth(1));
+
+        BigDecimal monthlyRent = subresidence.getMonthlyRent();
+        return monthlyRent.multiply(BigDecimal.valueOf(monthsBetween));
+    }
+
+
+    public LeaseDTO() {
     // TODO document why this constructor is empty
   }
 
@@ -98,4 +119,5 @@ public class LeaseDTO {
     public void setUnitNo(String unitNo) {
         this.unitNo= unitNo;
     }
+
 }

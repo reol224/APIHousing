@@ -1,6 +1,8 @@
 package com.conestoga.APIHousing.dtos;
 
 import com.conestoga.APIHousing.model.Residence;
+
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,8 +26,14 @@ public class ResidenceDTO {
         this.description = residence.getDescription();
         this.managerId = residence.getManager().getId();
         this.img = Optional.ofNullable(residence.getImg());
-           this.units = residence.getSubResidences().stream().map(SubresidenceDTO::new).collect(Collectors.toList());
-   
+        this.units = residence.getSubResidences().stream().map(SubresidenceDTO::new).collect(Collectors.toList());
+
+        // Check if Subresidences is null before mapping to SubresidenceDTO objects
+        if (residence.getSubResidences() != null) {
+            this.units = residence.getSubResidences().stream().map(SubresidenceDTO::new).collect(Collectors.toList());
+        } else {
+            this.units = Collections.emptyList();
+        }
     }
 
     public ResidenceDTO() {

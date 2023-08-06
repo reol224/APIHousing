@@ -85,7 +85,7 @@ public class AccountController {
 
   @PutMapping("/{id}")
   public ResponseEntity<Account> updateAccount(
-      @PathVariable Long id, @RequestBody AccountDTO accountDTO) {
+      @PathVariable Long id, @RequestBody AccountDTO accountDTO) throws IOException {
     Account updatedAccount = accountService.updateAccount(String.valueOf(id), accountDTO);
     if (updatedAccount != null) {
       return ResponseEntity.ok(updatedAccount);

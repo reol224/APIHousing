@@ -142,7 +142,7 @@ public class AccountService {
         return accountOptional.map(AccountService::convertToAccountDTO).orElse(null);
     }
 
-    public Account updateAccount(String accountId, AccountDTO accountDTO) {
+    public Account updateAccount(String accountId, AccountDTO accountDTO) throws IOException {
         long id;
         try {
             id = Long.parseLong(accountId);
@@ -153,8 +153,22 @@ public class AccountService {
 
         Optional<Account> accountOptional = accountRepository.findById(id);
         if (accountOptional.isPresent()) {
-            Account account = convertToAccount(accountDTO);
+            Account account = accountOptional.get();
             account.setId(id);
+            account.setEmail(accountDTO.getEmail());
+            account.setFirstName(accountDTO.getFirstName());
+            account.setLastName(accountDTO.getLastName());
+            account.setPhoneNumber(accountDTO.getPhoneNumber());
+            account.setAddress(accountDTO.getAddress());
+            account.setDateOfBirth(accountDTO.getDateOfBirth());
+            account.setCollegeName(accountDTO.getCollegeName());
+            account.setStudentId(accountDTO.getStudentId());
+            account.setPostalCode(accountDTO.getPostalCode());
+
+            if (accountDTO.getImg() != null && !accountDTO.getImg().isEmpty()) {
+                account.setImg(FileUpload.convertBase64ToFile(accountDTO.getImg()));
+            }
+
 
 
             return accountRepository.save(account);

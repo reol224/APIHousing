@@ -38,7 +38,7 @@ public class FileUpload {
       throw new IOException("Failed to save the file: " + fileName, e);
     }
 
-    final String finalFile = staticFolder + File.separator + fileName;
+    final String finalFile = publicFolder + File.separator + fileName;
     logger.info("File saved as :" + finalFile);
     return finalFile;
   }

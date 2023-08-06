@@ -9,7 +9,9 @@ import java.sql.Timestamp;
 public class TransactionDTO {
     private Long id;
     private BigDecimal amount;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    // @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    //eastern time zone
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", timezone = "America/New_York")
     private Timestamp createdAt;
     private String description;
     private int paymentFor;

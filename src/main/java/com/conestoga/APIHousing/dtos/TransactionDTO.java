@@ -11,17 +11,19 @@ public class TransactionDTO {
     private String description;
     private int paymentFor;
     private int payerId;
+    private String payerName;
 
     public TransactionDTO() {
     }
 
-    public TransactionDTO(Long id, BigDecimal amount, Timestamp createdAt, String description, int paymentFor, int payerId) {
+    public TransactionDTO(Long id, BigDecimal amount, Timestamp createdAt, String description, int paymentFor, int payerId, String payerName) {
         this.id = id;
         this.amount = amount;
         this.createdAt = createdAt;
         this.description = description;
         this.paymentFor = paymentFor;
         this.payerId = payerId;
+        this.payerName = payerName;
     }
 
     //TransactionDTO from Transaction constructor
@@ -32,6 +34,7 @@ public class TransactionDTO {
         this.description = transaction.getDescription();
         this.paymentFor = transaction.getPaymentFor();
         this.payerId = transaction.getPayerId();
+        this.payerName = transaction.getPayerName();
     }
 
     // Getters and setters
@@ -84,5 +87,12 @@ public class TransactionDTO {
         this.payerId = payerId;
     }
 
+    public void setPayerName(String payerName) {
+        this.payerName = payerName;
+    }
+
+    public String getPayerName() {
+        return payerName;
+    }
 
 }

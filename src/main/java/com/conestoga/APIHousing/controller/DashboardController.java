@@ -104,9 +104,16 @@ public class DashboardController {
         //map.put("Solved Maintenance requests", solvedMaintenanceRequests);
 
         //Last 5 maintenance requests
-        for(int i = 0; i < 5; i++){
-            map.put("Maintenance request " + i, maintenanceRequestService.getAllMaintenanceRequests().get(i));
+        if(totalMaintenanceRequests >= 5 ){
+            for(int i = 0; i < 5; i++){
+                map.put("Maintenance request " + i, maintenanceRequestService.getAllMaintenanceRequests().get(i));
+            }
+        } else {
+            for(int i = 0; i < totalMaintenanceRequests; i++){
+                map.put("Maintenance request " + i, maintenanceRequestService.getAllMaintenanceRequests().get(i));
+            }
         }
+
 
 //        double percentSolved = (double) solvedMaintenanceRequests / totalMaintenanceRequests * 100;
 //        map.put("Percent Solved", percentSolved);

@@ -121,7 +121,7 @@ public class StripeController {
       transactionService.createTransaction(transaction);
       notificationService.create(
           new Notification(
-              "You paid $" + paymentIntent.getAmount() + " for " + description,
+              "You paid $" + transaction.getAmount() + " for " + description,
               userId,
               Constants.NOTIFICATION_TYPE_PAYMENT));
 

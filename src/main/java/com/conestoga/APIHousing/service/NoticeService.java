@@ -22,7 +22,7 @@ public class NoticeService {
 
     public List<Notice> getAllNotices() {
         logger.info("All notices returned");
-        return noticeRepository.findAll();
+        return noticeRepository.findAllByOrderByCreatedAtDesc();
     }
 
 

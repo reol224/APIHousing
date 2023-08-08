@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
   // Add custom query methods (if needed) for specific operations (omitted for brevity)
-  @Override
-  List<Notice> findAll();
+
+
+    List<Notice> findAllByOrderByCreatedAtDesc();
 
 }
